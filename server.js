@@ -54,15 +54,17 @@ app.post('/receipt', (req, res) => {
     console.log("Customer", req.body.customer)
     console.log("Cash", req.body.cash)
     console.log("Total", req.body.total)
-    console.log("Total Discounted", req.body.totalDiscounted)
-    console.log("Product List", req.body.listProduct)
+    //console.log("Total Discounted", req.body.totalDiscounted)
     res.render('receipt', {
         cash : req.body.cash,
         customer : req.body.customer,
         total : req.body.total,
-        totalDiscounted : req.body.totalDiscounted,
-        productList : req.body.productList
+        totalDiscounted : 12345,
+        productList : ["SALMON", "MASHED POTATO", "ROOT BEER"],
+        quantityList : [1, 2, 3]
     });
+    //console.log("Total Discounted", totalDiscounted);
+    //console.log("Product List", productList)
 });
 
 app.listen(3000);

@@ -1,8 +1,7 @@
-const moment = require('moment');
-let now = moment();
-
 class order{
-    constructor(name, main, side, drink, m1, s1, d1, price, CMT, SVB, final){
+    /*
+    constructor(id, name, main, side, drink, m1, s1, d1, price, CMT, SVB, final, date){
+    this.id = id;
     this.name = name;
     this.main = main;
     this.side = side;
@@ -14,11 +13,10 @@ class order{
     this.CMT = CMT;
     this.SVB = SVB;
     this.final = final;
-    this.date = now.format("YYYY-MM-DD") + " " + now.format("HH:mm:ss");
+    this.date = date;
     }
-    
+    */
 
-    /*
     constructor (main, side, drink, m1, s1, d1){
     this.main = main;
     this.side = side;
@@ -28,7 +26,6 @@ class order{
     this.d1 = d1;
         }
 
-        */
 }
 
 module.exports = order;
