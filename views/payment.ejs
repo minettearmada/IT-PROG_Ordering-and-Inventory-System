@@ -14,21 +14,34 @@
             <th>Quantity</th>
           </tr>
           <tr>
-            <th class="productList" id="productList"></th>
+            <% for (let i = 0; i < listProduct.length; i++) { %>
+                <tr>
+                    <td><%- listProduct[i] %></td>
+                    <td><%- listPrice[i] %></td>
+                    <td><%- listQuantity[i] %></td>
+                    <input type="hidden" name="product" value="<%- listProduct[i] %>">
+                    <input type="hidden" name="price" value="<%- listPrice[i] %>">
+                    <input type="hidden" name="quantity" value="<%- listQuantity[i] %>">
+                </tr>
+            <% } %>
+            <!-- <th class="productList" id="productList"></th> -->
           </tr>
           <tr>
             <th class="total" id="total"></th>
-            <input type="hidden" value="<%- total[total.length - 1] %>" name="total">
+            <!-- gets the last value of the array for the final total amount -->
+            <input type="hidden" value="<%- total[total.length - 1] %>" name="total"> 
             <th class="totalDiscounted" id="totalDiscounted"></th>
+            <input type="hidden" value="<%- totalDiscounted %>" name="totalDiscounted">
+
             </th>
           </tr>
           <tr>
             <td>Name:</td>
-            <td> <input type="text" name="customer" id="customer" size="25"></td> 
+            <td> <input type="text" name="customer" id="customer" size="25" required></td> 
           </tr> 
           <tr>
               <td>Cash Amount:</td> 
-              <td> <input type="number" name="cash" id="cash"></td> 
+              <td> <input type="number" name="cash" id="cash" required></td> 
             </tr> 
         </table>	  
         <input type="submit" name="save" /><br />
@@ -40,6 +53,9 @@
         const quantityList = JSON.parse('<%- JSON.stringify(listQuantity) %>');
         const total = JSON.parse('<%- JSON.stringify(total[total.length - 1]) %>');
 
+        let productListHTML = '';
+        let totalDiscounted = total;
+
         document.addEventListener('DOMContentLoaded', () => {
             // Display total
             const totalElement = document.getElementById('total');
@@ -50,41 +66,15 @@
             totalInput.value = total;
 
             const totalDiscountedInput = document.getElementById('totalDiscountedInput');
-            totalDiscountedInput.value = totalDiscounted.toFixed(2);
+            totalDiscountedInput.value = totalDiscounted.toFixed(2); // Add this line
+
+            // Set totalDiscounted element
+            const totalDiscountedElement = document.getElementById('totalDiscounted');
+            totalDiscountedElement.innerText = `Discounted Total: ${totalDiscounted.toFixed(2)}`;
+
+            
         });
         
-
-        // Get the productList element
-        const productListElement = document.getElementById('productList');
-
-        let productListHTML = '';
-
-        // Generate the HTML content for the product list
-        for (let i = 0; i < productList.length; i++) {
-            const product = productList[i];
-            const price = priceList[i];
-            const quantity = quantityList[i];
-            
-            productListHTML += `
-                <div>
-                    <table>
-                    <tr>
-                    <th><p>${product}</p></th>
-                    <th><p>${price}</p></th>
-                    <th><p>x</p></th>
-                    <th><p>${quantity}</p></th>
-                    </tr>
-                    </table>
-                </div>
-                <br>
-            `;
-        }
-
-        // Update the productList element with the generated HTML content
-        productListElement.innerHTML = productListHTML;
-        
-        let totalDiscounted = total;
-
         const chickenIndex = productList.indexOf('CHICKEN');
         const mashedPotatoIndex = productList.indexOf('MASHED POTATO');
         const icedTeaIndex = productList.indexOf('ICED TEA');
@@ -116,6 +106,9 @@
 
             alert('Steak Veg Beer Combo! 15% Discount is applied!')
         }
+
+
+       
 
     </script>
 </body>
