@@ -69,7 +69,6 @@ function initApp(){
     products.forEach((value, key) =>{
         let newDiv = document.createElement('div');
         newDiv.classList.add('item');
-
         newDiv.innerHTML = `
             <img src="assets/${value.image}">
             <div class="title">${value.name}</div>
@@ -80,9 +79,7 @@ function initApp(){
         list.appendChild(newDiv);
     })
 }
-
 initApp();
-
 function addToCard(key){
     if(listCards[key] == null){
         // copy product form list to list card
@@ -149,12 +146,10 @@ function reloadCard(){
                 </div>`;
                 listCard.appendChild(newDiv);
         }
-    }) 
+    })
     total.innerText = totalPrice.toLocaleString();
     quantity.innerText = count;
 }
-
-
 function changeQuantity(key, quantity){
     if(quantity == 0){
         delete listCards[key];

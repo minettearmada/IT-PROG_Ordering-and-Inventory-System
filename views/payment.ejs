@@ -4,6 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <script>
+
+        console.log('ROR');
+        
+                function onSubmit(event){
+        
+                console.log('WORKING');
+                    event.preventDefault();
+        
+                    const main = document.getElementById('main').value;
+                    const side = document.getElementById('side').value;
+                    const drink = document.getElementById('drink').value;
+                    const m1 = document.getElementById('m1').value;
+                    const s1 = document.getElementById('s1').value;
+                    const d1 = document.getElementById('d1').value;
+        
+                    const temp = {
+                        main : main,
+                        side : side,
+                        drink : drink,
+                        m1 : m1,
+                        s1 : s1,
+                        d1 : d1
+                    };
+        
+                    fetch('/api/orders', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(temp)
+                    })
+                    .then(response => {
+                        if(response.ok){
+                            console.log('Order created successfully!')
+        
+                            alert('Payment Successful!');
+                            window.location.href = "/";
+                        }else{
+                            console.error('Failed to create order');
+                            alert('Payment Failed!');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('An error occurred:', error);
+                        alert('Payment Failed!');
+                    });
+        
+                }
+
+                function checker(){
+                    if(totalDiscounted ){
+                        
+                    }
+                }
+
+
+            </script>
 </head>
 <body>
     <form method="post" action="/receipt">
@@ -29,7 +88,7 @@
           <tr>
             <th class="total" id="total"></th>
             <!-- gets the last value of the array for the final total amount -->
-            <input type="hidden" value="<%- total[total.length - 1] %>" name="total"> 
+            <input type="hidden" value="<%- total[total.length - 1] %>" name="total">
             <th class="totalDiscounted" id="totalDiscounted"></th>
             <input type="hidden" value="<%- totalDiscounted %>" name="totalDiscounted">
 
@@ -46,7 +105,6 @@
         </table>	  
         <input type="submit" name="save" /><br />
     </form>
-
     <script>
         const productList = JSON.parse('<%- JSON.stringify(listProduct) %>');
         const priceList = JSON.parse('<%- JSON.stringify(listPrice) %>');
@@ -74,7 +132,7 @@
 
             
         });
-        
+
         const chickenIndex = productList.indexOf('CHICKEN');
         const mashedPotatoIndex = productList.indexOf('MASHED POTATO');
         const icedTeaIndex = productList.indexOf('ICED TEA');
@@ -106,9 +164,6 @@
 
             alert('Steak Veg Beer Combo! 15% Discount is applied!')
         }
-
-
-       
 
     </script>
 </body>
