@@ -2,7 +2,7 @@ const moment = require('moment');
 let now = moment();
 
 class order{
-    constructor(name, main, side, drink, m1, s1, d1, price, CMT, SVB, final){
+    constructor(name, main, side, drink, m1, s1, d1, CMT, SVB, final){
     this.name = name;
     this.main = main;
     this.side = side;
@@ -10,7 +10,6 @@ class order{
     this.m1 = m1;
     this.s1 = s1;
     this.d1 = d1;
-    this.price = price;
     this.CMT = CMT;
     this.SVB = SVB;
     this.final = final;
