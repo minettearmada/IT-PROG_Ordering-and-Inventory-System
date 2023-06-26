@@ -8,7 +8,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form onsubmit="test(event)">
+    <form onsubmit="onSubmit()" >
         Receipt <br>
         Customer: <%= customer  %> <br>
         Total: <%= total  %><br>
@@ -20,7 +20,7 @@
     </form>
     <script>
         function test(event) {
-            event.preventDefault();
+            //event.preventDefault();
             console.log("WORKING");
         }
     </script>
