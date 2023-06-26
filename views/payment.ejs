@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="post" action="/receipt">
+        <table>
+          <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+          </tr>
+          <tr>
+            <th class="productList" id="productList"></th>
+          </tr>
+          <tr>
+            <th class="total" id="total"></th>
+            <input type="hidden" value="<%- total[total.length - 1] %>" name="total">
+            <th class="totalDiscounted" id="totalDiscounted"></th>
+            </th>
+          </tr>
+          <tr>
+            <td>Name:</td>
+            <td> <input type="text" name="customer" id="customer" size="25"></td> 
+          </tr> 
+          <tr>
+              <td>Cash Amount:</td> 
+              <td> <input type="number" name="cash" id="cash"></td> 
+            </tr> 
+        </table>	  
+        <input type="submit" name="save" /><br />
+    </form>
+
+    <script>
+        const productList = JSON.parse('<%- JSON.stringify(listProduct) %>');
+        const priceList = JSON.parse('<%- JSON.stringify(listPrice) %>');
+        const quantityList = JSON.parse('<%- JSON.stringify(listQuantity) %>');
+        const total = JSON.parse('<%- JSON.stringify(total[total.length - 1]) %>');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Display total
+            const totalElement = document.getElementById('total');
+            totalElement.innerText = `Total: ${total}`;
+
+            // Set total and totalDiscounted form inputs
+            const totalInput = document.getElementById('totalInput');
+            totalInput.value = total;
+
+            const totalDiscountedInput = document.getElementById('totalDiscountedInput');
+            totalDiscountedInput.value = totalDiscounted.toFixed(2);
+        });
+        
+
+        // Get the productList element
+        const productListElement = document.getElementById('productList');
+
+        let productListHTML = '';
+
+        // Generate the HTML content for the product list
+        for (let i = 0; i < productList.length; i++) {
+            const product = productList[i];
+            const price = priceList[i];
+            const quantity = quantityList[i];
+            
+            productListHTML += `
+                <div>
+                    <table>
+                    <tr>${productList.length}
+                    <th><p>${product}</p></th>
+                    <th><p>${price}</p></th>
+                    <th><p>x</p></th>
+                    <th><p>${quantity}</p></th>
+                    </tr>
+                    </table>
+                </div>
+                <br>
+            `;
+        }
+
+        // Update the productList element with the generated HTML content
+        productListElement.innerHTML = productListHTML;
+        
+        let totalDiscounted = total;
+
+        const chickenIndex = productList.indexOf('CHICKEN');
+        const mashedPotatoIndex = productList.indexOf('MASHED POTATO');
+        const icedTeaIndex = productList.indexOf('ICED TEA');
+
+        if (chickenIndex !== -1 && mashedPotatoIndex !== -1 && icedTeaIndex !== -1) {
+            totalDiscounted -= totalDiscounted * 0.1;
+
+            totalDiscounted = parseFloat(totalDiscounted);
+            totalDiscountedHTML = `Discounted Total: ${totalDiscounted.toFixed(2)}`;
+
+            const totalDiscountedElement = document.getElementById('totalDiscounted');
+            totalDiscountedElement.innerText = totalDiscountedHTML;
+
+            alert('Chicken Mash Tea Combo! 10% Discount is applied!');
+        }
+
+        const steakIndex = productList.indexOf('STEAK');
+        const steamedVegetablesIndex = productList.indexOf('STEAMED VEGETABLES');
+        const rootBeerIndex = productList.indexOf('ROOT BEER');
+
+        if (steakIndex !== -1 && steamedVegetablesIndex !== -1 && rootBeerIndex !== -1) {
+            totalDiscounted -= totalDiscounted * 0.15;
+
+            totalDiscounted = parseFloat(totalDiscounted);
+            totalDiscountedHTML = `Discounted Total: ${totalDiscounted.toFixed(2)}`;
+
+            const totalDiscountedElement = document.getElementById('totalDiscounted');
+            totalDiscountedElement.innerText = totalDiscountedHTML;
+
+            alert('Steak Veg Beer Combo! 15% Discount is applied!')
+        }
+
+    </script>
+</body>
+</html>

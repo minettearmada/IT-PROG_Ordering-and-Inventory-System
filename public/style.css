@@ -77,7 +77,7 @@ header{
 }
 
 .card h1{
-    color: #ea5044;
+    color: #d80202;
     font-weight: 100;
     margin: 0;
     padding: 0 20px;
@@ -91,7 +91,7 @@ header{
     bottom: 0;
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(1, 1fr);
+    /* grid-template-columns: repeat(1, 1fr); */
 }
 
 .card .checkOut div{
@@ -102,16 +102,19 @@ header{
     justify-content: center;
     align-items: center;
     font-weight: bold;
-    cursor: pointer;
     color: #27273a;
 }
 
-.card .checkOut .checkOutBtn{
-    background-color: #ea5044;
+.checkOutBtn input[type=submit]{
+    background-color: #d80202;
+    border: none;
     color: white;
-    padding: 5px;
+    padding: 30px 30px;
+    font-size: 16px;
+    cursor: pointer;
     width: 100%;
-}
+    text-align: center
+  }
 
 .listCard li{
     display: grid;
@@ -138,6 +141,20 @@ header{
 .listCard .count{
     margin: 0 10px;
 }
+input {
+    border: none;
+    outline: none;
+}
+.total input[type=text]{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: white;
+  }
 
 
 
