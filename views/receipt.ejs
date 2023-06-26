@@ -1,28 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <body>
-    <form onsubmit="onSubmit()" >
+    <form method="post" action="/">
         Receipt <br>
-        Customer: <%= customer  %> <br>
-        Total: <%= total  %><br>
-        Cash: <%= cash  %><br>
-        Total Discount: <%= totalDiscounted  %><br>
-        Product List: <%= productList  %><br>
-        <button onclick="test(event)">Click me</button>
-        <input type="submit" name="submit" value="Submit"/>
+        Customer: <%- customer  %> <br>
+        Total: <%- total  %><br>
+        Cash: <%- cash  %><br>
+        Total Discount: <%- totalDiscounted  %><br>
+        Product List: <%- productList  %><br>
+        Price List: <%- priceList  %><br>
+        Quantity List: <%- quantity  %><br>
     </form>
     <script>
-        function test(event) {
-            //event.preventDefault();
-            console.log("WORKING");
-        }
     </script>
 </body>
 </html>

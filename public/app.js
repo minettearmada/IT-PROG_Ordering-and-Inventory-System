@@ -69,6 +69,7 @@ function initApp(){
     products.forEach((value, key) =>{
         let newDiv = document.createElement('div');
         newDiv.classList.add('item');
+
         newDiv.innerHTML = `
             <img src="assets/${value.image}">
             <div class="title">${value.name}</div>
@@ -79,7 +80,9 @@ function initApp(){
         list.appendChild(newDiv);
     })
 }
+
 initApp();
+
 function addToCard(key){
     if(listCards[key] == null){
         // copy product form list to list card
@@ -138,17 +141,20 @@ function reloadCard(){
                 <div><input type="number" class="price-input" value="${product.price}" name="price" style="width: 3em" onchange="updatePrice(${key}, this)" readonly></div>
                 <div>
                     <button onclick="changeQuantity(${key}, ${value.quantity - 1})">-</button>
-                    <input type="number" class="count" id="quantity-${key}" value="${value.quantity}" name="quantity" style="width: 1.8em" min="1" onchange="updateQuantity(${key}, this) readonly">
+                    <div>${value.quantity}</div>
+                    <input type="hidden" class="count" id="quantity-${key}" value="${value.quantity}" name="quantity" style="width: 1.8em" min="1" readonly">
                     <button onclick="changeQuantity(${key}, ${value.quantity + 1})">+</button>
                 </div>
                 <input type="number" class="total" value="${totalPrice}" name="total" onchange="updateQuantity(${key}, this) readonly">
                 </div>`;
                 listCard.appendChild(newDiv);
         }
-    })
+    }) 
     total.innerText = totalPrice.toLocaleString();
     quantity.innerText = count;
 }
+
+
 function changeQuantity(key, quantity){
     if(quantity == 0){
         delete listCards[key];
