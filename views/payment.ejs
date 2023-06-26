@@ -5,67 +5,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <script>
+    <script>   
+        function execute(event){
+        console.log("HERE");
+        event.preventDefault();
+        console.log("HERE");
+        const name = document.getElementById('customer').value;
+        const main = document.getElementById('product1').value;
+        const side = document.getElementById('product2').value;
+        const drink = document.getElementById('product3').value;
+        const m1 = document.getElementById('quantity1').value;
+        const s1 = document.getElementById('quantity2').value;
+        const d1 = document.getElementById('quantity3').value;
+        const CMT = 0;
+        const SVB = 0;
+        const final = document.getElementById('totalDiscounted').value;
 
-        console.log('ROR');
-        
-                function onSubmit(event){
-        
-                console.log('WORKING');
-                    event.preventDefault();
-        
-                    const main = document.getElementById('main').value;
-                    const side = document.getElementById('side').value;
-                    const drink = document.getElementById('drink').value;
-                    const m1 = document.getElementById('m1').value;
-                    const s1 = document.getElementById('s1').value;
-                    const d1 = document.getElementById('d1').value;
-        
-                    const temp = {
-                        main : main,
-                        side : side,
-                        drink : drink,
-                        m1 : m1,
-                        s1 : s1,
-                        d1 : d1
-                    };
-        
-                    fetch('/api/orders', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(temp)
-                    })
-                    .then(response => {
-                        if(response.ok){
-                            console.log('Order created successfully!')
-        
-                            alert('Payment Successful!');
-                            window.location.href = "/";
-                        }else{
-                            console.error('Failed to create order');
-                            alert('Payment Failed!');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('An error occurred:', error);
-                        alert('Payment Failed!');
-                    });
-        
-                }
-
-                function checker(){
-                    if(totalDiscounted ){
-                        
-                    }
-                }
+        const temp = {
+            name : name,
+            main : main,
+            side : side,
+            drink : drink,
+            m1 : m1,
+            s1 : s1,
+            d1 : d1,
+            CMT : CMT,
+            SVB : SVB,
+            final : final
+        };
 
 
-            </script>
+        console.log(temp);
+        
+
+        fetch('/api/orders', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(temp)
+        })
+        .then(response => {
+            if(response.ok){
+                console.log('Order created successfully!')
+
+                alert('Payment Successful!');
+                window.location.href = "/";
+            }else{
+                console.error('Failed to create order');
+                alert('Payment Failed!');
+            }
+        })
+        .catch(error => {
+            console.error('An error occurred:', error);
+            alert('Payment Failed!');
+        });
+
+
+        //return false;
+        }    
+        
+
+        function test(event){
+            event.preventDefault();
+            console.log("WORKING");
+        }
+
+
+</script>
 </head>
 <body>
-    <form method="post" action="/receipt">
+    <form onsubmit="execute(event)">
         <table>
           <tr>
             <th>Product</th>
@@ -78,9 +88,9 @@
                     <td><%- listProduct[i] %></td>
                     <td><%- listPrice[i] %></td>
                     <td><%- listQuantity[i] %></td>
-                    <input type="hidden" name="product" value="<%- listProduct[i] %>">
-                    <input type="hidden" name="price" value="<%- listPrice[i] %>">
-                    <input type="hidden" name="quantity" value="<%- listQuantity[i] %>">
+                    <input type="hidden" name="product" id="product<%-i%>" value="<%- listProduct[i] %>">
+                    <input type="hidden" name="price" id="price<%-i%>" value="<%- listPrice[i] %>">
+                    <input type="hidden" name="quantity" id="quantity<%-i%>" value="<%- listQuantity[i] %>">
                 </tr>
             <% } %>
             <!-- <th class="productList" id="productList"></th> -->
@@ -90,8 +100,7 @@
             <!-- gets the last value of the array for the final total amount -->
             <input type="hidden" value="<%- total[total.length - 1] %>" name="total">
             <th class="totalDiscounted" id="totalDiscounted"></th>
-            <input type="hidden" value="<%- totalDiscounted %>" name="totalDiscounted">
-
+            <input type="hidden" value="<%- totalDiscounted %>" id="totalDiscounted" name="totalDiscounted">
             </th>
           </tr>
           <tr>
@@ -155,7 +164,6 @@
 
         if (steakIndex !== -1 && steamedVegetablesIndex !== -1 && rootBeerIndex !== -1) {
             totalDiscounted -= totalDiscounted * 0.15;
-
             totalDiscounted = parseFloat(totalDiscounted);
             totalDiscountedHTML = `Discounted Total: ${totalDiscounted.toFixed(2)}`;
 
@@ -164,6 +172,80 @@
 
             alert('Steak Veg Beer Combo! 15% Discount is applied!')
         }
+
+
+
+
+
+
+        function execute(event){
+        console.log("HERE");
+        event.preventDefault();
+        console.log("HERE");
+        const name = document.getElementById('customer').value;
+        const main = document.getElementById('product1').value;
+        const side = document.getElementById('product2').value;
+        const drink = document.getElementById('product3').value;
+        const m1 = document.getElementById('quantity1').value;
+        const s1 = document.getElementById('quantity2').value;
+        const d1 = document.getElementById('quantity3').value;
+        const CMT = 0;
+        const SVB = 0;
+        const final = document.getElementById('totalDiscounted').value;
+
+        const temp = {
+            name : name,
+            main : main,
+            side : side,
+            drink : drink,
+            m1 : m1,
+            s1 : s1,
+            d1 : d1,
+            CMT : CMT,
+            SVB : SVB,
+            final : final
+        };
+
+
+        console.log(temp);
+        
+
+        fetch('/api/orders', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(temp)
+        })
+        .then(response => {
+            if(response.ok){
+                console.log('Order created successfully!')
+
+                alert('Payment Successful!');
+                window.location.href = "/";
+            }else{
+                console.error('Failed to create order');
+                alert('Payment Failed!');
+            }
+        })
+        .catch(error => {
+            console.error('An error occurred:', error);
+            alert('Payment Failed!');
+        });
+
+
+        //return false;
+        }    
+        
+
+        function test(event){
+            event.preventDefault();
+            console.log("WORKING");
+        }
+
+
+        
+
 
     </script>
 </body>
