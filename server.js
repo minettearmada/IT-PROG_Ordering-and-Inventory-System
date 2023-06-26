@@ -32,6 +32,14 @@ app.post('/payment', (req, res) => {
             ? req.body.product
             : [req.body.product]; // Ensure productList is an array
 
+            const priceList = Array.isArray(req.body.price)
+            ? req.body.price
+            : [req.body.price]; // Ensure priceList is an array
+
+            const totalList = Array.isArray(req.body.total)
+            ? req.body.total
+            : [req.body.total]; // Ensure totalList is an array
+
             let total = req.body.total;
             let totalDiscounted = parseFloat(total[total.length - 1]); // Initialize with the total
 
@@ -56,13 +64,12 @@ app.post('/payment', (req, res) => {
                 console.log('Steak Veg Beer Combo! 15% Discount is applied!');
             }
 
-
             res.render('payment', {
                 listQuantity : req.body.quantity,
-                listPrice : req.body.price,
+                listPrice : priceList,
                 listProduct: productList, // Use the productList array in the template
                 totalDiscounted: totalDiscounted,
-                total: req.body.total,
+                total: totalList,
                 products: products, // Pass the products array to the template
             })
          }
@@ -71,6 +78,23 @@ app.post('/payment', (req, res) => {
 });
 
 app.post('/receipt', (req, res) => {
+
+    const productList = Array.isArray(req.body.product)
+            ? req.body.product
+            : [req.body.product]; // Ensure productList is an array
+
+            const priceList = Array.isArray(req.body.price)
+            ? req.body.price
+            : [req.body.price]; // Ensure priceList is an array
+
+            const totalList = Array.isArray(req.body.total)
+            ? req.body.total
+            : [req.body.total]; // Ensure totalList is an array
+
+            let total = req.body.total;
+            let totalDiscounted = parseFloat(total[total.length - 1]); // Initialize with the total
+
+
     // From payment
     res.render('receipt', {
         cash : req.body.cash,
@@ -79,7 +103,13 @@ app.post('/receipt', (req, res) => {
         totalDiscounted : req.body.totalDiscounted,
         productList: req.body.product,
         priceList: req.body.price,
-        quantity : req.body.quantity
+        quantity : req.body.quantity,
+        listQuantity : req.body.quantity,
+        listPrice : priceList,
+        listProduct: productList, // Use the productList array in the template
+        totalDiscounted: totalDiscounted,
+        total: totalList,
+        products: products, // Pass the products array to the template
     });
 
     console.log("RECEIPT")

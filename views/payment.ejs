@@ -41,13 +41,15 @@
           </tr> 
           <tr>
               <td>Cash Amount:</td> 
-              <td> <input type="number" name="cash" id="cash" required></td> 
+              <td> <input type="number" name="cash" id="cash"  min="<%= total[total.length - 1] %>" required></td> 
             </tr> 
-        </table>	  
+        </table>
+        <input type="button" name="cancel" value="Cancel" onclick="window.history.back()" />
         <input type="submit" name="save" /><br />
     </form>
 
     <script>
+
         const productList = JSON.parse('<%- JSON.stringify(listProduct) %>');
         const priceList = JSON.parse('<%- JSON.stringify(listPrice) %>');
         const quantityList = JSON.parse('<%- JSON.stringify(listQuantity) %>');
@@ -71,7 +73,6 @@
             // Set totalDiscounted element
             const totalDiscountedElement = document.getElementById('totalDiscounted');
             totalDiscountedElement.innerText = `Discounted Total: ${totalDiscounted.toFixed(2)}`;
-
             
         });
         
@@ -106,8 +107,6 @@
 
             alert('Steak Veg Beer Combo! 15% Discount is applied!')
         }
-
-
        
 
     </script>
