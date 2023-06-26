@@ -98,6 +98,8 @@ app.post('/receipt', (req, res) => {
             ? req.body.totalDiscounted
             : [req.body.totalDiscounted]; // Ensure totalList is an array
 
+            let change = req.body.cash - totalDiscountedList;
+
 
     // From payment
     res.render('receipt', {
@@ -113,6 +115,7 @@ app.post('/receipt', (req, res) => {
         listProduct: productList, // Use the productList array in the template
         total: totalList,
         products: products, // Pass the products array to the template
+        change: change
     });
 
     console.log("RECEIPT")
@@ -123,6 +126,7 @@ app.post('/receipt', (req, res) => {
     console.log("Product List:", req.body.product)
     console.log("Price List:", req.body.price)
     console.log("Quantity List:", req.body.quantity)
+    console.log("Change:", change)
 });
 
 app.listen(3000);

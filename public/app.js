@@ -163,7 +163,7 @@ function reloadCard(){
             let newDiv = document.createElement('li');
             newDiv.innerHTML = `
                 <div><img src="assets/${product.image}"/></div>
-                <div><input type="text" class="name-input" value="${product.name}" name="product" size="10" onchange="updateName(${key}, this)" readonly></div>
+                <div>${product.name}<input type="hidden" class="name-input" value="${product.name}" name="product" size="10" onchange="updateName(${key}, this)" readonly></div>
                 <div><input type="number" class="price-input" value="${product.price}" name="price" style="width: 3em" onchange="updatePrice(${key}, this)" readonly></div>
                 <div>
                     <button onclick="changeQuantity(${key}, ${value.quantity - 1})">-</button>
