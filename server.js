@@ -20,6 +20,7 @@ app.get('/', (req, res) => {
 
 app.post('/payment', (req, res) => {
       // Check if the request came from the checkout button
+      console.log("PAYMENT")
       console.log(req.body.product)
       console.log(req.body.price)
       console.log(req.body.quantity)
@@ -40,6 +41,7 @@ app.post('/payment', (req, res) => {
 
 app.post('/receipt', (req, res) => {
     // From payment
+    console.log("RECEIPT")
     console.log("Customer", req.body.customer)
     console.log("Cash", req.body.cash)
     console.log("Total", req.body.total)
@@ -50,7 +52,8 @@ app.post('/receipt', (req, res) => {
         customer : req.body.customer,
         total : req.body.total,
         totalDiscounted : req.body.totalDiscounted,
-        productList : req.body.productList
+        productList : req.body.productList,
+        quantity : req.body.listQuantity
     });
 });
 
