@@ -15,11 +15,13 @@
           </tr>
           <tr>
             <th class="productList" id="productList"></th>
+            <input type="hidden" value="<%- listProduct %>" name="listProduct">
           </tr>
           <tr>
             <th class="total" id="total"></th>
             <input type="hidden" value="<%- total[total.length - 1] %>" name="total">
-            <th class="totalDiscounted" id="totalDiscounted"></th>
+            <th class="totalDiscount" id="totalDiscount"></th>
+
             </th>
           </tr>
           <tr>
@@ -49,8 +51,8 @@
             const totalInput = document.getElementById('totalInput');
             totalInput.value = total;
 
-            const totalDiscountedInput = document.getElementById('totalDiscountedInput');
-            totalDiscountedInput.value = totalDiscounted.toFixed(2);
+            const totalDiscountInput = document.getElementById('totalDiscountInput');
+            totalDiscountInput.value = totalDiscount.toFixed(2);
         });
         
 
@@ -68,7 +70,6 @@
             productListHTML += `
                 <div>
                     <table>
-                    <tr>${productList.length}
                     <th><p>${product}</p></th>
                     <th><p>${price}</p></th>
                     <th><p>x</p></th>
@@ -90,13 +91,13 @@
         const icedTeaIndex = productList.indexOf('ICED TEA');
 
         if (chickenIndex !== -1 && mashedPotatoIndex !== -1 && icedTeaIndex !== -1) {
-            totalDiscounted -= totalDiscounted * 0.1;
+            totalDiscount -= totalDiscount * 0.1;
 
-            totalDiscounted = parseFloat(totalDiscounted);
-            totalDiscountedHTML = `Discounted Total: ${totalDiscounted.toFixed(2)}`;
+            totalDiscount = parseFloat(totalDiscount);
+            totalDiscountHTML = `Discounted Total: ${totalDiscount.toFixed(2)}`;
 
-            const totalDiscountedElement = document.getElementById('totalDiscounted');
-            totalDiscountedElement.innerText = totalDiscountedHTML;
+            const totalDiscountElement = document.getElementById('totalDiscounted');
+            totalDiscountElement.innerText = totalDiscountHTML;
 
             alert('Chicken Mash Tea Combo! 10% Discount is applied!');
         }
@@ -106,13 +107,13 @@
         const rootBeerIndex = productList.indexOf('ROOT BEER');
 
         if (steakIndex !== -1 && steamedVegetablesIndex !== -1 && rootBeerIndex !== -1) {
-            totalDiscounted -= totalDiscounted * 0.15;
+            totalDiscount -= totalDiscount * 0.15;
 
-            totalDiscounted = parseFloat(totalDiscounted);
-            totalDiscountedHTML = `Discounted Total: ${totalDiscounted.toFixed(2)}`;
+            totalDiscount = parseFloat(totalDiscount);
+            totalDiscountHTML = `Discounted Total: ${totalDiscount.toFixed(2)}`;
 
-            const totalDiscountedElement = document.getElementById('totalDiscounted');
-            totalDiscountedElement.innerText = totalDiscountedHTML;
+            const totalDiscountElement = document.getElementById('totalDiscounted');
+            totalDiscountElement.innerText = totalDiscountHTML;
 
             alert('Steak Veg Beer Combo! 15% Discount is applied!')
         }
