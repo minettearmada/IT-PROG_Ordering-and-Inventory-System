@@ -94,20 +94,23 @@ app.post('/receipt', (req, res) => {
             let total = req.body.total;
             let totalDiscounted = parseFloat(total[total.length - 1]); // Initialize with the total
 
+            const totalDiscountedList = Array.isArray(req.body.totalDiscounted)
+            ? req.body.totalDiscounted
+            : [req.body.totalDiscounted]; // Ensure totalList is an array
+
 
     // From payment
     res.render('receipt', {
         cash : req.body.cash,
         customer : req.body.customer,
         total : req.body.total,
-        totalDiscounted : req.body.totalDiscounted,
+        totalDiscounted : totalDiscountedList,
         productList: req.body.product,
         priceList: req.body.price,
         quantity : req.body.quantity,
         listQuantity : req.body.quantity,
         listPrice : priceList,
         listProduct: productList, // Use the productList array in the template
-        totalDiscounted: totalDiscounted,
         total: totalList,
         products: products, // Pass the products array to the template
     });
