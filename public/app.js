@@ -4,7 +4,6 @@ let body = document.querySelector('body');
 let total = document.querySelector('.total');
 let quantity = document.querySelector('.quantity');
 
-
 let products = [
     {
         id: 1,
@@ -61,13 +60,14 @@ let products = [
         price: 20
     }
 ];
+
 let listCards  = [];
 function initApp(){
     products.forEach((value, key) =>{
         let newDiv = document.createElement('div');
         newDiv.classList.add('item');
         newDiv.innerHTML = `
-            <img src="products/${value.image}">
+            <img src="assets/${value.image}">
             <div class="title">${value.name}</div>
             <div class="price">Php${value.price.toLocaleString()}</div>
             <button onclick="addToCard(${key})">Add To Card</button>`;
@@ -87,18 +87,20 @@ function reloadCard(){
     listCard.innerHTML = '';
     let count = 0;
     let totalPrice = 0;
+    
     listCards.forEach((value, key)=>{
+        const product = products[key];
         totalPrice = totalPrice + value.price;
         count = count + value.quantity;
         if(value != null){
             let newDiv = document.createElement('li');
             newDiv.innerHTML = `
-                <div><img src="products/${value.image}"/></div>
-                <div>${value.name}</div>
-                <div>${value.price.toLocaleString()}</div>
+                <div><img src="assets/${product.image}"/></div>
+                <div><input type="text" class="name-input" value="${product.name}" name="product" size="10" onchange="updateName(${key}, this)" readonly></div>
+                <div><input type="number" class="price-input" value="${product.price}" name="price" style="width: 3em" onchange="updatePrice(${key}, this)" readonly></div>
                 <div>
                     <button onclick="changeQuantity(${key}, ${value.quantity - 1})">-</button>
-                    <div class="count">${value.quantity}</div>
+                    <input type="number" class="count" id="quantity-${key}" value="${value.quantity}" name="quantity" style="width: 1.8em" min="1" onchange="updateQuantity(${key}, this) readonly">
                     <button onclick="changeQuantity(${key}, ${value.quantity + 1})">+</button>
                 </div>`;
                 listCard.appendChild(newDiv);
