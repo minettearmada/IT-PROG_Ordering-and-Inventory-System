@@ -90,8 +90,8 @@ app.post('/receipt', (req, res) => {
     //console.log("Total Discounted", req.body.totalDiscounted)
     res.render('receipt', {
         cash : req.body.cash,
-        customer : req.body.customer,
-        total : req.body.total,
+        customer : req.body.name,
+        total : req.body.final,
         totalDiscounted : req.body.totalDiscounted,
         productList: req.body.product,
         priceList: req.body.price,
@@ -109,3 +109,5 @@ app.post('/receipt', (req, res) => {
 });
 
 app.listen(3000);
+
+module.exports = app;

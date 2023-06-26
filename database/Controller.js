@@ -1,5 +1,6 @@
 const db = require('./db');
 const Order = require('../template/order');
+const app = require('../server');
 
 
 // GET /api/orders
@@ -35,16 +36,30 @@ exports.getOrder = (req, res, next) => {
 // POST /api/orders
 
 exports.createOrder = (req, res, next) => {
-    const name = req.body.name;
-    const main = req.body.main;
-    const side = req.body.side;
-    const drink = req.body.drink;
-    const m1 = req.body.m1;
-    const s1 = req.body.s1;
-    const d1 = req.body.d1;
-    const CMT = req.body.CMT;
-    const SVB = req.body.SVB;
-    const final = req.body.final;
+    console.log(req.body);
+    const name = req.body.customer;
+    const main = req.body.product0;
+    const side = req.body.product1;
+    const drink = req.body.product2;
+    const m1 = req.body.quantity0;
+    const s1 = req.body.quantity1;
+    const d1 = req.body.quantity2;
+    const CMT = 0;
+    const SVB = 0;
+    const final = req.body.totalDiscounted;
+
+    const temp = {
+        name : name,
+        main : main,
+        side : side,
+        drink : drink,
+        m1 : m1,
+        s1 : s1,
+        d1 : d1,
+        CMT : CMT,
+        SVB : SVB,
+        final : final
+    };
 
     const order = new Order(name, main, side, drink, m1, s1, d1, CMT, SVB, final);
 
@@ -53,9 +68,12 @@ exports.createOrder = (req, res, next) => {
             console.error('Error executing MySQL query:', err);
             res.status(500).send('Error executing query');
             }else{
-            res.json(results);
+                res.json(results);
+                app.post
             }
         });
+
+
 }
 
 
