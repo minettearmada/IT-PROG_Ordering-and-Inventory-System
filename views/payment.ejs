@@ -44,11 +44,30 @@
               <td> <input type="number" name="cash" id="cash"  min="<%= total[total.length - 1] %>" required></td> 
             </tr> 
         </table>
-        <input type="button" name="cancel" value="Cancel" onclick="window.history.back()" />
-        <input type="submit" name="save" /><br />
+        <input type="button" name="cancel" value="Edit Order" onclick="cancelBtn()" />
+        <input type="submit" name="save" onclick="proceedPayment()" /><br />
     </form>
-
     <script>
+
+      function cancelBtn(){
+        if(confirm("Do you want to edit your order?") == true){
+          window.history.back();
+        } else {
+          return false;
+        }
+      }
+
+      function proceedPayment(){
+
+        var userPreference;
+
+        if (confirm("Do you want to proceed payment?") == true) {
+          alert("You have successfully ordered!")
+        } else {
+          window.history.back(2);
+       }
+
+      }
 
         const productList = JSON.parse('<%- JSON.stringify(listProduct) %>');
         const priceList = JSON.parse('<%- JSON.stringify(listPrice) %>');

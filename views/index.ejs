@@ -34,7 +34,12 @@
         function validateQuantity() {
             const quantity = parseInt(document.querySelector('.quantity').textContent);
             if (quantity > 0) {
-                return true; // Proceed with form submission
+                if(confirm("Do you want to checkout your items?") == true){
+                    return true; // Proceed with form submission
+                } else {
+                    return false; // Prevent form submission
+                }
+                
             } else {
                 alert("Quantity must be more than 0");
                 return false; // Prevent form submission
