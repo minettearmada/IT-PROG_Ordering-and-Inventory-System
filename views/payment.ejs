@@ -67,8 +67,8 @@
     </div>
   
     </form>
-
     <script>
+      
       function cancelBtn(){
         if(confirm("Do you want to edit your order?") == true){
           window.history.back();
@@ -86,6 +86,7 @@
           return false;
        }
       }
+
 
         const productList = JSON.parse('<%- JSON.stringify(listProduct) %>');
         const priceList = JSON.parse('<%- JSON.stringify(listPrice) %>');
