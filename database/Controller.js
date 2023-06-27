@@ -69,10 +69,8 @@ exports.createOrder = (req, res, next) => {
             res.status(500).send('Error executing query');
             }else{
                 //res.json(results);
-                console.log("GUMANA");
-
-                res.redirect('/receipt');
-                
+                console.log("Order added successfully.");
+                res.redirect('/');
                 //window.location.href = '/views\index.ejs';
                 //res.render('index');
             }
