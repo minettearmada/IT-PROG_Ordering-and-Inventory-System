@@ -11,7 +11,7 @@ header{
     align-items: center;
     font-family: "Montserrat", sans-serif;
     background-color:goldenrod; /* 2723a */
-    background-image: url('header.jpeg');
+    background-image: url('header.svg');
     border-radius: 20px;
     padding: 50px;
     width: 920px;
@@ -93,20 +93,15 @@ header{
     align-items: center;
 }
 
-.myCart{
-    float: left;
-}
-
 .cart{
     display: flex;
-    background-color: #FEC944;
+    background-color: #FFFAE7;
     justify-content: space-between;
     align-items: center;
     padding: 7px 10px;
     border-radius: 3px;
-    color: white;
-    width: 80px;
-    float:right;    
+    color: #FFFAE7;
+    width: 80px;   
 
 }
 
@@ -143,7 +138,7 @@ header{
     cursor: pointer;
     width: 100%;
     text-align: center
-  }
+}
 
 .listCard li{
     display: grid;
