@@ -41,8 +41,16 @@ app.post('/payment', (req, res) => {
             : [req.body.total]; // Ensure totalList is an array
 
             let total = req.body.total;
-            let quantity = req.body.quantity;
-            let totalDiscounted = parseFloat(total[total.length - 1]); // Initialize with the total
+            let quantity = req.body.quantity; 
+            let totalDiscounted = 0;
+
+            if (quantity == 1) { // if only 1 item id ordered
+                totalDiscounted = parseFloat(totalList); // Initialize with the total
+            }else{
+                totalDiscounted = parseFloat(total[total.length - 1]); // Initialize with the total
+            }
+             
+             
 
             steak = 900;
             salmon = 850;
@@ -135,10 +143,20 @@ app.post('/receipt', (req, res) => {
             ? req.body.total
             : [req.body.total]; // Ensure totalList is an array
 
+            const totalDiscountedList = Array.isArray(req.body.totalDiscounted)
+            ? req.body.totalDiscounted
+            : [req.body.totalDiscounted]; // Ensure totalList is an array
+
             let total = req.body.total;
-            let totalDiscounted = parseFloat(total[total.length - 1]); // Initialize with the total
+            let totalDiscounted = 0; // Initialize with the total
 
             let quantity = req.body.quantity;
+
+            if (quantity == 1) { // if only 1 item id ordered
+                totalDiscounted = parseFloat(totalList); // Initialize with the total
+            }else{
+                totalDiscounted = parseFloat(total[total.length - 1]); // Initialize with the total
+            }
 
             steak = 900;
             salmon = 850;
@@ -204,9 +222,6 @@ app.post('/receipt', (req, res) => {
                 console.log('Steak Veg Beer Combo! 15% Discount is applied!');
             }
 
-            const totalDiscountedList = Array.isArray(req.body.totalDiscounted)
-            ? req.body.totalDiscounted
-            : [req.body.totalDiscounted]; // Ensure totalList is an array
 
             let change = req.body.cash - totalDiscountedList;
 
@@ -233,7 +248,7 @@ app.post('/receipt', (req, res) => {
     console.log("Customer:", req.body.customer)
     console.log("Cash:", req.body.cash)
     console.log("Total:", req.body.total)
-    console.log("Total Discounted:", req.body.totalDiscounted)
+    console.log("Total Discounted:", totalDiscountedList)
     console.log("Product List:", req.body.product)
     console.log("Price List:", req.body.price)
     console.log("Quantity List:", req.body.quantity)

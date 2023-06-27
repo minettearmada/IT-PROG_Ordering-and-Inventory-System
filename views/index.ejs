@@ -25,11 +25,22 @@
         <div class="checkOut">
             <div class="total">0</div>
             <div class="checkOutBtn">
-                <input type="submit" name="checkout" value="Checkout"/>
+                <input type="submit" name="checkout" value="Checkout" onclick="return validateQuantity()">
             </div>
         </div>
     </div>
     <script src="app.js"></script>
+    <script>
+        function validateQuantity() {
+            const quantity = parseInt(document.querySelector('.quantity').textContent);
+            if (quantity > 0) {
+                return true; // Proceed with form submission
+            } else {
+                alert("Quantity must be more than 0");
+                return false; // Prevent form submission
+            }
+        }
+    </script>
 </form>
 </body>
 </html>
