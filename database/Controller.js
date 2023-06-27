@@ -32,7 +32,6 @@ exports.getOrder = (req, res, next) => {
         });
 }
 
-
 // POST /api/orders
 
 exports.createOrder = (req, res, next) => {
@@ -71,7 +70,8 @@ exports.createOrder = (req, res, next) => {
             }else{
                 //res.json(results);
                 console.log("GUMANA");
-                window.location.href("/");
+
+                res.redirect('/receipt');
                 
                 //window.location.href = '/views\index.ejs';
                 //res.render('index');
