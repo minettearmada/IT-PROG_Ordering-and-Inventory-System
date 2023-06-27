@@ -3,49 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+    <title> Bite-By-Bytes </title></head>
+    <link rel="stylesheet" href="style2.css">
 <body>
     <form method="post" action="/receipt">
-        <table>
-          <tr>
-            <th>Product</th>
-            <th>Price</th>
-            <th>Quantity</th>
-          </tr>
-          <tr>
-            <% for (let i = 0; i < listProduct.length; i++) { %>
-                <tr>
-                    <td><%- listProduct[i] %></td>
-                    <td><%- listPrice[i] %></td>
-                    <td><%- listQuantity[i] %></td>
-                    <input type="hidden" name="product" value="<%- listProduct[i] %>">
-                    <input type="hidden" name="price" value="<%- listPrice[i] %>">
-                    <input type="hidden" name="quantity" value="<%- listQuantity[i] %>">
-                </tr>
-            <% } %>
-            <!-- <th class="productList" id="productList"></th> -->
-          </tr>
-          <tr>
-            <th class="total" id="total"></th>
-            <!-- gets the last value of the array for the final total amount -->
-            <input type="hidden" value="<%- total[total.length - 1] %>" name="total"> 
-            <th class="totalDiscounted" id="totalDiscounted"></th>
-            <input type="hidden" value="<%- totalDiscounted %>" name="totalDiscounted">
+      <div class="container">
+        <header> 
+            <img class="logo" src="logo.svg" alt="logo" height="80">
+            <h1 style="color: white; text-align: center;"> &nbsp; Bite-By-Bytes </h1>
+        </header>
+    
+    <br>
 
-            </th>
+    <div class ="orderList">
+      <h1 style="color: #F16D20"> Order Summary </h1>
+        <br>
+        <table class ="productTable">
+          <thead>
+            <tr>
+              <th> Product </th>
+              <th> Price </th>
+              <th> Quantity </th>
+            </tr>
+          </thead>
+          <tr>
+          <% for (let i = 0; i < listProduct.length; i++) { %>
+            <tr>
+                <td><%- listProduct[i] %></td>
+                <td><%- listPrice[i] %></td>
+                <td><%- listQuantity[i] %></td>
+                <input type="hidden" name="product" value="<%- listProduct[i] %>">
+                <input type="hidden" name="price" value="<%- listPrice[i] %>">
+                <input type="hidden" name="quantity" value="<%- listQuantity[i] %>">
+            </tr>
+          <% } %>
           </tr>
-          <tr>
-            <td>Name:</td>
-            <td> <input type="text" name="customer" id="customer" size="25" required></td> 
-          </tr> 
-          <tr>
-              <td>Cash Amount:</td> 
-              <td> <input type="number" name="cash" id="cash"  min="<%= total[total.length - 1] %>" required></td> 
-            </tr> 
         </table>
-        <input type="button" name="cancel" value="Cancel" onclick="window.history.back()" />
-        <input type="submit" name="save" /><br />
+              <div class="productList" id="productList"></div>
+              <br>
+              <div class="total" id="total"></div>             <!-- gets the last value of the array for the final total amount -->
+              <input type="hidden" value="<%- total[total.length - 1] %>" name="total"> 
+              <div class="totalDiscounted" id="totalDiscounted"></div> 
+              <input type="hidden" value="<%- totalDiscounted %>" name="totalDiscounted">
+    </div>
+
+    <div class="userInput">
+      <h1 style="color: #F16D20"> Payment Details </h1>
+      <br>
+        <div class="name">
+            <h3 style="color: #FD9A24"> Name: &nbsp; </h3>
+            <div class="input-field>"> <input type="text" name="name" size="30" required> </div>
+        </div>
+      <br>
+        <div class="cashAmount">
+            <h3 style="color: #FD9A24"> Cash Amount: &nbsp; </h3>
+            <div class="input-field>"> <input type="number" name="cash" id="cash"  min="<%= total[total.length - 1] %>" required></td>  </div>
+        </div>
+      <br>
+      <div class ="buttonChoice">
+        <div class="submit"><input type="submit" name="save" /><br /></div>
+        <div class ="button"><input type="button" name="cancel" value="Cancel" onclick="window.history.back()" /></div>
+      </div>
+    </div>
+  
     </form>
 
     <script>

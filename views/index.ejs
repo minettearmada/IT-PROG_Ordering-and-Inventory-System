@@ -3,29 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title> Bite-By-Bytes </title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <form method="post" action="/payment">
-    <div class="container">
-        <header>
-            <img class="logo" src="logo.svg" alt="logo" height="50">
-            <h1 style="color: #ececec">Bite-By-Bytes</h1>
-        </header>
-        <div class="list">
-          
-        </div>
+        <div class="container">
+            <header> 
+                <img class="logo" src="logo.svg" alt="logo" height="80">
+                <h1 style="color: white; text-align: center;"> &nbsp; Bite-By-Bytes </h1>
+            </header>
+        <div class="list"></div>
     </div>
     <div class="card">
-        <h1>Card</h1>
-        <span class="quantity" style="color: #d80202;">0</span>
-        <ul class="listCard">
-        </ul>
+        
+            <h1 class="myCart"> My Cart </h1> 
+            <div class ="cart"> 
+                <i class="fa-regular fa-cart-shopping-fast"></i>
+                <span class="quantity" style="color: white;"> 0 </span>
+        
+    </div>
+        <ul class="listCard"></ul>
         <div class="checkOut">
-            <div class="total">0</div>
+            <div class="total"> ₱ 0.00 </div>
             <div class="checkOutBtn">
-                <input type="submit" name="checkout" value="Checkout" onclick="return validateQuantity()">
+                <input type="submit" name="checkout" value="Checkout"/>
             </div>
         </div>
     </div>

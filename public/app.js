@@ -7,55 +7,55 @@ let quantity = document.querySelector('.quantity');
 let products = [
     {
         id: 1,
-        name: 'STEAK',
+        name: 'Steak',
         image: 'm1.PNG',
         price: 900
     },
     {
         id: 2,
-        name: 'SALMON',
+        name: 'Salmon',
         image: 'm2.PNG',
         price: 850
     },
     {
         id: 3,
-        name: 'CHICKEN',
+        name: 'Chicken',
         image: 'm3.PNG',
         price: 300
     },
     {
         id: 4,
-        name: 'BAKED POTATO',
+        name: 'Baked Potato',
         image: 's1.PNG',
         price: 80
     },
     {
         id: 5,
-        name: 'MASHED POTATO',
+        name: 'Mashed Potato',
         image: 's2.PNG',
         price: 75
     },
     {
         id: 6,
-        name: 'STEAMED VEGETABLES',
+        name: 'Steamed Vegetables',
         image: 's3.PNG',
         price: 50
     },
     {
         id: 7,
-        name: 'ICED TEA',
+        name: 'Iced Tea',
         image: 'd1.PNG',
         price: 55
     },
     {
         id: 8,
-        name: 'ROOT BEER',
+        name: 'Root Beer',
         image: 'd2.PNG',
         price: 60
     },
     {
         id: 9,
-        name: 'WATER',
+        name: 'Water',
         image: 'd3.PNG',
         price: 20
     }
@@ -75,12 +75,15 @@ function initApp(){
             if (key === 0){
                 currentTitle = 'Main Dishes';
                 currentDesc = 'You can only choose 1 main dish.';
+                list.appendChild(createCategoryDiv('main-dishes'));
             } else if (key === 3) {
                 currentTitle = 'Side Dishes';
                 currentDesc = 'You can only choose 1 main side.';
+                list.appendChild(createCategoryDiv('side-dishes'));
             } else if (key === 6) {
                 currentTitle = 'Drinks';
                 currentDesc = 'You can only choose 1 drink.';
+                list.appendChild(createCategoryDiv('drinks'));
             }
             let titleDiv = document.createElement('div');
             titleDiv.classList.add('title');
@@ -100,12 +103,19 @@ function initApp(){
         newDiv.innerHTML = `
             <img src="assets/${value.image}">
             <div class="title">${value.name}</div>
-            <div class="price">Php${value.price.toLocaleString()}</div>
+            <div class="price">₱${value.price.toLocaleString()}.00</div>
             <button id="${key}" onclick="addToCard(${key})">Add To Card</button>`;
 
         list.appendChild(newDiv);
-    })
+    });
 }
+
+// Helper function to create category <div> with custom class
+function createCategoryDiv(className) {
+    let categoryDiv = document.createElement('div');
+    categoryDiv.classList.add(className);
+    return categoryDiv;
+  }
 
 initApp();
 

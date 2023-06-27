@@ -1,5 +1,5 @@
 body{
-    background-color: #f4f4f4;
+    background-color: #fbf2d3;
     font-family: system-ui;
 }
 .container{
@@ -10,7 +10,13 @@ header{
     display: flex;
     align-items: center;
     font-family: "Montserrat", sans-serif;
-    background-color:#27273a;
+    background-color:goldenrod; /* 2723a */
+    background-image: url('header.jpeg');
+    border-radius: 20px;
+    padding: 50px;
+    width: 920px;
+    height: 1px;
+    justify-content: center;
 }
 
 /* Products */
@@ -50,7 +56,8 @@ header{
     color: #ececec;
 	display: inline-block;
 	text-decoration: none;
-	background-color: #27273a;
+	background-color: #FD9A24;
+    border: none;
 	padding: 1rem 2.8rem;
 	border-radius: 1rem;
 	margin-top: 1rem;
@@ -70,20 +77,42 @@ header{
     top: 0;
     left: calc(100% - 400px);
     width: 400px;
-    background-color: #ffffff;
+    background-color: #FFFAE7;
     height: 100vh;
     transition: 0.5s;
     font-family: "Montserrat", sans-serif;
 }
 
 .card h1{
-    color: #d80202;
-    font-weight: 100;
+    color: #F55F20;
+    font-weight: bold;
     margin: 0;
     padding: 0 20px;
     height: 80px;
     display: flex;
     align-items: center;
+}
+
+.myCart{
+    float: left;
+}
+
+.cart{
+    display: flex;
+    background-color: #FEC944;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 10px;
+    border-radius: 3px;
+    color: white;
+    width: 80px;
+    float:right;    
+
+}
+
+.fa-solid{
+    color: white;
+
 }
 
 .card .checkOut{
@@ -95,18 +124,18 @@ header{
 }
 
 .card .checkOut div{
-    background-color: white;
+    background-color: #FBE7B6;
     width: 100%;
     height: 70px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-weight: bold;
-    color: #27273a;
+    color: #F16D20;
 }
 
 .checkOutBtn input[type=submit]{
-    background-color: #d80202;
+    background-color: #F16D20;
     border: none;
     color: white;
     padding: 30px 30px;
@@ -114,12 +143,12 @@ header{
     cursor: pointer;
     width: 100%;
     text-align: center
-  }
+}
 
 .listCard li{
     display: grid;
     grid-template-columns: 100px repeat(3, 1fr);
-    color: #27273a;
+    color: #FD9A24;
     row-gap: 10px;
 }
 
@@ -134,7 +163,7 @@ header{
 }
 
 .listCard li button{
-    background-color: #27273a;
+    background-color: #FD9A24;
     border: none;
 }
 
@@ -156,6 +185,7 @@ input {
     color: white;
   }
 
-
-
-
+  /* Divisions */
+.main-dishes{
+    align-items: center;
+}
