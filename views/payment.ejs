@@ -61,14 +61,32 @@
         </div>
       <br>
       <div class ="buttonChoice">
-        <div class="submit"><input type="submit" name="save" /><br /></div>
-        <div class ="button"><input type="button" name="cancel" value="Cancel" onclick="window.history.back()" /></div>
+        <div class="submit"><input type="submit" name="save" onclick="proceedPayment()"/><br /></div>
+        <div class ="button"><input type="button" name="cancel" value="Cancel" onclick="cancelBtn()" /></div>
       </div>
     </div>
   
     </form>
 
     <script>
+
+      function cancelBtn(){
+        if(confirm("Do you want to edit your order?") == true){
+          window.history.back();
+        } else {
+          return false;
+        }
+      }
+
+      function proceedPayment(){
+
+        if (confirm("Do you want to proceed payment?") == true) {
+          return true;
+          alert("You have successfully ordered!")
+        } else {
+          return false;
+       }
+      }
 
         const productList = JSON.parse('<%- JSON.stringify(listProduct) %>');
         const priceList = JSON.parse('<%- JSON.stringify(listPrice) %>');
