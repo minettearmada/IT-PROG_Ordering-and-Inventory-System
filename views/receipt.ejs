@@ -55,32 +55,128 @@
             <header> 
                 <img class="logo" src="logo.svg" alt="logo" height="80">
                 <h1 style="color: white; text-align: center;"> &nbsp; Bite-By-Bytes </h1>
-
-       <div class ="resibo">
-        Receipt <br>
-        Customer: <%- customer  %> <br>
-        <input type="hidden" id="customer" name="customer" value="<%- customer %>">
-        Total: <%- total  %><br>
-        Cash: <%- cash  %><br>
-        Total Discount: <%- totalDiscounted[0]  %><br>
-        Change: <%- change  %><br>
-        <table>
-            <td>Order Receipt</td>
-            <% for (let i = 0; i < listProduct.length; i++) { %>
-                <tr>
-                    <td><%- listProduct[i] %></td>
-                    <td><%- listPrice[i] %></td>
-                    <td><%- listQuantity[i] %></td>
-                    <input type="hidden" id="product<%-i%>" name="product<%-i%>" value="<%- listProduct[i] %>">
-                    <input type="hidden" id="price<%-i%>" name="price<%-i%>" value="<%- listPrice[i] %>">
-                    <input type="hidden" id="quantity<%-i%>" name="quantity<%-i%>" value="<%- listQuantity[i] %>">
+         <div class="receipt-box">
+            <table cellpadding="0" cellspacing="0">
+                <tr class="top">
+                    <td colspan="2">
+                        <table>
+                            <tr>
+                                <td>
+                                    <img class="logoThanks" style="background-color: #fbf2d3; border-radius: 50%;"src="logoThanks.svg" alt="logo" height="90">
+                                    <br> 
+                                    <br>
+                                    <h2 style="color: #F16D20"> Thank you for ordering! </h2>
+                                </td>                                                           
+                            </tr>
+                        </table>
+                    </td>
                 </tr>
-            <% } %>
-            <input type="hidden" id="total" name="total" value="<%- totalDiscounted[0] %>">
+                <tr class="customer-information">
+                    <td colspan="2">
+                        <table>
+                            <tr>
+                                <td>
+                                    Customer Name: <%- customer  %> <br>
+                                    <input type="hidden" id="customer" name="customer" value="<%- customer %>">
+                                    <p id="date-container"></p>   
+                                </td>
+                            </tr>
+                        </table>
 
-        </table>
+                    </td>
+                </tr>
+                <tr class="order-heading">
+                    <td>
+                        Order Summary
+                    </td>
+                    <td>
+                        Price
+                    </td>
+                    <td>
+                        Qty
+                    </td>
+                    <td>
+                        Cost
+                    </td>
+                </tr>
+
+                <% for (let i = 0; i < listProduct.length; i++) { 
+                    let cost = listPrice[i] * listQuantity[i]%>
+                    <tr>
+                        <td><%- listProduct[i] %></td>
+                        <td><%- listPrice[i] %></td>
+                        <td><%- listQuantity[i] %></td>
+                        <td><%- cost %></td>
+                        <input type="hidden" id="product<%-i%>" name="product<%-i%>" value="<%- listProduct[i] %>">
+                        <input type="hidden" id="price<%-i%>" name="price<%-i%>" value="<%- listPrice[i] %>">
+                        <input type="hidden" id="quantity<%-i%>" name="quantity<%-i%>" value="<%- listQuantity[i] %>">
+                        <input type="hidden" id="cost<%-i%>" name="cost<%-i%>" value="<%- cost %>">
+                    </tr>
+                <% } %>
+                <tr class="order-heading">
+                    <td>
+                        Payment Details
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        Amount
+                    </td>
+                </tr>
+
+                <tr class="order-item">
+                    <td>
+                        Total
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td><%- total  %></td>
+                </tr>
+
+                <tr class="order-item">
+                    <td>
+                        Total Discount
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td><%- totalDiscounted  %></td>
+                </tr>
+
+                <tr class="order-item">
+                    <td>
+                        Cash
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td><%- cash  %></td>
+                </tr>
+
+                <tr class="order-item">
+                    <td>
+                        Change
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td><%- change  %></td>
+                    
+                </tr>
+                <tr>
+                    <input type="submit" value="Done" onclick="window.location.href('/')">
+                </tr>
+
+            </table>
     </div>
     <input type="submit" value="Done" onclick="window.location.href('/')">
     </form>
+    <script>
+        function getCurrentDateAndTime() {
+    const dateTime = new Date();
+    return dateTime.toLocaleString(); 
+}
+
+const dateDisplay = document.getElementById("date-container");
+
+dateDisplay.innerHTML = getCurrentDateAndTime(); 
+</script>
 </body>
 </html>
