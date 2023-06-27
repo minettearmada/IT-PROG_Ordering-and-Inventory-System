@@ -37,14 +37,11 @@
             <input type="hidden" name="customer" value="<%- customer %>">
             <input type="hidden" name="total" value="<%- totalDiscounted[0] %>">
 
-            <input type="submit" name="done" value="Done" onclick="goto()">
+            <input type="submit" name="done" value="Done">
         </table>
     </div>
     </form>
     <script>
-        function goto(){
-            window.history.go(-2);
-        }
     </script>
 </body>
 </html>
