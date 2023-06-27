@@ -74,25 +74,25 @@ function initApp(){
             // Add title based on the key
             if (key === 0){
                 currentTitle = 'Main Dishes';
-                currentDesc = 'You can only choose 1 main dish.';
+                currentDesc = '------------------------------------------- You can only choose 1 main dish -------------------------------------------';
                 list.appendChild(createCategoryDiv('main-dishes'));
             } else if (key === 3) {
                 currentTitle = 'Side Dishes';
-                currentDesc = 'You can only choose 1 main side.';
+                currentDesc = '------------------------------------------- You can only choose 1 side dish -------------------------------------------';
                 list.appendChild(createCategoryDiv('side-dishes'));
             } else if (key === 6) {
                 currentTitle = 'Drinks';
-                currentDesc = 'You can only choose 1 drink.';
+                currentDesc = '------------------------------------------------ You can only choose 1 drink ----------------------------------------------';
                 list.appendChild(createCategoryDiv('drinks'));
             }
             let titleDiv = document.createElement('div');
             titleDiv.classList.add('title');
-            titleDiv.innerText = currentTitle;
+            titleDiv.innerHTML = `<h2 style="font-size:32px; font-weight:bold">${currentTitle}</h2>`;  
             list.appendChild(titleDiv);
 
             let descDiv = document.createElement('div');
             descDiv.classList.add('desc');
-            descDiv.innerText = currentDesc;
+            descDiv.innerHTML = `<p style="font-weight:bold">${currentDesc}</p>`;
             list.appendChild(descDiv);
         }
 
@@ -171,14 +171,14 @@ function reloadCard(){
             newDiv.innerHTML = `
                 <div><img src="assets/${product.image}"/></div>
                 <div>${product.name}<input type="hidden" class="name-input" value="${product.name}" name="product" size="10" onchange="updateName(${key}, this)" readonly></div>
-                <div><input type="number" class="price-input" value="${product.price}" name="price" style="width: 3em" onchange="updatePrice(${key}, this)" readonly></div>
+                <div>${product.price}<input type="hidden" class="price-input" value="${product.price}" name="price" style="width: 3em" onchange="updatePrice(${key}, this)" readonly></div>
                 <div>
                     <button onclick="changeQuantity(${key}, ${value.quantity - 1})">-</button>
                     <div>${value.quantity}</div>
                     <input type="hidden" class="count" id="quantity-${key}" value="${value.quantity}" name="quantity" style="width: 1.8em" min="1" readonly">
                     <button onclick="changeQuantity(${key}, ${value.quantity + 1})">+</button>
                 </div>
-                <input type="number" class="total" value="${totalPrice}" name="total" onchange="updateQuantity(${key}, this) readonly">
+                <input type="hidden" class="total" value="${totalPrice}" name="total" onchange="updateQuantity(${key}, this) readonly">
                 </div>`;
                 listCard.appendChild(newDiv);
         }
