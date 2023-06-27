@@ -69,7 +69,6 @@ exports.createOrder = (req, res, next) => {
             res.status(500).send('Error executing query');
             }else{
                 res.json(results);
-                app.post
             }
         });
 
