@@ -181,6 +181,6 @@ input {
   }
 
   /* Divisions */
-.main-dishes{
-    align-items: center;
+.titleDiv {
+    background-color: yellow;
 }

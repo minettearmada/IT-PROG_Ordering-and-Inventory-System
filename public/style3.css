@@ -40,7 +40,6 @@ header{
     box-shadow: 0 0 10px rgba(0,0,0,0.15);
     font-size: 16px;
     line-height: 25px;
-    justify-content: center;
     font-family: Montserrat, sans-serif; 
     background-color: #FFFAE7; 
     border-color: goldenrod;
@@ -83,4 +82,17 @@ header{
 
 .receipt-box table tr.order-item td {
     border-bottom: 1px solid #d8cca2;
+}
+
+.receipt-box submit {
+    margin: 50px;
+}
+
+.receipt-box input{
+    background-color: #FEB969;
+    border-color:#FEB969;
+    border-style: groove;
+    width: 20%;
+    border-radius: 20px;
+    margin: 0px 200px;
 }

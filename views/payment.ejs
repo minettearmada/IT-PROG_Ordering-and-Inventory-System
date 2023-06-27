@@ -59,23 +59,42 @@
       <h1 style="color: #F16D20"> Payment Details </h1>
       <br>
         <div class="name">
-            <h3 style="color: #FD9A24"> Name: &nbsp; </h3>
+            <h3 style="color: black"> Name: &nbsp; </h3>
             <div class="input-field>"> <input type="text" name="customer" id="customer" size="25" required> </div>
         </div>
       <br>
         <div class="cashAmount">
-            <h3 style="color: #FD9A24"> Cash Amount: &nbsp; </h3>
+            <h3 style="color: black"> Cash Amount: &nbsp; </h3>
             <div class="input-field>"> <input type="number" name="cash" id="cash"  min="<%= total[total.length - 1] %>" required></td>  </div>
         </div>
       <br>
       <div class ="buttonChoice">
-        <div class="submit"><input type="submit" name="save" /><br /></div>
-        <div class ="button"><input type="button" name="cancel" value="Cancel" onclick="window.history.back()" /></div>
+        <div class="submit"><input type="submit" name="save" onclick="proceedPayment()"/><br /></div>
+        <div class ="button"><input type="button" name="cancel" value="Cancel" onclick="cancelBtn()" /></div>
       </div>
     </div>
   
     </form>
     <script>
+
+      function cancelBtn(){
+        if(confirm("Do you want to edit your order?") == true){
+          window.history.back();
+        } else {
+          return false;
+        }
+      }
+
+      function proceedPayment(){
+
+        if (confirm("Do you want to proceed payment?") == true) {
+          return true;
+          alert("You have successfully ordered!")
+        } else {
+          return false;
+       }
+      }
+      
 
         const productList = JSON.parse('<%- JSON.stringify(listProduct) %>');
         const priceList = JSON.parse('<%- JSON.stringify(listPrice) %>');
@@ -169,7 +188,7 @@
             totalDiscounted -= comboDiscount;
 
             totalDiscounted = parseFloat(totalDiscounted);
-            totalDiscountedHTML = `Discounted Total: ${totalDiscounted.toFixed(2)}`;
+            totalDiscountedHTML = `Total (Discounted): ${totalDiscounted.toFixed(2)}`;
 
             const totalDiscountedElement = document.getElementById('totalDiscounted');
             totalDiscountedElement.innerText = totalDiscountedHTML;
