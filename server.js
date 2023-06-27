@@ -22,11 +22,6 @@ app.get('/', (req, res) => {
 
 app.post('/payment', (req, res) => {
       // Check if the request came from the checkout button
-      console.log(req.body.product)
-      console.log(req.body.price)
-      console.log(req.body.quantity)
-      
-      console.log(moment().format())
       console.log("PAYMENT")
       console.log("Products:", req.body.product)
       console.log("Price:",req.body.price)
