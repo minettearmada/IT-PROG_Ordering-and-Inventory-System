@@ -174,14 +174,14 @@ function reloadCard(){
             newDiv.innerHTML = `
                 <div><img src="assets/${product.image}"/></div>
                 <div>${product.name}<input type="hidden" class="name-input" value="${product.name}" name="product" size="10" onchange="updateName(${key}, this)" readonly></div>
-                <div><input type="number" class="price-input" value="${product.price}" name="price" style="width: 3em" onchange="updatePrice(${key}, this)" readonly></div>
+                <div>${product.price}<input type="hidden" class="price-input" value="${product.price}" name="price" style="width: 3em" onchange="updatePrice(${key}, this)" readonly></div>
                 <div>
                     <button onclick="changeQuantity(${key}, ${value.quantity - 1})">-</button>
                     <div>${value.quantity}</div>
                     <input type="hidden" class="count" id="quantity-${key}" value="${value.quantity}" name="quantity" style="width: 1.8em" min="1" readonly">
                     <button onclick="changeQuantity(${key}, ${value.quantity + 1})">+</button>
                 </div>
-                <input type="number" class="total" value="${totalPrice}" name="total" onchange="updateQuantity(${key}, this) readonly">
+                <input type="hidden" class="total" value="${totalPrice}" name="total" onchange="updateQuantity(${key}, this) readonly">
                 </div>`;
                 listCard.appendChild(newDiv);
         }

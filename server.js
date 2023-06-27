@@ -47,7 +47,7 @@ app.post('/payment', (req, res) => {
             if (quantity == 1) { // if only 1 item id ordered
                 totalDiscounted = parseFloat(totalList); // Initialize with the total
             }else{
-                totalDiscounted = parseFloat(total[total.length - 1]); // Initialize with the total
+                totalDiscounted = parseFloat(totalList[totalList.length - 1]); // Initialize with the total
             }
              
              

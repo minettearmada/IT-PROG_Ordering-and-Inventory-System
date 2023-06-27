@@ -93,9 +93,7 @@ header{
     align-items: center;
 }
 
-.myCart{
-    float: left;
-}
+
 
 .cart{
     display: flex;
@@ -106,7 +104,6 @@ header{
     border-radius: 3px;
     color: white;
     width: 80px;
-    float:right;    
 
 }
 
