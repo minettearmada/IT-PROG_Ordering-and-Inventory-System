@@ -67,14 +67,41 @@ let listCards  = [];
 // Product Cards on Main Page
 function initApp(){
     products.forEach((value, key) =>{
+
+        // TODO: DEBUG 
+        // Add division
+        if (key === 3 || key === 6 || key === 0) {
+            // Add title based on the key
+            if (key === 0){
+                currentTitle = 'Main Dishes';
+                currentDesc = 'You can only choose 1 main dish.';
+            } else if (key === 3) {
+                currentTitle = 'Side Dishes';
+                currentDesc = 'You can only choose 1 main side.';
+            } else if (key === 6) {
+                currentTitle = 'Drinks';
+                currentDesc = 'You can only choose 1 drink.';
+            }
+            let titleDiv = document.createElement('div');
+            titleDiv.classList.add('title');
+            titleDiv.innerText = currentTitle;
+            list.appendChild(titleDiv);
+
+            let descDiv = document.createElement('div');
+            descDiv.classList.add('desc');
+            descDiv.innerText = currentDesc;
+            list.appendChild(descDiv);
+        }
+
         let newDiv = document.createElement('div');
         newDiv.classList.add('item');
+      
+
         newDiv.innerHTML = `
             <img src="assets/${value.image}">
             <div class="title">${value.name}</div>
             <div class="price">Php${value.price.toLocaleString()}</div>
-            <button id="${key}" onclick="addToCard(${key})">Add To Card</button>
-            <div class="price">Key: ${key}</div>`;
+            <button id="${key}" onclick="addToCard(${key})">Add To Card</button>`;
 
         list.appendChild(newDiv);
     })
@@ -134,11 +161,12 @@ function reloadCard(){
             let newDiv = document.createElement('li');
             newDiv.innerHTML = `
                 <div><img src="assets/${product.image}"/></div>
-                <div><input type="text" class="name-input" value="${product.name}" name="product" size="10" onchange="updateName(${key}, this)" readonly></div>
+                <div>${product.name}<input type="hidden" class="name-input" value="${product.name}" name="product" size="10" onchange="updateName(${key}, this)" readonly></div>
                 <div><input type="number" class="price-input" value="${product.price}" name="price" style="width: 3em" onchange="updatePrice(${key}, this)" readonly></div>
                 <div>
                     <button onclick="changeQuantity(${key}, ${value.quantity - 1})">-</button>
-                    <input type="number" class="count" id="quantity-${key}" value="${value.quantity}" name="quantity" style="width: 1.8em" min="1" onchange="updateQuantity(${key}, this) readonly">
+                    <div>${value.quantity}</div>
+                    <input type="hidden" class="count" id="quantity-${key}" value="${value.quantity}" name="quantity" style="width: 1.8em" min="1" readonly">
                     <button onclick="changeQuantity(${key}, ${value.quantity + 1})">+</button>
                 </div>
                 <input type="number" class="total" value="${totalPrice}" name="total" onchange="updateQuantity(${key}, this) readonly">
@@ -186,4 +214,6 @@ function changeQuantity(key, quantity){
         listCards[key].price = quantity * products[key].price;
     }
     reloadCard();
+
+    
 }

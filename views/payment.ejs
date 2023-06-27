@@ -14,34 +14,51 @@
             <th>Quantity</th>
           </tr>
           <tr>
-            <th class="productList" id="productList"></th>
-            <input type="hidden" value="<%- listProduct %>" name="listProduct">
+            <% for (let i = 0; i < listProduct.length; i++) { %>
+                <tr>
+                    <td><%- listProduct[i] %></td>
+                    <td><%- listPrice[i] %></td>
+                    <td><%- listQuantity[i] %></td>
+                    <input type="hidden" name="product" value="<%- listProduct[i] %>">
+                    <input type="hidden" name="price" value="<%- listPrice[i] %>">
+                    <input type="hidden" name="quantity" value="<%- listQuantity[i] %>">
+                </tr>
+            <% } %>
+            <!-- <th class="productList" id="productList"></th> -->
           </tr>
           <tr>
             <th class="total" id="total"></th>
-            <input type="hidden" value="<%- total[total.length - 1] %>" name="total">
-            <th class="totalDiscount" id="totalDiscount"></th>
+            <!-- gets the last value of the array for the final total amount -->
+            <input type="hidden" value="<%- total[total.length - 1] %>" name="total"> 
+            <th class="totalDiscounted" id="totalDiscounted"></th>
+            <input type="hidden" value="<%- totalDiscounted %>" name="totalDiscounted">
 
             </th>
           </tr>
           <tr>
             <td>Name:</td>
-            <td> <input type="text" name="customer" id="customer" size="25"></td> 
+            <td> <input type="text" name="customer" id="customer" size="25" required></td> 
           </tr> 
           <tr>
               <td>Cash Amount:</td> 
-              <td> <input type="number" name="cash" id="cash"></td> 
+              <td> <input type="number" name="cash" id="cash"  min="<%= total[total.length - 1] %>" required></td> 
             </tr> 
-        </table>	  
+        </table>
+        <input type="button" name="cancel" value="Cancel" onclick="window.history.back()" />
         <input type="submit" name="save" /><br />
     </form>
     <script>
+
         const productList = JSON.parse('<%- JSON.stringify(listProduct) %>');
         const priceList = JSON.parse('<%- JSON.stringify(listPrice) %>');
         const quantityList = JSON.parse('<%- JSON.stringify(listQuantity) %>');
         const total = JSON.parse('<%- JSON.stringify(total[total.length - 1]) %>');
 
+        let productListHTML = '';
+        let totalDiscounted = total;
+
         document.addEventListener('DOMContentLoaded', () => {
+            
             // Display total
             const totalElement = document.getElementById('total');
             totalElement.innerText = `Total: ${total}`;
@@ -50,54 +67,56 @@
             const totalInput = document.getElementById('totalInput');
             totalInput.value = total;
 
-            const totalDiscountInput = document.getElementById('totalDiscountInput');
-            totalDiscountInput.value = totalDiscount.toFixed(2);
+            const totalDiscountedInput = document.getElementById('totalDiscountedInput');
+            totalDiscountedInput.value = totalDiscounted.toFixed(2); // Add this line
+
+            // Set totalDiscounted element
+            const totalDiscountedElement = document.getElementById('totalDiscounted');
+            totalDiscountedElement.innerText = `Discounted Total: ${totalDiscounted.toFixed(2)}`;
+            
         });
 
+            steak = 900;
+            salmon = 850;
+            chicken = 300;
+            baked = 80;
+            mashed = 75;
+            steamed = 50;
+            iced = 55;
+            root = 60;
+            water = 20;
 
-        // Get the productList element
-        const productListElement = document.getElementById('productList');
+            comboTotal = 0;
+            comboDiscount = 0;
 
-        let productListHTML = '';
-
-        // Generate the HTML content for the product list
-        for (let i = 0; i < productList.length; i++) {
-            const product = productList[i];
-            const price = priceList[i];
-            const quantity = quantityList[i];
-            
-            productListHTML += `
-                <div>
-                    <table>
-                    <th><p>${product}</p></th>
-                    <th><p>${price}</p></th>
-                    <th><p>x</p></th>
-                    <th><p>${quantity}</p></th>
-                    </tr>
-                    </table>
-                </div>
-                <br>
-            `;
-        }
-
-        // Update the productList element with the generated HTML content
-        productListElement.innerHTML = productListHTML;
+            mquan = quantityList[0];
+            squan = quantityList[1];
+            dquan = quantityList[2];
         
-        let totalDiscounted = total;
-
         const chickenIndex = productList.indexOf('CHICKEN');
         const mashedPotatoIndex = productList.indexOf('MASHED POTATO');
         const icedTeaIndex = productList.indexOf('ICED TEA');
 
         if (chickenIndex !== -1 && mashedPotatoIndex !== -1 && icedTeaIndex !== -1) {
-            totalDiscount -= totalDiscount * 0.1;
+            while (mquan > 0 && squan > 0 && dquan > 0) {
+                // Add price for combo meals ONLY
+                comboTotal = chicken + mashed + iced;
+            
+                // Discount for the combo ONLY
+                comboDiscount += (comboTotal * 0.10);
+                
+                // Decrement the quantity of each item to find how many combos in order
+                mquan--;
+                squan--;
+                dquan--;
+            }
 
-            totalDiscount = parseFloat(totalDiscount);
-            totalDiscountHTML = `Discounted Total: ${totalDiscount.toFixed(2)}`;
+            totalDiscounted -= comboDiscount;
+            totalDiscounted = parseFloat(totalDiscounted);
+            totalDiscountedHTML = `Discounted: ${totalDiscounted.toFixed(2)}`;
 
-            const totalDiscountElement = document.getElementById('totalDiscounted');
-            totalDiscountElement.innerText = totalDiscountHTML;
-
+            const totalDiscountedElement = document.getElementById('totalDiscounted');
+            totalDiscountedElement.innerText = totalDiscountedHTML;
             alert('Chicken Mash Tea Combo! 10% Discount is applied!');
         }
 
@@ -106,7 +125,20 @@
         const rootBeerIndex = productList.indexOf('ROOT BEER');
 
         if (steakIndex !== -1 && steamedVegetablesIndex !== -1 && rootBeerIndex !== -1) {
-            totalDiscount -= totalDiscount * 0.15;
+            while (mquan > 0 && squan > 0 && dquan > 0) {
+                // Add price for combo meals ONLY
+                comboTotal = steak + steamed + root;
+            
+                // Discount for the combo ONLY
+                comboDiscount += (comboTotal * 0.15);
+                
+                // Decrement the quantity of each item to find how many combos in order
+                mquan--;
+                squan--;
+                dquan--;
+            }
+
+            totalDiscounted -= comboDiscount;
 
             totalDiscount = parseFloat(totalDiscount);
             totalDiscountHTML = `Discounted Total: ${totalDiscount.toFixed(2)}`;
@@ -116,6 +148,7 @@
 
             alert('Steak Veg Beer Combo! 15% Discount is applied!')
         }
+       
 
     </script>
 </body>
