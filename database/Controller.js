@@ -36,6 +36,7 @@ exports.getOrder = (req, res, next) => {
 // POST /api/orders
 
 exports.createOrder = (req, res, next) => {
+    console.log("ETO YUNG LAMAN SA DBBBBBBBBB QUERY");
     console.log(req.body);
     const name = req.body.customer;
     const main = req.body.product0;
@@ -44,10 +45,9 @@ exports.createOrder = (req, res, next) => {
     const m1 = req.body.quantity0;
     const s1 = req.body.quantity1;
     const d1 = req.body.quantity2;
-    const CMT = 0;
-    const SVB = 0;
-    const final = req.body.totalDiscounted;
+    const final = req.body.total;
 
+    /*
     const temp = {
         name : name,
         main : main,
@@ -60,16 +60,21 @@ exports.createOrder = (req, res, next) => {
         SVB : SVB,
         final : final
     };
+    */
 
-    const order = new Order(name, main, side, drink, m1, s1, d1, CMT, SVB, final);
+    const order = new Order(name, main, side, drink, m1, s1, d1, final);
 
     db.query('INSERT INTO orders SET ?' , [order], (err, results) => {
             if (err) {
             console.error('Error executing MySQL query:', err);
             res.status(500).send('Error executing query');
             }else{
-                res.json(results);
-                app.post
+                //res.json(results);
+                console.log("GUMANA");
+                window.location.href("/");
+                
+                //window.location.href = '/views\index.ejs';
+                //res.render('index');
             }
         });
 

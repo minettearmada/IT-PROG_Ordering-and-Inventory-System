@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="style3.css">
 </head>
 <body>
-    <form method="post" action="/">
+    <form method="post" action="/api/orders">
         <div class="container">
             <header> 
                 <img class="logo" src="logo.svg" alt="logo" height="80">
@@ -29,15 +29,22 @@
                     <td><%- listProduct[i] %></td>
                     <td><%- listPrice[i] %></td>
                     <td><%- listQuantity[i] %></td>
-                    <input type="hidden" name="product" value="<%- listProduct[i] %>">
-                    <input type="hidden" name="price" value="<%- listPrice[i] %>">
-                    <input type="hidden" name="quantity" value="<%- listQuantity[i] %>">
+                    <input type="hidden" name="product<%-i%>" value="<%- listProduct[i] %>">
+                    <input type="hidden" name="price<%-i%>" value="<%- listPrice[i] %>">
+                    <input type="hidden" name="quantity<%-i%>" value="<%- listQuantity[i] %>">
                 </tr>
             <% } %>
+            <input type="hidden" name="customer" value="<%- customer %>">
+            <input type="hidden" name="total" value="<%- totalDiscounted[0] %>">
+
+            <input type="submit" name="done" value="Done" onclick="goto()">
         </table>
     </div>
     </form>
     <script>
+        function goto(){
+            window.history.go(-2);
+        }
     </script>
 </body>
 </html>
