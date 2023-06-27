@@ -4,6 +4,8 @@ const moment = require('moment'); // time
 const products = require('./products')
 const path = require('path');
 const bodyParser = require('body-parser');
+const router = require('./routes/router'); //add
+//const env = require('dotenv');
 
 
 app.set('view engine', 'ejs');
@@ -23,7 +25,7 @@ app.post('/payment', (req, res) => {
       console.log(req.body.product)
       console.log(req.body.price)
       console.log(req.body.quantity)
-
+      
       console.log(moment().format())
     if (req.body && req.body.checkout) {
          if(req.body.quantity != 0){
@@ -36,7 +38,16 @@ app.post('/payment', (req, res) => {
          }
     } 
 
+
+
 });
+
+app.use('/api', router); //add
+
+
+
+
+
 
 app.post('/receipt', (req, res) => {
     // From payment

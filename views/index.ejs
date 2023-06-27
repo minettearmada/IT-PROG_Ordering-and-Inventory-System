@@ -5,6 +5,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
+
+    <!-- ADD-->
+    <script>
+
+console.log('ROR');
+
+        function onSubmit(event){
+
+        console.log('WORKING');
+            event.preventDefault();
+
+            const main = document.getElementById('main').value;
+            const side = document.getElementById('side').value;
+            const drink = document.getElementById('drink').value;
+            const m1 = document.getElementById('m1').value;
+            const s1 = document.getElementById('s1').value;
+            const d1 = document.getElementById('d1').value;
+
+            const temp = {
+                main : main,
+                side : side,
+                drink : drink,
+                m1 : m1,
+                s1 : s1,
+                d1 : d1
+            };
+
+            fetch('/api/orders', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(temp)
+            })
+            .then(response => {
+                if(response.ok){
+                    console.log('Order created successfully!')
+
+                    alert('Payment Successful!');
+                    window.location.href = "/";
+                }else{
+                    console.error('Failed to create order');
+                    alert('Payment Failed!');
+                }
+            })
+            .catch(error => {
+                console.error('An error occurred:', error);
+                alert('Payment Failed!');
+            });
+
+        }
+    </script>
+
+
 </head>
 <body>
     <form method="post" action="/payment">
@@ -26,10 +80,12 @@
             <div class="total">0</div>
             <div class="checkOutBtn">
                 <input type="submit" name="checkout" value="Checkout"/>
+                <!-- <button type="submit">Check Out</button> -->
             </div>
         </div>
     </div>
     <script src="app.js"></script>
+    
 </form>
 </body>
 </html>

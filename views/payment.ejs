@@ -35,7 +35,6 @@
         </table>	  
         <input type="submit" name="save" /><br />
     </form>
-
     <script>
         const productList = JSON.parse('<%- JSON.stringify(listProduct) %>');
         const priceList = JSON.parse('<%- JSON.stringify(listPrice) %>');
@@ -54,7 +53,7 @@
             const totalDiscountInput = document.getElementById('totalDiscountInput');
             totalDiscountInput.value = totalDiscount.toFixed(2);
         });
-        
+
 
         // Get the productList element
         const productListElement = document.getElementById('productList');
