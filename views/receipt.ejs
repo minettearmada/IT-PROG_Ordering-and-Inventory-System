@@ -7,9 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Bite-By-Bytes </title></head>
     <link rel="stylesheet" href="style3.css">
+    <script>
+        function test(event) {
+            event.preventDefault();
+            alert("FUCK");
+        }
+    </script>
 </head>
 <body>
-    <form method="post" action="/api/orders">
+    <form method="post" onsubmit="test(event)">
         <div class="container">
             <header> 
                 <img class="logo" src="logo.svg" alt="logo" height="80">
