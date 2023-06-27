@@ -24,50 +24,89 @@
 
 </head>
 <body>
-    <form method="post" action="/api/orders">
+    <form method="post" action="/payment">
         <table>
-          <tr>
-            <th>Product</th>
-            <th>Price</th>
-            <th>Quantity</th>
-          </tr>
-          <tr>
-            <% for (let i = 0; i < listProduct.length; i++) { %>
-                <tr>
-                    <td><%- listProduct[i] %></td>
-                    <td><%- listPrice[i] %></td>
-                    <td><%- listQuantity[i] %></td>
-                    <input type="hidden" name="product<%-i%>" id="product<%-i%>" value="<%- listProduct[i] %>">
-                    <input type="hidden" name="price<%-i%>" id="price<%-i%>" value="<%- listPrice[i] %>">
-                    <input type="hidden" name="quantity<%-i%>" id="quantity<%-i%>" value="<%- listQuantity[i] %>">
-                </tr>
-            <% } %>
-            <!-- <th class="productList" id="productList"></th> -->
-          </tr>
-          <tr>
-            <th class="total" id="total"></th>
-            <!-- gets the last value of the array for the final total amount -->
-            <input type="hidden" value="<%- total[total.length - 1] %>" name="total">
-            <th class="totalDiscounted" id="totalDiscounted"></th>
-            <input type="hidden" value="<%- totalDiscounted %>" id="totalDiscounted" name="totalDiscounted">
-            </th>
-          </tr>
-          <tr>
-            <td>Name:</td>
-            <td> <input type="text" name="customer" id="customer" size="25" required></td> 
-          </tr> 
-          <tr>
-              <td>Cash Amount:</td> 
-              <td> <input type="number" name="cash" id="cash" required></td> 
+            <tr>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Quantity</th>
+            </tr>
+            <tr>
+              <% for (let i = 0; i < listProduct.length; i++) { %>
+                  <tr>
+                      <td><%- listProduct[i] %></td>
+                      <td><%- listPrice[i] %></td>
+                      <td><%- listQuantity[i] %></td>
+                      <input type="hidden" name="product<%-i%>" id="product<%-i%>" value="<%- listProduct[i] %>">
+                      <input type="hidden" name="price<%-i%>" id="price<%-i%>" value="<%- listPrice[i] %>">
+                      <input type="hidden" name="quantity<%-i%>" id="quantity<%-i%>" value="<%- listQuantity[i] %>">
+                  </tr>
+              <% } %>
+              <!-- <th class="productList" id="productList"></th> -->
+            </tr>
+            <tr>
+              <th class="total" id="total"></th>
+              <!-- gets the last value of the array for the final total amount -->
+              <input type="hidden" value="<%- total[total.length - 1] %>" name="total">
+              <th class="totalDiscounted" id="totalDiscounted"></th>
+              <input type="hidden" value="<%- totalDiscounted %>" id="totalDiscounted" name="totalDiscounted">
+              </th>
+            </tr>
+            <tr>
+              <td>Name:</td>
+              <td> <input type="text" name="customer" id="customer" size="25" required></td> 
             </tr> 
-        </table>	  
-        <input type="submit" name="save" /><br />
+            <tr>
+                <td>Cash Amount:</td> 
+                <td> <input type="number" name="cash" id="cash" required></td> 
+              </tr> 
+          </table>	  
+    
+        <input type="submit" id="button" name="save" /><br />
     </form>
     <script>
+
         const productList = JSON.parse('<%- JSON.stringify(listProduct) %>');
         const priceList = JSON.parse('<%- JSON.stringify(listPrice) %>');
         const quantityList = JSON.parse('<%- JSON.stringify(listQuantity) %>');
         const total = JSON.parse('<%- JSON.stringify(total[total.length - 1]) %>');
+
+        function execute(event){
+            console.log("WORKING");
+            event.preventDefault();
+
+        
+        //event.preventDefault();
+
+        /*
+        fetch('/api/orders', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(temp)
+        })
+        .then(response => {
+            if(response.ok){
+                console.log('Order created successfully!')
+
+                alert('Payment Successful!');
+                window.location.href = "/";
+            }else{
+                console.error('Failed to create order');
+                alert('Payment Failed!');
+            }
+        })
+        .catch(error => {
+            console.error('An error occurred:', error);
+            alert('Payment Failed!');
+        });
+
+        */
+        //return true;
+        }    
+
+
 
         let productListHTML = '';
         let totalDiscounted = total;
@@ -88,8 +127,10 @@
             const totalDiscountedElement = document.getElementById('totalDiscounted');
             totalDiscountedElement.innerText = `Discounted Total: ${totalDiscounted.toFixed(2)}`;
 
-            
+            const button = document.getElementById('button');
+            button.addEventListener('click', execute());
         });
+
 
         const chickenIndex = productList.indexOf('CHICKEN');
         const mashedPotatoIndex = productList.indexOf('MASHED POTATO');
@@ -137,51 +178,17 @@
             final : final
         };
 
-        function execute(event){
-        event.preventDefault();
+
+        //document.getElementById("button").onsubmit = function(event){
         
-        //event.preventDefault();
-        
-
-
-        //console.log(temp);
-        //event.preventDefault();
-
-        fetch('/api/orders', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(temp)
-        })
-        .then(response => {
-            if(response.ok){
-                console.log('Order created successfully!')
-
-                alert('Payment Successful!');
-                window.location.href = "/";
-            }else{
-                console.error('Failed to create order');
-                alert('Payment Failed!');
-            }
-        })
-        .catch(error => {
-            console.error('An error occurred:', error);
-            alert('Payment Failed!');
-        });
-
-        return true;
-        }    
         
 
         function test(event){
-            event.preventDefault();
             console.log("WORKING");
         }
 
-        execute(event);
 
-        
+
 
     </script>
 </body>

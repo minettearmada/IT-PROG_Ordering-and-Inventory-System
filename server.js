@@ -60,6 +60,9 @@ app.post('/payment', (req, res) => {
             }
 
 
+            
+
+
             res.render('payment', {
                 listQuantity : req.body.quantity,
                 listPrice : req.body.price,
