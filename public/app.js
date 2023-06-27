@@ -7,55 +7,55 @@ let quantity = document.querySelector('.quantity');
 let products = [
     {
         id: 1,
-        name: 'STEAK',
+        name: 'Steak',
         image: 'm1.PNG',
         price: 900
     },
     {
         id: 2,
-        name: 'SALMON',
+        name: 'Salmon',
         image: 'm2.PNG',
         price: 850
     },
     {
         id: 3,
-        name: 'CHICKEN',
+        name: 'Chicken',
         image: 'm3.PNG',
         price: 300
     },
     {
         id: 4,
-        name: 'BAKED POTATO',
+        name: 'Baked Potato',
         image: 's1.PNG',
         price: 80
     },
     {
         id: 5,
-        name: 'MASHED POTATO',
+        name: 'Mashed Potato',
         image: 's2.PNG',
         price: 75
     },
     {
         id: 6,
-        name: 'STEAMED VEGETABLES',
+        name: 'Steamed Vegetables',
         image: 's3.PNG',
         price: 50
     },
     {
         id: 7,
-        name: 'ICED TEA',
+        name: 'Iced Tea',
         image: 'd1.PNG',
         price: 55
     },
     {
         id: 8,
-        name: 'ROOT BEER',
+        name: 'Root Beer',
         image: 'd2.PNG',
         price: 60
     },
     {
         id: 9,
-        name: 'WATER',
+        name: 'Water',
         image: 'd3.PNG',
         price: 20
     }
@@ -67,19 +67,58 @@ let listCards  = [];
 // Product Cards on Main Page
 function initApp(){
     products.forEach((value, key) =>{
+
+        // TODO: DEBUG 
+        // Add division
+        if (key === 3 || key === 6 || key === 0) {
+            // Add title based on the key
+            if (key === 0){
+                currentTitle = 'Main Dishes';
+                currentDesc = 'You can only choose 1 main dish.';
+                list.appendChild(createCategoryDiv('main-dishes'));
+            } else if (key === 3) {
+                currentTitle = 'Side Dishes';
+                currentDesc = 'You can only choose 1 main side.';
+                list.appendChild(createCategoryDiv('side-dishes'));
+            } else if (key === 6) {
+                currentTitle = 'Drinks';
+                currentDesc = 'You can only choose 1 drink.';
+                list.appendChild(createCategoryDiv('drinks'));
+            }
+            let titleDiv = document.createElement('div');
+            titleDiv.classList.add('title');
+            titleDiv.innerText = currentTitle;
+            list.appendChild(titleDiv);
+
+            let descDiv = document.createElement('div');
+            descDiv.classList.add('desc');
+            descDiv.innerText = currentDesc;
+            list.appendChild(descDiv);
+        }
+
         let newDiv = document.createElement('div');
         newDiv.classList.add('item');
+      
+
         newDiv.innerHTML = `
             <img src="assets/${value.image}">
             <div class="title">${value.name}</div>
-            <div class="price">Php${value.price.toLocaleString()}</div>
-            <button id="${key}" onclick="addToCard(${key})">Add To Card</button>
-            <div class="price">Key: ${key}</div>`;
+            <div class="price">₱${value.price.toLocaleString()}.00</div>
+            <button id="${key}" onclick="addToCard(${key})">Add To Card</button>`;
 
         list.appendChild(newDiv);
-    })
+    });
 }
+
+// Helper function to create category <div> with custom class
+function createCategoryDiv(className) {
+    let categoryDiv = document.createElement('div');
+    categoryDiv.classList.add(className);
+    return categoryDiv;
+  }
+
 initApp();
+
 function addToCard(key){
     if(listCards[key] == null){
         // copy product form list to list card
@@ -134,7 +173,7 @@ function reloadCard(){
             let newDiv = document.createElement('li');
             newDiv.innerHTML = `
                 <div><img src="assets/${product.image}"/></div>
-                <div><input type="text" class="name-input" value="${product.name}" name="product" size="10" onchange="updateName(${key}, this)" readonly></div>
+                <div>${product.name}<input type="hidden" class="name-input" value="${product.name}" name="product" size="10" onchange="updateName(${key}, this)" readonly></div>
                 <div><input type="number" class="price-input" value="${product.price}" name="price" style="width: 3em" onchange="updatePrice(${key}, this)" readonly></div>
                 <div>
                     <button onclick="changeQuantity(${key}, ${value.quantity - 1})">-</button>
@@ -146,10 +185,12 @@ function reloadCard(){
                 </div>`;
                 listCard.appendChild(newDiv);
         }
-    })
+    }) 
     total.innerText = totalPrice.toLocaleString();
     quantity.innerText = count;
 }
+
+
 function changeQuantity(key, quantity){
     if(quantity == 0){
         delete listCards[key];
@@ -187,4 +228,6 @@ function changeQuantity(key, quantity){
         listCards[key].price = quantity * products[key].price;
     }
     reloadCard();
+
+    
 }

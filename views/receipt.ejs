@@ -1,28 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title> Bite-By-Bytes </title></head>
+    <link rel="stylesheet" href="style3.css">
 </head>
 <body>
     <form method="post" action="/">
+        <div class="container">
+            <header> 
+                <img class="logo" src="logo.svg" alt="logo" height="80">
+                <h1 style="color: white; text-align: center;"> &nbsp; Bite-By-Bytes </h1>
+
+       <div class ="resibo">
         Receipt <br>
         Customer: <%- customer  %> <br>
         Total: <%- total  %><br>
         Cash: <%- cash  %><br>
-        Total Discount: <%- totalDiscounted  %><br>
-        Product List: <%- productList  %><br>
-        Price List: <%- priceList  %><br>
-        Quantity List: <%- quantity  %><br>
+        Total Discount: <%- totalDiscounted[0]  %><br>
+        Change: <%- change  %><br>
+        <table>
+            <td>Order Receipt</td>
+            <% for (let i = 0; i < listProduct.length; i++) { %>
+                <tr>
+                    <td><%- listProduct[i] %></td>
+                    <td><%- listPrice[i] %></td>
+                    <td><%- listQuantity[i] %></td>
+                    <input type="hidden" name="product" value="<%- listProduct[i] %>">
+                    <input type="hidden" name="price" value="<%- listPrice[i] %>">
+                    <input type="hidden" name="quantity" value="<%- listQuantity[i] %>">
+                </tr>
+            <% } %>
+        </table>
+    </div>
     </form>
     <script>
-        function test(event) {
-            //event.preventDefault();
-            console.log("WORKING");
-        }
     </script>
 </body>
 </html>
