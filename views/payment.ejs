@@ -76,20 +76,48 @@
             totalDiscountedElement.innerText = `Discounted Total: ${totalDiscounted.toFixed(2)}`;
             
         });
+
+            steak = 900;
+            salmon = 850;
+            chicken = 300;
+            baked = 80;
+            mashed = 75;
+            steamed = 50;
+            iced = 55;
+            root = 60;
+            water = 20;
+
+            comboTotal = 0;
+            comboDiscount = 0;
+
+            mquan = quantityList[0];
+            squan = quantityList[1];
+            dquan = quantityList[2];
         
         const chickenIndex = productList.indexOf('CHICKEN');
         const mashedPotatoIndex = productList.indexOf('MASHED POTATO');
         const icedTeaIndex = productList.indexOf('ICED TEA');
 
         if (chickenIndex !== -1 && mashedPotatoIndex !== -1 && icedTeaIndex !== -1) {
-            totalDiscounted -= totalDiscounted * 0.1;
+            while (mquan > 0 && squan > 0 && dquan > 0) {
+                // Add price for combo meals ONLY
+                comboTotal = chicken + mashed + iced;
+            
+                // Discount for the combo ONLY
+                comboDiscount += (comboTotal * 0.10);
+                
+                // Decrement the quantity of each item to find how many combos in order
+                mquan--;
+                squan--;
+                dquan--;
+            }
 
+            totalDiscounted -= comboDiscount;
             totalDiscounted = parseFloat(totalDiscounted);
-            totalDiscountedHTML = `Discounted Total: ${totalDiscounted.toFixed(2)}`;
+            totalDiscountedHTML = `Discounted: ${totalDiscounted.toFixed(2)}`;
 
             const totalDiscountedElement = document.getElementById('totalDiscounted');
             totalDiscountedElement.innerText = totalDiscountedHTML;
-
             alert('Chicken Mash Tea Combo! 10% Discount is applied!');
         }
 
@@ -98,7 +126,20 @@
         const rootBeerIndex = productList.indexOf('ROOT BEER');
 
         if (steakIndex !== -1 && steamedVegetablesIndex !== -1 && rootBeerIndex !== -1) {
-            totalDiscounted -= totalDiscounted * 0.15;
+            while (mquan > 0 && squan > 0 && dquan > 0) {
+                // Add price for combo meals ONLY
+                comboTotal = steak + steamed + root;
+            
+                // Discount for the combo ONLY
+                comboDiscount += (comboTotal * 0.15);
+                
+                // Decrement the quantity of each item to find how many combos in order
+                mquan--;
+                squan--;
+                dquan--;
+            }
+
+            totalDiscounted -= comboDiscount;
 
             totalDiscounted = parseFloat(totalDiscounted);
             totalDiscountedHTML = `Discounted Total: ${totalDiscounted.toFixed(2)}`;

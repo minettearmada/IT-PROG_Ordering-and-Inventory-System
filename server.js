@@ -41,7 +41,25 @@ app.post('/payment', (req, res) => {
             : [req.body.total]; // Ensure totalList is an array
 
             let total = req.body.total;
+            let quantity = req.body.quantity;
             let totalDiscounted = parseFloat(total[total.length - 1]); // Initialize with the total
+
+            steak = 900;
+            salmon = 850;
+            chicken = 300;
+            baked = 80;
+            mashed = 75;
+            steamed = 50;
+            iced = 55;
+            root = 60;
+            water = 20;
+
+            comboTotal = 0;
+            comboDiscount = 0;
+
+            mquan = quantity[0];
+            squan = quantity[1];
+            dquan = quantity[2];
 
             // Apply discounts based on product combinations
             const hasChicken = productList.includes('CHICKEN');
@@ -49,8 +67,21 @@ app.post('/payment', (req, res) => {
             const hasIcedTea = productList.includes('ICED TEA');
 
             if (hasChicken && hasMashedPotato && hasIcedTea) {
-                totalDiscounted -= totalDiscounted * 0.1;
-                console.log("Discounted: ", totalDiscounted);
+                while (mquan > 0 && squan > 0 && dquan > 0) {
+                    // Add price for combo meals ONLY
+                    comboTotal = chicken + mashed + iced;
+                
+                    // Discount for the combo ONLY
+                    comboDiscount += (comboTotal * 0.10);
+                    
+                    // Decrement the quantity of each item to find how many combos in order
+                    mquan--;
+                    squan--;
+                    dquan--;
+                }
+                totalDiscounted -= comboDiscount;
+    
+                console.log("Chicken Discounted: ", totalDiscounted);
                 console.log('Chicken Mash Tea Combo! 10% Discount is applied!');
             }
 
@@ -59,8 +90,21 @@ app.post('/payment', (req, res) => {
             const hasRootBeer = productList.includes('ROOT BEER');
 
             if (hasSteak && hasSteamedVegetables && hasRootBeer) {
-                totalDiscounted -= totalDiscounted * 0.15;
-                console.log(totalDiscounted);
+                while (mquan > 0 && squan > 0 && dquan > 0) {
+                    // Add price for combo meals ONLY
+                    comboTotal = steak + steamed + root;
+                
+                    // Discount for the combo ONLY
+                    comboDiscount += (comboTotal * 0.15);
+                    
+                    // Decrement the quantity of each item to find how many combos in order
+                    mquan--;
+                    squan--;
+                    dquan--;
+                }
+                totalDiscounted -= comboDiscount;
+    
+                console.log("Steak Discount: ", totalDiscounted);
                 console.log('Steak Veg Beer Combo! 15% Discount is applied!');
             }
 
@@ -94,11 +138,78 @@ app.post('/receipt', (req, res) => {
             let total = req.body.total;
             let totalDiscounted = parseFloat(total[total.length - 1]); // Initialize with the total
 
+            let quantity = req.body.quantity;
+
+            steak = 900;
+            salmon = 850;
+            chicken = 300;
+            baked = 80;
+            mashed = 75;
+            steamed = 50;
+            iced = 55;
+            root = 60;
+            water = 20;
+
+            comboTotal = 0;
+            comboDiscount = 0;
+
+            mquan = quantity[0];
+            squan = quantity[1];
+            dquan = quantity[2];
+
+            // Apply discounts based on product combinations
+            const hasChicken = productList.includes('CHICKEN');
+            const hasMashedPotato = productList.includes('MASHED POTATO');
+            const hasIcedTea = productList.includes('ICED TEA');
+
+            if (hasChicken && hasMashedPotato && hasIcedTea) {
+                while (mquan > 0 && squan > 0 && dquan > 0) {
+                    // Add price for combo meals ONLY
+                    comboTotal = chicken + mashed + iced;
+                
+                    // Discount for the combo ONLY
+                    comboDiscount += (comboTotal * 0.10);
+                    
+                    // Decrement the quantity of each item to find how many combos in order
+                    mquan--;
+                    squan--;
+                    dquan--;
+                }
+                totalDiscounted -= comboDiscount;
+    
+                console.log("Chicken Discounted: ", totalDiscounted);
+                console.log('Chicken Mash Tea Combo! 10% Discount is applied!');
+            }
+
+            const hasSteak = productList.includes('STEAK');
+            const hasSteamedVegetables = productList.includes('STEAMED VEGETABLES');
+            const hasRootBeer = productList.includes('ROOT BEER');
+
+            if (hasSteak && hasSteamedVegetables && hasRootBeer) {
+                while (mquan > 0 && squan > 0 && dquan > 0) {
+                    // Add price for combo meals ONLY
+                    comboTotal = steak + steamed + root;
+                
+                    // Discount for the combo ONLY
+                    comboDiscount += (comboTotal * 0.15);
+                    
+                    // Decrement the quantity of each item to find how many combos in order
+                    mquan--;
+                    squan--;
+                    dquan--;
+                }
+                totalDiscounted -= comboDiscount;
+    
+                console.log("Steak Discount: ", totalDiscounted);
+                console.log('Steak Veg Beer Combo! 15% Discount is applied!');
+            }
+
             const totalDiscountedList = Array.isArray(req.body.totalDiscounted)
             ? req.body.totalDiscounted
             : [req.body.totalDiscounted]; // Ensure totalList is an array
 
             let change = req.body.cash - totalDiscountedList;
+
 
 
     // From payment
