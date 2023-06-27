@@ -27,7 +27,7 @@
         <div class="checkOut">
             <div class="total"> ₱ 0.00 </div>
             <div class="checkOutBtn">
-                <input type="submit" name="checkout" value="Checkout"/>
+                <input type="submit" name="checkout" value="Checkout" onclick="return validateQuantity()">
             </div>
         </div>
     </div>
@@ -38,7 +38,7 @@
             if (quantity > 0) {
                 return true; // Proceed with form submission
             } else {
-                alert("Quantity must be more than 0");
+                alert("Cart is empty. Add item/s before proceeding to checkout.");
                 return false; // Prevent form submission
             }
         }
