@@ -16,12 +16,12 @@
         Change: <%- change  %><br>
         <table>
             <td>Order Receipt</td>
+            <tr>
+                <td>Product</td>
+                <td>Price</td>
+                <td>Quantity</td>
+            </tr>
             <% for (let i = 0; i < listProduct.length; i++) { %>
-                <tr>
-                    <td>Product</td>
-                    <td>Price</td>
-                    <td>Quantity</td>
-                </tr>
                 <tr>
                     <td><%- listProduct[i] %></td>
                     <td><%- listPrice[i] %></td>
