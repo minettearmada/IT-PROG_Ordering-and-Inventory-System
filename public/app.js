@@ -7,55 +7,55 @@ let quantity = document.querySelector('.quantity');
 let products = [
     {
         id: 1,
-        name: 'Steak',
+        name: 'STEAK',
         image: 'm1.PNG',
         price: 900
     },
     {
         id: 2,
-        name: 'Salmon',
+        name: 'SALMON',
         image: 'm2.PNG',
         price: 850
     },
     {
         id: 3,
-        name: 'Chicken',
+        name: 'CHICKEN',
         image: 'm3.PNG',
         price: 300
     },
     {
         id: 4,
-        name: 'Baked Potato',
+        name: 'BAKED POTATO',
         image: 's1.PNG',
         price: 80
     },
     {
         id: 5,
-        name: 'Mashed Potato',
+        name: 'MASHED POTATO',
         image: 's2.PNG',
         price: 75
     },
     {
         id: 6,
-        name: 'Steamed Vegetables',
+        name: 'STEAMED VEGETABLES',
         image: 's3.PNG',
         price: 50
     },
     {
         id: 7,
-        name: 'Iced Tea',
+        name: 'ICED TEA',
         image: 'd1.PNG',
         price: 55
     },
     {
         id: 8,
-        name: 'Root Beer',
+        name: 'ROOT BEER',
         image: 'd2.PNG',
         price: 60
     },
     {
         id: 9,
-        name: 'Water',
+        name: 'WATER',
         image: 'd3.PNG',
         price: 20
     }
@@ -98,8 +98,6 @@ function initApp(){
 
         let newDiv = document.createElement('div');
         newDiv.classList.add('item');
-      
-
         newDiv.innerHTML = `
             <img src="assets/${value.image}">
             <div class="title">${value.name}</div>
@@ -118,7 +116,6 @@ function createCategoryDiv(className) {
   }
 
 initApp();
-
 function addToCard(key){
     if(listCards[key] == null){
         // copy product form list to list card
@@ -185,12 +182,10 @@ function reloadCard(){
                 </div>`;
                 listCard.appendChild(newDiv);
         }
-    }) 
+    })
     total.innerText = totalPrice.toLocaleString();
     quantity.innerText = count;
 }
-
-
 function changeQuantity(key, quantity){
     if(quantity == 0){
         delete listCards[key];
@@ -228,6 +223,4 @@ function changeQuantity(key, quantity){
         listCards[key].price = quantity * products[key].price;
     }
     reloadCard();
-
-    
 }

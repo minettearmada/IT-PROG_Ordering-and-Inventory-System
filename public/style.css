@@ -143,7 +143,7 @@ header{
     cursor: pointer;
     width: 100%;
     text-align: center
-}
+  }
 
 .listCard li{
     display: grid;

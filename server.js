@@ -4,12 +4,15 @@ const moment = require('moment'); // time
 const products = require('./products')
 const path = require('path');
 const bodyParser = require('body-parser');
+const router = require('./routes/router'); //add
+//const env = require('dotenv');
 
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public'))); // set static folder
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 
 // Get ALL products
 app.get('/api/products', (req, res) => res.json(products));
@@ -24,8 +27,8 @@ app.post('/payment', (req, res) => {
       console.log("Products:", req.body.product)
       console.log("Price:",req.body.price)
       console.log("Quantity:",req.body.quantity)
-
-      console.log("Current Date:", moment().format())
+      
+      console.log(moment().format())
     if (req.body && req.body.checkout) {
          if(req.body.quantity != 0){
             const productList = Array.isArray(req.body.product)
@@ -50,7 +53,7 @@ app.post('/payment', (req, res) => {
                 totalDiscounted = parseFloat(total[total.length - 1]); // Initialize with the total
             }
              
-             
+
 
             steak = 900;
             salmon = 850;
@@ -127,6 +130,8 @@ app.post('/payment', (req, res) => {
          }
     } 
 
+
+
 });
 
 app.post('/receipt', (req, res) => {
@@ -184,17 +189,17 @@ app.post('/receipt', (req, res) => {
                 while (mquan > 0 && squan > 0 && dquan > 0) {
                     // Add price for combo meals ONLY
                     comboTotal = chicken + mashed + iced;
-                
+
                     // Discount for the combo ONLY
                     comboDiscount += (comboTotal * 0.10);
-                    
+
                     // Decrement the quantity of each item to find how many combos in order
                     mquan--;
                     squan--;
                     dquan--;
                 }
                 totalDiscounted -= comboDiscount;
-    
+
                 console.log("Chicken Discounted: ", totalDiscounted);
                 console.log('Chicken Mash Tea Combo! 10% Discount is applied!');
             }
@@ -207,17 +212,17 @@ app.post('/receipt', (req, res) => {
                 while (mquan > 0 && squan > 0 && dquan > 0) {
                     // Add price for combo meals ONLY
                     comboTotal = steak + steamed + root;
-                
+
                     // Discount for the combo ONLY
                     comboDiscount += (comboTotal * 0.15);
-                    
+
                     // Decrement the quantity of each item to find how many combos in order
                     mquan--;
                     squan--;
                     dquan--;
                 }
                 totalDiscounted -= comboDiscount;
-    
+
                 console.log("Steak Discount: ", totalDiscounted);
                 console.log('Steak Veg Beer Combo! 15% Discount is applied!');
             }
@@ -256,3 +261,5 @@ app.post('/receipt', (req, res) => {
 });
 
 app.listen(3000);
+
+module.exports = app;

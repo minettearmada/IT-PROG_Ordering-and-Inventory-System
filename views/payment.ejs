@@ -26,19 +26,19 @@
               <th> Quantity </th>
             </tr>
           </thead>
-          <tr>
-          <% for (let i = 0; i < listProduct.length; i++) { %>
             <tr>
-                <td><%- listProduct[i] %></td>
-                <td><%- listPrice[i] %></td>
-                <td><%- listQuantity[i] %></td>
+              <% for (let i = 0; i < listProduct.length; i++) { %>
+                  <tr>
+                      <td><%- listProduct[i] %></td>
+                      <td><%- listPrice[i] %></td>
+                      <td><%- listQuantity[i] %></td>
                 <input type="hidden" name="product" value="<%- listProduct[i] %>">
                 <input type="hidden" name="price" value="<%- listPrice[i] %>">
                 <input type="hidden" name="quantity" value="<%- listQuantity[i] %>">
             </tr>
           <% } %>
-          </tr>
-        </table>
+              </tr> 
+          </table>	  
               <div class="productList" id="productList"></div>
               <br>
               <div class="total" id="total"></div>             <!-- gets the last value of the array for the final total amount -->
@@ -46,7 +46,7 @@
               <div class="totalDiscounted" id="totalDiscounted"></div> 
               <input type="hidden" value="<%- totalDiscounted %>" name="totalDiscounted">
     </div>
-
+    
     <div class="userInput">
       <h1 style="color: #F16D20"> Payment Details </h1>
       <br>
@@ -67,7 +67,6 @@
     </div>
   
     </form>
-
     <script>
 
         const productList = JSON.parse('<%- JSON.stringify(listProduct) %>');
@@ -79,7 +78,6 @@
         let totalDiscounted = total;
 
         document.addEventListener('DOMContentLoaded', () => {
-            
             // Display total
             const totalElement = document.getElementById('total');
             totalElement.innerText = `Total: ${total}`;
@@ -94,7 +92,7 @@
             // Set totalDiscounted element
             const totalDiscountedElement = document.getElementById('totalDiscounted');
             totalDiscountedElement.innerText = `Discounted Total: ${totalDiscounted.toFixed(2)}`;
-            
+
         });
 
             steak = 900;
@@ -113,7 +111,7 @@
             mquan = quantityList[0];
             squan = quantityList[1];
             dquan = quantityList[2];
-        
+
         const chickenIndex = productList.indexOf('CHICKEN');
         const mashedPotatoIndex = productList.indexOf('MASHED POTATO');
         const icedTeaIndex = productList.indexOf('ICED TEA');
@@ -125,7 +123,7 @@
             
                 // Discount for the combo ONLY
                 comboDiscount += (comboTotal * 0.10);
-                
+
                 // Decrement the quantity of each item to find how many combos in order
                 mquan--;
                 squan--;
@@ -138,6 +136,7 @@
 
             const totalDiscountedElement = document.getElementById('totalDiscounted');
             totalDiscountedElement.innerText = totalDiscountedHTML;
+
             alert('Chicken Mash Tea Combo! 10% Discount is applied!');
         }
 
@@ -169,7 +168,7 @@
 
             alert('Steak Veg Beer Combo! 15% Discount is applied!')
         }
-       
+
 
     </script>
 </body>
