@@ -8,6 +8,15 @@
     <title> Bite-By-Bytes </title></head>
     <link rel="stylesheet" href="style3.css">
     <script>
+        function getCurrentDateAndTime() {
+            const dateTime = new Date();
+            return dateTime.toLocaleString(); 
+        }
+
+        const dateDisplay = document.getElementById("date-container");
+
+        dateDisplay.innerHTML = getCurrentDateAndTime(); 
+
         function test(event) {
             event.preventDefault();
 
@@ -29,12 +38,15 @@
                 product0: product0,
                 price0: parseInt(price0),
                 quantity0: parseInt(quantity0),
+                cost0: parseInt(cost0),
                 product1: product1,
                 price1: parseInt(price1),
                 quantity1: parseInt(quantity1),
+                cost1: parseInt(cost1),
                 product2: product2,
                 price2: parseInt(price2),
                 quantity2: parseInt(quantity2),
+                cost2: parseInt(cost2)
             };
 
             fetch("/api/orders", {
@@ -131,6 +143,7 @@
                     <td></td>
                     <td></td>
                     <td><%- total  %></td>
+                    <input type="hidden" id="total" name="total" value="<%- total %>">
                 </tr>
 
                 <tr class="order-item">
@@ -140,6 +153,7 @@
                     <td></td>
                     <td></td>
                     <td><%- totalDiscounted  %></td>
+                    <input type="hidden" id="totalDiscounted" name="totalDiscounted" value="<%- totalDiscounted %>">
                 </tr>
 
                 <tr class="order-item">
@@ -149,6 +163,7 @@
                     <td></td>
                     <td></td>
                     <td><%- cash  %></td>
+                    <input type="hidden" id="cash" name="cash" value="<%- cash %>">
                 </tr>
 
                 <tr class="order-item">
@@ -158,6 +173,7 @@
                     <td></td>
                     <td></td>
                     <td><%- change  %></td>
+                    <input type="hidden" id="change" name="change" value="<%- change %>">
                     
                 </tr>
                 <tr>
@@ -168,15 +184,5 @@
     </div>
    
     </form>
-    <script>
-        function getCurrentDateAndTime() {
-    const dateTime = new Date();
-    return dateTime.toLocaleString(); 
-}
-
-const dateDisplay = document.getElementById("date-container");
-
-dateDisplay.innerHTML = getCurrentDateAndTime(); 
-</script>
 </body>
 </html>
