@@ -67,22 +67,55 @@ let listCards  = [];
 // Product Cards on Main Page
 function initApp(){
     products.forEach((value, key) =>{
+
+        // TODO: DEBUG 
+        // Add division
+        if (key === 3 || key === 6 || key === 0) {
+            // Add title based on the key
+            if (key === 0){
+                currentTitle = 'Main Dishes';
+                currentDesc = '------------------------------------------- You can only choose 1 main dish -------------------------------------------';
+                list.appendChild(createCategoryDiv('main-dishes'));
+            } else if (key === 3) {
+                currentTitle = 'Side Dishes';
+                currentDesc = '------------------------------------------- You can only choose 1 side dish -------------------------------------------';
+                list.appendChild(createCategoryDiv('side-dishes'));
+            } else if (key === 6) {
+                currentTitle = 'Drinks';
+                currentDesc = '------------------------------------------------ You can only choose 1 drink ----------------------------------------------';
+                list.appendChild(createCategoryDiv('drinks'));
+            }
+            let titleDiv = document.createElement('div');
+            titleDiv.classList.add('title');
+            titleDiv.innerHTML = `<h2 style="font-size:32px; font-weight:bold">${currentTitle}</h2>`;  
+            list.appendChild(titleDiv);
+
+            let descDiv = document.createElement('div');
+            descDiv.classList.add('desc');
+            descDiv.innerHTML = `<p style="font-weight:bold">${currentDesc}</p>`;
+            list.appendChild(descDiv);
+        }
+
         let newDiv = document.createElement('div');
         newDiv.classList.add('item');
-
         newDiv.innerHTML = `
             <img src="assets/${value.image}">
             <div class="title">${value.name}</div>
-            <div class="price">Php${value.price.toLocaleString()}</div>
-            <button id="${key}" onclick="addToCard(${key})">Add To Card</button>
-            <div class="price">Key: ${key}</div>`;
+            <div class="price">₱${value.price.toLocaleString()}.00</div>
+            <button id="${key}" onclick="addToCard(${key})">Add To Card</button>`;
 
         list.appendChild(newDiv);
-    })
+    });
 }
 
-initApp();
+// Helper function to create category <div> with custom class
+function createCategoryDiv(className) {
+    let categoryDiv = document.createElement('div');
+    categoryDiv.classList.add(className);
+    return categoryDiv;
+  }
 
+initApp();
 function addToCard(key){
     if(listCards[key] == null){
         // copy product form list to list card
@@ -137,23 +170,22 @@ function reloadCard(){
             let newDiv = document.createElement('li');
             newDiv.innerHTML = `
                 <div><img src="assets/${product.image}"/></div>
-                <div><input type="text" class="name-input" value="${product.name}" name="product" size="10" onchange="updateName(${key}, this)" readonly></div>
-                <div><input type="number" class="price-input" value="${product.price}" name="price" style="width: 3em" onchange="updatePrice(${key}, this)" readonly></div>
+                <div>${product.name}<input type="hidden" class="name-input" value="${product.name}" name="product" size="10" onchange="updateName(${key}, this)" readonly></div>
+                <div>${product.price}<input type="hidden" class="price-input" value="${product.price}" name="price" style="width: 3em" onchange="updatePrice(${key}, this)" readonly></div>
                 <div>
                     <button onclick="changeQuantity(${key}, ${value.quantity - 1})">-</button>
-                    <input type="number" class="count" id="quantity-${key}" value="${value.quantity}" name="quantity" style="width: 1.8em" min="1" onchange="updateQuantity(${key}, this) readonly">
+                    <div>${value.quantity}</div>
+                    <input type="hidden" class="count" id="quantity-${key}" value="${value.quantity}" name="quantity" style="width: 1.8em" min="1" readonly">
                     <button onclick="changeQuantity(${key}, ${value.quantity + 1})">+</button>
                 </div>
-                <input type="number" class="total" value="${totalPrice}" name="total" onchange="updateQuantity(${key}, this) readonly">
+                <input type="hidden" class="total" value="${totalPrice}" name="total" onchange="updateQuantity(${key}, this) readonly">
                 </div>`;
                 listCard.appendChild(newDiv);
         }
-    }) 
+    })
     total.innerText = totalPrice.toLocaleString();
     quantity.innerText = count;
 }
-
-
 function changeQuantity(key, quantity){
     if(quantity == 0){
         delete listCards[key];

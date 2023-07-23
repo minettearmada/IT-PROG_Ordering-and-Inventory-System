@@ -3,42 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <form method="post" action="/receipt">
-        <table>
-          <tr>
-            <th>Product</th>
-            <th>Price</th>
-            <th>Quantity</th>
-          </tr>
-          <tr>
-            <th class="productList" id="productList"></th>
-          </tr>
-          <tr>
-            <th class="total" id="total"></th>
-            <input type="hidden" value="<%- total[total.length - 1] %>" name="total">
-            <th class="totalDiscounted" id="totalDiscounted"></th>
-            </th>
-          </tr>
-          <tr>
-            <td>Name:</td>
-            <td> <input type="text" name="customer" id="customer" size="25"></td> 
-          </tr> 
-          <tr>
-              <td>Cash Amount:</td> 
-              <td> <input type="number" name="cash" id="cash"></td> 
-            </tr> 
-        </table>	  
-        <input type="submit" name="save" /><br />
-    </form>
+    <title> Bite-By-Bytes </title>
 
     <script>
+        function test(event) {
+            event.preventDefault();
+            console.log()
+        }
+    </script>
+
+</head>
+    <link rel="stylesheet" href="style2.css">
+<body>
+    <form method="post" action="/receipt">
+      <div class="container">
+        <header> 
+            <img class="logo" src="logo.svg" alt="logo" height="80">
+            <h1 style="color: white; text-align: center;"> &nbsp; Bite-By-Bytes </h1>
+        </header>
+    <br>
+
+    <div class ="orderList">
+      <h1 style="color: #F16D20"> Order Summary </h1>
+        <br>
+        <table class ="productTable">
+          <thead>
+            <tr>
+              <th style="color: #000000"> Product </th>
+              <th style="color: #000000"> Price </th>
+              <th style="color: #000000"> Quantity </th>
+            </tr>
+          </thead>
+            <tr>
+              <% for (let i = 0; i < listProduct.length; i++) { %>
+                  <tr>
+                      <td><%- listProduct[i] %></td>
+                      <td><%- listPrice[i] %></td>
+                      <td><%- listQuantity[i] %></td>
+                <input type="hidden" name="product" value="<%- listProduct[i] %>">
+                <input type="hidden" name="price" value="<%- listPrice[i] %>">
+                <input type="hidden" name="quantity" value="<%- listQuantity[i] %>">
+            </tr>
+          <% } %>
+              </tr> 
+          </table>	  
+              <div class="productList" id="productList"></div>
+              <br>
+              <div class="total" id="total"></div>             <!-- gets the last value of the array for the final total amount -->
+              <input type="hidden" value="<%- total[total.length - 1] %>" name="total"> 
+              <div class="totalDiscounted" id="totalDiscounted"></div> 
+              <input type="hidden" value="<%- totalDiscounted %>" name="totalDiscounted">
+    </div>
+    
+    <div class="userInput">
+      <h1 style="color: #F16D20"> Payment Details </h1>
+      <br>
+        <div class="name">
+            <h3 style="color: #FD9A24"> Name: &nbsp; </h3>
+            <div class="input-field>"> <input type="text" name="customer" id="customer" size="25" required> </div>
+        </div>
+      <br>
+        <div class="cashAmount">
+            <h3 style="color: #FD9A24"> Cash Amount: &nbsp; </h3>
+            <div class="input-field>"> <input type="number" name="cash" id="cash"  min="<%= total[total.length - 1] %>" required></td>  </div>
+        </div>
+      <br>
+      <div class ="buttonChoice">
+        <div class="submit"><input type="submit" name="save" /><br /></div>
+        <div class ="button"><input type="button" name="cancel" value="Cancel" onclick="window.history.back()" /></div>
+      </div>
+    </div>
+  
+    </form>
+    <script>
+
         const productList = JSON.parse('<%- JSON.stringify(listProduct) %>');
         const priceList = JSON.parse('<%- JSON.stringify(listPrice) %>');
         const quantityList = JSON.parse('<%- JSON.stringify(listQuantity) %>');
         const total = JSON.parse('<%- JSON.stringify(total[total.length - 1]) %>');
+
+        let productListHTML = '';
+        let totalDiscounted = total;
 
         document.addEventListener('DOMContentLoaded', () => {
             // Display total
@@ -50,50 +95,52 @@
             totalInput.value = total;
 
             const totalDiscountedInput = document.getElementById('totalDiscountedInput');
-            totalDiscountedInput.value = totalDiscounted.toFixed(2);
+            totalDiscountedInput.value = totalDiscounted.toFixed(2); // Add this line
+
+            // Set totalDiscounted element
+            const totalDiscountedElement = document.getElementById('totalDiscounted');
+            totalDiscountedElement.innerText = `Discounted Total: ${totalDiscounted.toFixed(2)}`;
+
         });
-        
 
-        // Get the productList element
-        const productListElement = document.getElementById('productList');
+            steak = 900;
+            salmon = 850;
+            chicken = 300;
+            baked = 80;
+            mashed = 75;
+            steamed = 50;
+            iced = 55;
+            root = 60;
+            water = 20;
 
-        let productListHTML = '';
+            comboTotal = 0;
+            comboDiscount = 0;
 
-        // Generate the HTML content for the product list
-        for (let i = 0; i < productList.length; i++) {
-            const product = productList[i];
-            const price = priceList[i];
-            const quantity = quantityList[i];
-            
-            productListHTML += `
-                <div>
-                    <table>
-                    <tr>${productList.length}
-                    <th><p>${product}</p></th>
-                    <th><p>${price}</p></th>
-                    <th><p>x</p></th>
-                    <th><p>${quantity}</p></th>
-                    </tr>
-                    </table>
-                </div>
-                <br>
-            `;
-        }
-
-        // Update the productList element with the generated HTML content
-        productListElement.innerHTML = productListHTML;
-        
-        let totalDiscounted = total;
+            mquan = quantityList[0];
+            squan = quantityList[1];
+            dquan = quantityList[2];
 
         const chickenIndex = productList.indexOf('CHICKEN');
         const mashedPotatoIndex = productList.indexOf('MASHED POTATO');
         const icedTeaIndex = productList.indexOf('ICED TEA');
 
         if (chickenIndex !== -1 && mashedPotatoIndex !== -1 && icedTeaIndex !== -1) {
-            totalDiscounted -= totalDiscounted * 0.1;
+            while (mquan > 0 && squan > 0 && dquan > 0) {
+                // Add price for combo meals ONLY
+                comboTotal = chicken + mashed + iced;
+            
+                // Discount for the combo ONLY
+                comboDiscount += (comboTotal * 0.10);
 
+                // Decrement the quantity of each item to find how many combos in order
+                mquan--;
+                squan--;
+                dquan--;
+            }
+
+            totalDiscounted -= comboDiscount;
             totalDiscounted = parseFloat(totalDiscounted);
-            totalDiscountedHTML = `Discounted Total: ${totalDiscounted.toFixed(2)}`;
+            totalDiscountedHTML = `Discounted: ${totalDiscounted.toFixed(2)}`;
 
             const totalDiscountedElement = document.getElementById('totalDiscounted');
             totalDiscountedElement.innerText = totalDiscountedHTML;
@@ -106,7 +153,20 @@
         const rootBeerIndex = productList.indexOf('ROOT BEER');
 
         if (steakIndex !== -1 && steamedVegetablesIndex !== -1 && rootBeerIndex !== -1) {
-            totalDiscounted -= totalDiscounted * 0.15;
+            while (mquan > 0 && squan > 0 && dquan > 0) {
+                // Add price for combo meals ONLY
+                comboTotal = steak + steamed + root;
+            
+                // Discount for the combo ONLY
+                comboDiscount += (comboTotal * 0.15);
+                
+                // Decrement the quantity of each item to find how many combos in order
+                mquan--;
+                squan--;
+                dquan--;
+            }
+
+            totalDiscounted -= comboDiscount;
 
             totalDiscounted = parseFloat(totalDiscounted);
             totalDiscountedHTML = `Discounted Total: ${totalDiscounted.toFixed(2)}`;
@@ -116,6 +176,7 @@
 
             alert('Steak Veg Beer Combo! 15% Discount is applied!')
         }
+
 
     </script>
 </body>
