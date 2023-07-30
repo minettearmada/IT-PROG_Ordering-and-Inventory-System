@@ -164,7 +164,7 @@
             <h2>Food Record</h2>
         <table border="1" width="50%">
             <tr bgcolor="#FLE5EB">
-                <th>foodID</th>
+                <th>foodCode</th>
                 <th>Name</th>
                 <th>Category</th>
                 <th>Price</th>
