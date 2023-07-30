@@ -11,25 +11,37 @@
     <head><title>Admin Page</title></head>
     <body>
 
-    <form action="add.php" method="post">
-        <input type="submit" value="Add" name="EnlistBtn">
+    <form action='addInput.php' method='post'>
+        <input type="submit" name="addInput" value="Add via Input"/>
     </form>
 
-    <form action="delete.php" method="post">
-        <input type="submit" value="Remove" name="EnlistBtn">
+    <form action='addXML.php' method='post'>
+        <input type="submit" name="addXML" value="Add via XML file"/>
+    </form>
+
+    <form action='update.php' method='post'>
+        <input type="submit" name="update" value="Update Record"/>
+    </form>
+
+    <form action='delete.php' method='post'>
+        <input type="submit" name="delete" value="Delete Record"/>
+    </form>
+
+    <form action='report.php' method='post'>
+        <input type="submit" name="report" value="Generate a Report"/>
     </form>
 
         <form action="login.php" method="get">
 
         <?php
         error_reporting(E_ERROR | E_PARSE);
-        $student_id = $_SESSION['getLogin'];
+        $user_id = $_SESSION['getLogin'];
 
-        echo "The student id is ".$student_id;
+        echo "USER ID:".$user_id;
         
 
         $studQuery = mysqli_query($conn, "SELECT f.foodCode AS foodCode, f.name AS name, f.category AS category, f.price AS price FROM food f");
-        if($student_id != null){
+        if($user_id != null){
             ?>
             <h2>Food Record</h2>
         <table border="1" width="50%">
@@ -66,7 +78,7 @@
             $studQuery = mysqli_query($conn, "SELECT c.comboID AS comboID, c.name AS name, c.mainCode AS mainCode, c.sideCode AS sideCode, c.drinkCode AS drinkCode, c.comboPrice as comboPrice FROM combos c");
             while($studResult = mysqli_fetch_assoc($studQuery)){
                 echo "<tr>";
-                echo "<td>".$studResult['comboId']."</td>";
+                echo "<td>".$studResult['comboID']."</td>";
                 echo "<td>".$studResult['name']."</td>";
                 echo "<td>".$studResult['mainCode']."</td>";
                 echo "<td>".$studResult['sideCode']."</td>";
@@ -78,7 +90,7 @@
         </table>
             <?php
         }else{
-            echo "<h2> ID Number Not found! </h2> </br>";
+            echo "<h2> User ID Not found! </h2> </br>";
         }
         ?>
                 
