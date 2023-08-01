@@ -4,12 +4,44 @@ let body = document.querySelector('body');
 let total = document.querySelector('.total');
 let quantity = document.querySelector('.quantity');
 
+
 // conn.query('SELECT * FROM food', function(err, foodData){
 //     console.log("Query successful!", foodData);
 //   });
 
-// let products = [];
 
+
+ let products = [];
+ let images = [];
+
+ async function fetchData() {
+    try {
+        console.log('TRYING TO FETCH DATA');
+
+      const response = await fetch('/api/food');
+      const foodData = await response.json();
+
+      products = foodData;
+
+      const response2 = await fetch('/api/images');
+        const imageData = await response2.json();
+
+        images = imageData;
+
+      console.log('Fetched food data:', foodData);
+        console.log('Fetched image data:', imageData);
+
+
+        
+      initApp();
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  }
+
+    fetchData();
+
+/*
 let products = [
     {
         foodCode: 1,
@@ -83,6 +115,8 @@ let products = [
     },
 ];
 
+*/
+
 
 // // Fetch the data from the server endpoint '/api/food'
 // fetch('/api/food')
@@ -105,10 +139,35 @@ let listCards  = [];
 // Products on Main Page
 // CLASSIFIES THE PRODUCTS AND DOES NOT RESET THE KEY VALUE
 function initApp() {
+
+    // Assign the fetched data to the 'products' array
+    //products = foodData;
+
+    products.forEach((product) => {
+        // Find the corresponding image_data for the product
+        const matchingImage = images.find((image) => image.imageID === product.imageID);
+    
+        // If a matching image is found, update the product's image property
+        if (matchingImage) {
+          product.image = matchingImage.image_data;
+        }
+      });
+
+    // Sort the products array based on the 'category' property
+    products.sort((a, b) => a.category.localeCompare(b.category));
+
+    // ... Continue with the existing logic to display the products in categorized sections
+    // (You may keep the rest of the initApp() function as it is)
+  
+
+    console.log('Fetched food data:RWARAWRAWRAWRAWRAWRAWRAWR');
+    /*
     products.sort((a, b) => {
         const categoryOrder = { 'M': 1, 'S': 2, 'D': 3 };
         return categoryOrder[a.category] - categoryOrder[b.category];
     });
+
+    */
     // // Sort the products array based on the 'category' property
     // products.sort((a, b) => a.category.localeCompare(b.category));
   
@@ -133,7 +192,7 @@ function initApp() {
           currentTitle = 'Drinks';
           currentDesc = '-------------------------------------------------- You can only choose 1 Drink ------------------------------------------------';
         }
-  
+
         let titleDiv = document.createElement('div');
         titleDiv.classList.add('title');
         titleDiv.innerHTML = `<h2 style="color: #DA7E0D; font-size:32px; font-weight:bold">${currentTitle}</h2>`;

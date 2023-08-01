@@ -20,9 +20,11 @@ const conn = mysql.createConnection({
   
 */
 
-conn.query('SELECT * FROM food', function(err, foodData){
-  console.log("Query successful!", foodData);
-});
 
+/*
+conn.query('SELECT * FROM food', function(err, foodData){
+  //console.log("Query successful!", foodData);
+});
+*/
 
 module.exports = conn;

@@ -4,6 +4,7 @@ const router = express.Router();
 const database = require('../database/Controller'); //add
 
 // // Get ALL products
+/*
 router.get('/api/food', (req, res) => {
     db.query('SELECT * FROM food', (err, foodData) => {
         if (err) {
@@ -15,9 +16,13 @@ router.get('/api/food', (req, res) => {
         }
     });
 });
+*/
 
 router.post('/orders', database.createOrder); //add
 router.get('/orders', database.getOrder); //add
+router.get('/food', database.getFood); //add
+router.get('/images', database.getImages); //add
+
 //router.get()
 
 module.exports = router;

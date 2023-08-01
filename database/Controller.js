@@ -17,6 +17,42 @@ exports.getOrders = (req, res, next) => {
         });
 }
 
+// GET /api/images
+/*
+gets all the images data
+*/
+exports.getImages = (req, res, next) => {
+    db.query('SELECT i.imageID as imageID, i.image_data as image_data FROM images i', (err, results) => {
+            if (err) {
+            console.error('Error executing MySQL query:', err);
+            res.status(500).send('Error executing query');
+            }else{
+
+            console.log("Query successful! from controller image");
+            console.log(results);
+            res.json(results);
+            }
+        });
+}
+
+// GET /api/food
+/*
+gets all the food data
+*/
+exports.getFood = (req, res, next) => {
+    db.query('SELECT * FROM food', (err, results) => {
+            if (err) {
+            console.error('Error executing MySQL query:', err);
+            res.status(500).send('Error executing query');
+            }else{
+
+            console.log("Query successful! from controller");
+            console.log(results);
+            res.json(results);
+            }
+        });
+}
+
 // GET /api/orders/:id
 
 exports.getOrder = (req, res, next) => {
