@@ -13,22 +13,6 @@
 </head>
 <body>
 
-
-
-
-    <?php
-
-    
-
-    
-
-    
-    
-
-
-    ?>
-
-
     <h2>Add via XML file containing food data:</h2>
     <form method="post" action='<?php echo $_SERVER["PHP_SELF"];?>' enctype="multipart/form-data">
     <?php
