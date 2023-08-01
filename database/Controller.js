@@ -2,7 +2,6 @@ const db = require('./db');
 const Order = require('../template/order');
 const app = require('../server');
 
-
 // GET /api/orders
 /*
 gets all the orders

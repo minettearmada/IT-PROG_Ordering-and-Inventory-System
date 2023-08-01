@@ -1,58 +1,75 @@
 const products = [
     {
-        id: 1,
+        foodCode: 1,
         name: 'STEAK',
-        image: 'm1.PNG',
-        price: 900
+        category: 'M',
+        price: 900,
+        image: 'image1.PNG',
     },
     {
-        id: 2,
+        foodCode: 2,
         name: 'SALMON',
-        image: 'm2.PNG',
+        category: 'M',
+        image: 'image2.PNG',
         price: 850
     },
     {
-        id: 3,
+        foodCode: 3,
         name: 'CHICKEN',
-        image: 'm3.PNG',
+        category: 'M',
+        image: 'image3.PNG',
         price: 300
     },
     {
-        id: 4,
+        foodCode: 4,
         name: 'BAKED POTATO',
-        image: 's1.PNG',
+        category: 'S',
+        image: 'image4.PNG',
         price: 80
     },
     {
-        id: 5,
+        foodCode: 5,
         name: 'MASHED POTATO',
-        image: 's2.PNG',
+        category: 'S',
+        image: 'image5.PNG',
         price: 75
     },
     {
-        id: 6,
+        foodCode: 6,
         name: 'STEAMED VEGETABLES',
-        image: 's3.PNG',
+        category: 'S',
+        image: 'image6.PNG',
         price: 50
     },
     {
-        id: 7,
+        foodCode: 7,
         name: 'ICED TEA',
-        image: 'd1.PNG',
+        category: 'D',
+        image: 'image7.PNG',
         price: 55
     },
     {
-        id: 8,
+        foodCode: 8,
         name: 'ROOT BEER',
-        image: 'd2.PNG',
+        category: 'D',
+        image: 'image8.PNG',
         price: 60
     },
     {
-        id: 9,
+        foodCode: 9,
         name: 'WATER',
-        image: 'd3.PNG',
+        category: 'D',
+        image: 'image9.PNG',
         price: 20
-    }
+    },
+    {
+        foodCode: 10,
+        name: 'FISH FILLET',
+        category: 'M',
+        image: 'image9.PNG',
+        price: 20
+    },
 ];
+
 
 module.exports = products;

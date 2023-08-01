@@ -4,147 +4,187 @@ let body = document.querySelector('body');
 let total = document.querySelector('.total');
 let quantity = document.querySelector('.quantity');
 
+// conn.query('SELECT * FROM food', function(err, foodData){
+//     console.log("Query successful!", foodData);
+//   });
+
+// let products = [];
+
 let products = [
     {
-        id: 1,
+        foodCode: 1,
         name: 'STEAK',
-        image: 'm1.PNG',
-        price: 900
+        category: 'M',
+        price: 900,
+        image: 'https://www.lemonblossoms.com/wp-content/uploads/2018/05/Pan_Seared_Steak_Recipe_S3-500x500.jpg',
     },
     {
-        id: 2,
+        foodCode: 2,
         name: 'SALMON',
-        image: 'm2.PNG',
+        category: 'M',
+        image: 'image2.PNG',
         price: 850
     },
     {
-        id: 3,
+        foodCode: 3,
         name: 'CHICKEN',
-        image: 'm3.PNG',
+        category: 'M',
+        image: 'image3.PNG',
         price: 300
     },
     {
-        id: 4,
+        foodCode: 4,
         name: 'BAKED POTATO',
-        image: 's1.PNG',
+        category: 'S',
+        image: 'image4.PNG',
         price: 80
     },
     {
-        id: 5,
+        foodCode: 5,
         name: 'MASHED POTATO',
-        image: 's2.PNG',
+        category: 'S',
+        image: 'image5.PNG',
         price: 75
     },
     {
-        id: 6,
+        foodCode: 6,
         name: 'STEAMED VEGETABLES',
-        image: 's3.PNG',
+        category: 'S',
+        image: 'image6.PNG',
         price: 50
     },
     {
-        id: 7,
+        foodCode: 7,
         name: 'ICED TEA',
-        image: 'd1.PNG',
+        category: 'D',
+        image: 'image7.PNG',
         price: 55
     },
     {
-        id: 8,
+        foodCode: 8,
         name: 'ROOT BEER',
-        image: 'd2.PNG',
+        category: 'D',
+        image: 'image8.PNG',
         price: 60
     },
     {
-        id: 9,
+        foodCode: 9,
         name: 'WATER',
-        image: 'd3.PNG',
+        category: 'D',
+        image: 'image9.PNG',
         price: 20
-    }
+    },
+    {
+        foodCode: 10,
+        name: 'FISH FILLET',
+        category: 'M',
+        image: 'image9.PNG',
+        price: 20
+    },
 ];
+
+
+// // Fetch the data from the server endpoint '/api/food'
+// fetch('/api/food')
+//   .then((response) => response.json())
+//   .then((foodData) => {
+//     // Assign the data received from the server to the 'products' array
+//     products = foodData;
+
+//     // Log the fetched data to verify
+//     console.log('Fetched food data:', foodData);
+
+//   })
+//   .catch((error) => {
+//     console.error('Error fetching products:', error);
+//   });
 
 let listCards  = [];
 
 
-// Product Cards on Main Page
-function initApp(){
-    products.forEach((value, key) =>{
-
-        // TODO: DEBUG 
-        // Add division
-        if (key === 3 || key === 6 || key === 0) {
-            // Add title based on the key
-            if (key === 0){
-                currentTitle = 'Main Dishes';
-                currentDesc = '------------------------------------------- You can only choose 1 Main Dish -------------------------------------------';
-            } else if (key === 3) {
-                currentTitle = 'Side Dishes';
-                currentDesc = '------------------------------------------- You can only choose 1 Side Dish -------------------------------------------';
-            } else if (key === 6) {
-                currentTitle = 'Drinks';
-                currentDesc = '-------------------------------------------------- You can only choose 1 Drink ------------------------------------------------';
-            }
-            let titleDiv = document.createElement('div');
-            titleDiv.classList.add('title');
-            titleDiv.innerHTML = `<h2 style="color: #DA7E0D; font-size:32px; font-weight:bold">${currentTitle}</h2>`;  
-            list.appendChild(titleDiv);
-
-            let descDiv = document.createElement('div');
-            descDiv.classList.add('desc');
-            descDiv.innerHTML = `<p style="color: #DA7E0D">${currentDesc}</p>`;
-            list.appendChild(descDiv);
-        }
-
-        let newDiv = document.createElement('div');
-        newDiv.classList.add('item');
-        newDiv.innerHTML = `
-            <img src="assets/${value.image}">
-            <div class="title">${value.name}</div>
-            <div class="price">₱${value.price.toLocaleString()}.00</div>
-            <button id="${key}" onclick="addToCard(${key})">Add To Cart</button>`;
-
-        list.appendChild(newDiv);
+// Products on Main Page
+// CLASSIFIES THE PRODUCTS AND DOES NOT RESET THE KEY VALUE
+function initApp() {
+    products.sort((a, b) => {
+        const categoryOrder = { 'M': 1, 'S': 2, 'D': 3 };
+        return categoryOrder[a.category] - categoryOrder[b.category];
     });
-}
+    // // Sort the products array based on the 'category' property
+    // products.sort((a, b) => a.category.localeCompare(b.category));
+  
+    let currentTitle = '';
+    let currentDesc = '';
+  
+    products.forEach((value, key) => {
+      // Check if a new category is encountered
+      if (key === 0 || value.category !== products[key - 1].category) {
+        // Set the title and description based on the category
+        if (value.category === 'M') {
+          currentTitle = 'Main Dishes';
+          currentDesc = '------------------------------------------- You can only choose 1 Main Dish -------------------------------------------';
+        } 
+        
+        if (value.category === 'S') {
+          currentTitle = 'Side Dishes';
+          currentDesc = '------------------------------------------- You can only choose 1 Side Dish -------------------------------------------';
+        }
+        
+        if (value.category === 'D') {
+          currentTitle = 'Drinks';
+          currentDesc = '-------------------------------------------------- You can only choose 1 Drink ------------------------------------------------';
+        }
+  
+        let titleDiv = document.createElement('div');
+        titleDiv.classList.add('title');
+        titleDiv.innerHTML = `<h2 style="color: #DA7E0D; font-size:32px; font-weight:bold">${currentTitle}</h2>`;
+        list.appendChild(titleDiv);
+  
+        let descDiv = document.createElement('div');
+        descDiv.classList.add('desc');
+        descDiv.innerHTML = `<p style="color: #DA7E0D">${currentDesc}</p>`;
+        list.appendChild(descDiv);
+      }
+  
+      let newDiv = document.createElement('div');
+      newDiv.classList.add('item');
+      newDiv.innerHTML = `
+        <img src="${value.image}"> 
+        <div class="title">${value.name}</div>
+        <div class="price">₱${value.price.toLocaleString()}.00</div>
+        <button id="${key}" onclick="addToCard(${key})">Add To Cart</button>
+        ${key}${value.category}
+        `;
+  
+      list.appendChild(newDiv);
+    });
+  }
 
+// Call the initApp() function to display the data
 initApp();
-function addToCard(key){
-    if(listCards[key] == null){
-        // copy product form list to list card
-        listCards[key] = JSON.parse(JSON.stringify(products[key]));
-        listCards[key].quantity = 1;
 
-        // Disable add to cart buttons of main, side, and drinks if either
-        // Disable buttons with keys 0-2 if any one of them is selected
-        if (key >= 0 && key <= 2) {
-            const buttons = document.querySelectorAll('.item button');
-            buttons.forEach((button, index) => {
-                if (index >= 0 && index <= 2) {
-                    button.disabled = true;
-                }
-            });
+function addToCard(key) {
+    const product = products[key];
+    const category = product.category;
+  
+    if (!listCards[key]) {
+      listCards[key] = JSON.parse(JSON.stringify(products[key]));
+      listCards[key].quantity = 1;
+  
+      // Disable add to cart buttons of products in the same category
+      const buttons = document.querySelectorAll('.item button');
+      buttons.forEach((button, index) => {
+        const productKey = parseInt(button.id);
+        if (products[productKey].category === category) {
+            button.disabled = true;
+        } else {
+            button.disabled = false;
         }
-
-        // Disable buttons with keys 3-5 if any one of them is selected
-        if (key >= 3 && key <= 5) {
-            const buttons = document.querySelectorAll('.item button');
-            buttons.forEach((button, index) => {
-                if (index >= 3 && index <= 5) {
-                    button.disabled = true;
-                }
-            });
-        }
-
-         // Disable buttons with keys 6-9 if any one of them is selected
-         if (key >= 6 && key <= 8) {
-            const buttons = document.querySelectorAll('.item button');
-            buttons.forEach((button, index) => {
-                if (index >= 6 && index <= 8) {
-                    button.disabled = true;
-                }
-            });
-        }
+      });
     }
+    
     reloadCard();
-}
+  }
+  
 
 // Product List Purhased on Cart
 function reloadCard(){
@@ -159,13 +199,13 @@ function reloadCard(){
         if(value != null){
             let newDiv = document.createElement('li');
             newDiv.innerHTML = `
-                <div><img src="assets/${product.image}"/></div>
+                <div><img src="${product.image}"/></div>
                 <div>${product.name}<input type="hidden" class="name-input" value="${product.name}" name="product" size="10" onchange="updateName(${key}, this)" readonly></div>
-                <div>${product.price}<input type="hidden" class="price-input" value="${product.price}" name="price" style="width: 3em" onchange="updatePrice(${key}, this)" readonly></div>
+                <div>${product.price}<input type="hidden" class="price-input" value="${product.price}" name="price" style="wfoodCodeth: 3em" onchange="updatePrice(${key}, this)" readonly></div>
                 <div>
                     <button onclick="changeQuantity(${key}, ${value.quantity - 1})">-</button>
                     <div>${value.quantity}</div>
-                    <input type="hidden" class="count" id="quantity-${key}" value="${value.quantity}" name="quantity" style="width: 1.8em" min="1" readonly">
+                    <input type="hidden" class="count" foodCode="quantity-${key}" value="${value.quantity}" name="quantity" style="wfoodCodeth: 1.8em" min="1" readonly">
                     <button onclick="changeQuantity(${key}, ${value.quantity + 1})">+</button>
                 </div>
                 <input type="hidden" class="total" value="${totalPrice}" name="total" onchange="updateQuantity(${key}, this) readonly">
@@ -176,39 +216,26 @@ function reloadCard(){
     total.innerText = totalPrice.toLocaleString();
     quantity.innerText = count;
 }
-function changeQuantity(key, quantity){
-    if(quantity == 0){
+
+function changeQuantity(key, quantity) {
+    if (quantity === 0) {
         delete listCards[key];
 
-        // Enable the keys if the product is removed in the card
-        if (key >= 0 && key <= 2) {
-            const buttons = document.querySelectorAll('.item button');
-            buttons.forEach((button, index) => {
-                if (index >= 0 && index <= 2) {
-                    button.disabled = false;
-                }
-            });
-        }
+        // Check if there are any products left in the listCards for the category
+        const category = products[key].category;
+        const categoryProducts = Object.values(listCards).filter((card) => card.category === category);
 
-        if (key >= 3 && key <= 5) {
+        // If no products are left in the listCards for the category, enable the buttons for that category
+        if (categoryProducts.length === 0) {
             const buttons = document.querySelectorAll('.item button');
             buttons.forEach((button, index) => {
-                if (index >= 3 && index <= 5) {
+                const productKey = parseInt(button.id);
+                if (products[productKey].category === category) {
                     button.disabled = false;
                 }
             });
         }
-        
-        if (key >= 6 && key <= 8) {
-            const buttons = document.querySelectorAll('.item button');
-            buttons.forEach((button, index) => {
-                if (index >= 6 && index <= 8) {
-                    button.disabled = false;
-                }
-            });
-        }
-
-    }else{
+    } else {
         listCards[key].quantity = quantity;
         listCards[key].price = quantity * products[key].price;
     }
