@@ -154,7 +154,7 @@ function initApp() {
       });
 
     // Sort the products array based on the 'category' property
-    products.sort((a, b) => a.category.localeCompare(b.category));
+    // products.sort((a, b) => a.category.localeCompare(b.category));
 
     // ... Continue with the existing logic to display the products in categorized sections
     // (You may keep the rest of the initApp() function as it is)
@@ -170,6 +170,15 @@ function initApp() {
     */
     // // Sort the products array based on the 'category' property
     // products.sort((a, b) => a.category.localeCompare(b.category));
+    // Define the custom category order
+  const categoryOrder = {
+    'M': 1, // Main Dishes
+    'S': 2, // Side Dishes
+    'D': 3  // Drinks
+  };
+
+  // Sort the products array based on the custom category order
+  products.sort((a, b) => categoryOrder[a.category] - categoryOrder[b.category]);
   
     let currentTitle = '';
     let currentDesc = '';
