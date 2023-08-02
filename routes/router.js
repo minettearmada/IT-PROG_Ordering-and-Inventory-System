@@ -22,6 +22,7 @@ router.post('/orders', database.createOrder); //add
 router.get('/orders', database.getOrder); //add
 router.get('/food', database.getFood); //add
 router.get('/images', database.getImages); //add
+router.get('/combo', database.getCombo); //add
 
 //router.get()
 

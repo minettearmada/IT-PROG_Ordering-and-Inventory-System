@@ -118,21 +118,6 @@ let products = [
 */
 
 
-// // Fetch the data from the server endpoint '/api/food'
-// fetch('/api/food')
-//   .then((response) => response.json())
-//   .then((foodData) => {
-//     // Assign the data received from the server to the 'products' array
-//     products = foodData;
-
-//     // Log the fetched data to verify
-//     console.log('Fetched food data:', foodData);
-
-//   })
-//   .catch((error) => {
-//     console.error('Error fetching products:', error);
-//   });
-
 let listCards  = [];
 
 
@@ -220,7 +205,7 @@ function initApp() {
         <div class="title">${value.name}</div>
         <div class="price">₱${value.price.toLocaleString()}.00</div>
         <button id="${key}" onclick="addToCard(${key})">Add To Cart</button>
-        ${key}${value.category}
+        ${key}${value.category}${value.foodCode}
         `;
   
       list.appendChild(newDiv);
@@ -268,12 +253,13 @@ function reloadCard(){
             let newDiv = document.createElement('li');
             newDiv.innerHTML = `
                 <div><img src="${product.image}"/></div>
+                <input type="hidden" class="foodCode-input" value="${product.foodCode}" name="foodCode" size="10" onchange="updateName(${key}, this)" readonly>
                 <div>${product.name}<input type="hidden" class="name-input" value="${product.name}" name="product" size="10" onchange="updateName(${key}, this)" readonly></div>
                 <div>${product.price}<input type="hidden" class="price-input" value="${product.price}" name="price" style="wfoodCodeth: 3em" onchange="updatePrice(${key}, this)" readonly></div>
                 <div>
                     <button onclick="changeQuantity(${key}, ${value.quantity - 1})">-</button>
                     <div>${value.quantity}</div>
-                    <input type="hidden" class="count" foodCode="quantity-${key}" value="${value.quantity}" name="quantity" style="wfoodCodeth: 1.8em" min="1" readonly">
+                    <input type="hidden" class="count" id="quantity-${key}" value="${value.quantity}" name="quantity" style="width: 1.8em" min="1" readonly">
                     <button onclick="changeQuantity(${key}, ${value.quantity + 1})">+</button>
                 </div>
                 <input type="hidden" class="total" value="${totalPrice}" name="total" onchange="updateQuantity(${key}, this) readonly">
@@ -309,3 +295,4 @@ function changeQuantity(key, quantity) {
     }
     reloadCard();
 }
+

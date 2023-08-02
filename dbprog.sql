@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jul 31, 2023 at 08:03 PM
+-- Host: localhost
+-- Generation Time: Aug 03, 2023 at 01:07 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -33,16 +33,17 @@ CREATE TABLE `combos` (
   `mainCode` int(11) NOT NULL,
   `sideCode` int(11) NOT NULL,
   `drinkCode` int(11) NOT NULL,
-  `comboPrice` double NOT NULL
+  `discountPrice` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `combos`
 --
 
-INSERT INTO `combos` (`comboID`, `name`, `mainCode`, `sideCode`, `drinkCode`, `comboPrice`) VALUES
-(1, 'Chicken Mash Tea', 3, 5, 7, 387),
-(2, 'Steak Veg Beer Combo', 1, 6, 8, 909);
+INSERT INTO `combos` (`comboID`, `name`, `mainCode`, `sideCode`, `drinkCode`, `discountPrice`) VALUES
+(1, 'Chicken Mash Tea', 3, 5, 7, 43),
+(2, 'Steak Veg Beer Combo', 1, 6, 8, 151.5),
+(3, 'COMBOBO', 1, 4, 9, 50);
 
 -- --------------------------------------------------------
 
@@ -99,7 +100,8 @@ INSERT INTO `images` (`imageID`, `originalName`, `mime_type`, `image_data`) VALU
 (6, 's3.png', 'image/png', 'assets/image6.png'),
 (7, 'd1.png', 'image/png', 'assets/image7.png'),
 (8, 'd2.png', 'image/png', 'assets/image8.png'),
-(9, 'd3.png', 'image/png', 'assets/image9.png');
+(9, 'd3.png', 'image/png', 'assets/image9.png'),
+(10, 'd1.png', 'image/png', 'assets/image10.png');
 
 -- --------------------------------------------------------
 
@@ -204,7 +206,7 @@ ALTER TABLE `food`
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `imageID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `imageID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `orders`

@@ -53,6 +53,24 @@ exports.getFood = (req, res, next) => {
         });
 }
 
+// GET /api/combo
+/*
+gets all the combo data
+*/
+exports.getCombo = (req, res, next) => {
+    db.query('SELECT * FROM combos', (err, results) => {
+            if (err) {
+            console.error('Error executing MySQL query:', err);
+            res.status(500).send('Error executing query');
+            }else{
+
+            console.log("Query successful! from controller");
+            console.log(results);
+            res.json(results);
+            }
+        });
+}
+
 // GET /api/orders/:id
 
 exports.getOrder = (req, res, next) => {

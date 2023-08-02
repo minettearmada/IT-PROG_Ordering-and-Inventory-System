@@ -11,7 +11,7 @@
             console.log()
         }
     </script>
-
+    
 </head>
     <link rel="stylesheet" href="style2.css">
 <body>
@@ -49,10 +49,12 @@
           </table>	  
               <div class="productList" id="productList"></div>
               <br>
-              <div class="total" id="total"></div>             <!-- gets the last value of the array for the final total amount -->
-              <input type="hidden" value="<%- total[total.length - 1] %>" name="total"> 
-              <div class="totalDiscounted" id="totalDiscounted"></div> 
+              <div class="total" id="total">Total: <%- total %></div>
+              <input type="hidden" value="<%- total %>" name="total"> 
+              <% if(hasCombo) {%>
+              <div class="totalDiscounted" id="totalDiscounted">Total Discounted: <%- totalDiscounted %></div> 
               <input type="hidden" value="<%- totalDiscounted %>" name="totalDiscounted">
+              <% } %>
     </div>
     
     <div class="userInput">
@@ -65,7 +67,7 @@
       <br>
         <div class="cashAmount">
             <h3 style="color: black"> Cash Amount: &nbsp; </h3>
-            <div class="input-field>"> <input type="number" name="cash" id="cash"  min="<%= total[total.length - 1] %>" required></td>  </div>
+            <div class="input-field>"> <input type="number" name="cash" id="cash"  min="<%= total %>" required></td>  </div>
         </div>
       <br>
       <div class ="buttonChoice">
@@ -78,106 +80,19 @@
     <script>
 
         const productList = JSON.parse('<%- JSON.stringify(listProduct) %>');
+        const hasCombo = JSON.parse('<%- JSON.stringify(hasCombo) %>');
+        const comboName = JSON.parse('<%- JSON.stringify(comboName) %>');
+        const discountPrice = JSON.parse('<%- JSON.stringify(discountPrice) %>');
+        const totalDiscounted = JSON.parse('<%- JSON.stringify(totalDiscounted) %>');
         const priceList = JSON.parse('<%- JSON.stringify(listPrice) %>');
         const quantityList = JSON.parse('<%- JSON.stringify(listQuantity) %>');
         const total = JSON.parse('<%- JSON.stringify(total[total.length - 1]) %>');
 
-        let productListHTML = '';
-        let totalDiscounted = total;
+        if (hasCombo) {
+          alert('${comboName} Combo! ${comboDiscount}% Discount is applied');
 
-        document.addEventListener('DOMContentLoaded', () => {
-            // Display total
-            const totalElement = document.getElementById('total');
-            totalElement.innerText = `Total: ${total}`;
-
-            // Set total and totalDiscounted form inputs
-            const totalInput = document.getElementById('totalInput');
-            totalInput.value = total;
-
-            const totalDiscountedInput = document.getElementById('totalDiscountedInput');
-            totalDiscountedInput.value = totalDiscounted.toFixed(2); // Add this line
-
-            // Set totalDiscounted element
-            const totalDiscountedElement = document.getElementById('totalDiscounted');
-            totalDiscountedElement.innerText = `Discounted Total: ${totalDiscounted.toFixed(2)}`;
-
-        });
-
-            steak = 900;
-            salmon = 850;
-            chicken = 300;
-            baked = 80;
-            mashed = 75;
-            steamed = 50;
-            iced = 55;
-            root = 60;
-            water = 20;
-
-            comboTotal = 0;
-            comboDiscount = 0;
-
-            mquan = quantityList[0];
-            squan = quantityList[1];
-            dquan = quantityList[2];
-
-        const chickenIndex = productList.indexOf('CHICKEN');
-        const mashedPotatoIndex = productList.indexOf('MASHED POTATO');
-        const icedTeaIndex = productList.indexOf('ICED TEA');
-
-        if (chickenIndex !== -1 && mashedPotatoIndex !== -1 && icedTeaIndex !== -1) {
-            while (mquan > 0 && squan > 0 && dquan > 0) {
-                // Add price for combo meals ONLY
-                comboTotal = chicken + mashed + iced;
-            
-                // Discount for the combo ONLY
-                comboDiscount += (comboTotal * 0.10);
-
-                // Decrement the quantity of each item to find how many combos in order
-                mquan--;
-                squan--;
-                dquan--;
-            }
-
-            totalDiscounted -= comboDiscount;
-            totalDiscounted = parseFloat(totalDiscounted);
-            totalDiscountedHTML = `Discounted: ${totalDiscounted.toFixed(2)}`;
-
-            const totalDiscountedElement = document.getElementById('totalDiscounted');
-            totalDiscountedElement.innerText = totalDiscountedHTML;
-
-            alert('Chicken Mash Tea Combo! 10% Discount is applied!');
+            total = totalDiscounted;
         }
-
-        const steakIndex = productList.indexOf('STEAK');
-        const steamedVegetablesIndex = productList.indexOf('STEAMED VEGETABLES');
-        const rootBeerIndex = productList.indexOf('ROOT BEER');
-
-        if (steakIndex !== -1 && steamedVegetablesIndex !== -1 && rootBeerIndex !== -1) {
-            while (mquan > 0 && squan > 0 && dquan > 0) {
-                // Add price for combo meals ONLY
-                comboTotal = steak + steamed + root;
-            
-                // Discount for the combo ONLY
-                comboDiscount += (comboTotal * 0.15);
-                
-                // Decrement the quantity of each item to find how many combos in order
-                mquan--;
-                squan--;
-                dquan--;
-            }
-
-            totalDiscounted -= comboDiscount;
-
-            totalDiscounted = parseFloat(totalDiscounted);
-            totalDiscountedHTML = `Discounted Total: ${totalDiscounted.toFixed(2)}`;
-
-            const totalDiscountedElement = document.getElementById('totalDiscounted');
-            totalDiscountedElement.innerText = totalDiscountedHTML;
-
-            alert('Steak Veg Beer Combo! 15% Discount is applied!')
-        }
-
-
     </script>
 </body>
 </html>
