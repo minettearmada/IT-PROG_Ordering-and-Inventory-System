@@ -94,10 +94,10 @@ exports.createOrder = (req, res, next) => {
     const main = req.body.product0;
     const side = req.body.product1;
     const drink = req.body.product2;
-    const m1 = req.body.quantity0;
-    const s1 = req.body.quantity1;
-    const d1 = req.body.quantity2;
-    const final = req.body.total;
+    const mainQuan = req.body.quantity0;
+    const sideQuan = req.body.quantity1;
+    const drinkQuan = req.body.quantity2;
+    const total = req.body.total;
 
     /*
     const temp = {
@@ -114,7 +114,7 @@ exports.createOrder = (req, res, next) => {
     };
     */
 
-    const order = new Order(name, main, side, drink, m1, s1, d1, final);
+    const order = new Order(name, main, side, drink, mainQuan, sideQuan, drinkQuan, total);
 
     db.query('INSERT INTO orders SET ?' , [order], (err, results) => {
             if (err) {
@@ -175,13 +175,13 @@ exports.updateOrder = (req, res, next) => {
     const main = req.body.main;
     const side = req.body.side;
     const drink = req.body.drink;
-    const m1 = req.body.m1;
-    const s1 = req.body.s1;
-    const d1 = req.body.d1;
+    const m1 = req.body.mainQuan;
+    const s1 = req.body.sideQuan;
+    const d1 = req.body.drinkQuan;
     const price = req.body.price;
     const CMT = req.body.CMT;
     const SVB = req.body.SVB;
-    const final = req.body.final;
+    const final = req.body.total;
     const date = req.body.date;
 
     const order = new Order(id, name, main, side, drink, m1, s1, d1, price, CMT, SVB, final, date);
