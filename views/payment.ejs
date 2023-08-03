@@ -82,21 +82,22 @@
     </form>
     <script>
 
-        const productList = JSON.parse('<%- JSON.stringify(listProduct) %>');
-        const hasCombo = JSON.parse('<%- JSON.stringify(hasCombo) %>');
-        const discountPrice = JSON.parse('<%- JSON.stringify(discountPrice) %>');
-        const totalDiscounted = JSON.parse('<%- JSON.stringify(totalDiscounted) %>');
-        const priceList = JSON.parse('<%- JSON.stringify(listPrice) %>');
-        const quantityList = JSON.parse('<%- JSON.stringify(listQuantity) %>');
-        const total = JSON.parse('<%- JSON.stringify(total[total.length - 1]) %>');
+       // const productList = JSON.parse('<%- JSON.stringify(listProduct) %>');
+       // const hasCombo = JSON.parse('<%- JSON.stringify(hasCombo) %>');
+       // const discountPrice = JSON.parse('<%- JSON.stringify(discountPrice) %>');
+       // const totalDiscounted = JSON.parse('<%- JSON.stringify(totalDiscounted) %>');
+       // const priceList = JSON.parse('<%- JSON.stringify(listPrice) %>');
+       // const quantityList = JSON.parse('<%- JSON.stringify(listQuantity) %>');
+       // const total = JSON.parse('<%- JSON.stringify(total[total.length - 1]) %>');
 
-        console.log("COMBO???", hasCombo);
-        if (hasCombo) {
-          alert('Combo Achieved! Discount is applied');
-            total = totalDiscounted;
-        }else{
-          alert('No Combo!');
-        }
+        //console.log("COMBO???", hasCombo);
+        //if (hasCombo) {
+          //alert('Combo Achieved! Discount is applied');
+            //total = totalDiscounted;
+       // }else{
+         // alert('No Combo!');
+        //}
+        
     </script>
 </body>
 </html>
