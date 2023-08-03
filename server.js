@@ -50,6 +50,7 @@ app.post('/payment', async (req, res) => {
       console.log("Food Code:", req.body.foodCode)
       console.log("Price:",req.body.price)
       console.log("Quantity:",req.body.quantity)
+
       
       console.log(moment().format())
 
@@ -77,15 +78,13 @@ app.post('/payment', async (req, res) => {
             let totalDiscounted = 0;
 
             // Calculate the total price by summing up all the prices multiplied by the quantity
-let total = 0;
-for (let i = 0; i < priceList.length; i++) {
-    total += parseFloat(priceList[i]) * parseInt(quantityList[i]);
-}
-console.log("total:", total); // This will log the calculated total as a single numeric value
+        let total = 0;
+        for (let i = 0; i < priceList.length; i++) {
+            total += parseFloat(priceList[i]) * parseInt(quantityList[i]);
+        }
+        console.log("total:", total); // This will log the calculated total as a single numeric value
 
 
-           
-             
         console.log("CHECK IF COMBO");
              // Fetch combo data and wait for the response
              await fetchComboData();
@@ -164,6 +163,8 @@ app.post('/receipt', (req, res) => {
             ? req.body.price
             : [req.body.price]; // Ensure priceList is an array
 
+            const foodCode = req.body.foodCode[req.body.foodCode.length - 1];
+
             // const totalList = Array.isArray(req.body.total)
             // ? req.body.total
             // : [req.body.total]; // Ensure totalList is an array
@@ -222,7 +223,7 @@ app.post('/receipt', (req, res) => {
         products: products, // Pass the products array to the template
         change: change,
         hasCombo: hasCombo,
-        foodCode: req.body.foodCode
+        foodCode: foodCode
     });
 
     console.log("RECEIPT")
@@ -235,7 +236,7 @@ app.post('/receipt', (req, res) => {
     console.log("Quantity List:", req.body.quantity)
     console.log("Change:", change)
     console.log("Combo:", req.body.hasCombo)
-    console.log("Food Code:", req.body.foodCode)
+    console.log("Food Code:", foodCode)
 });
 
 app.listen(3000);
