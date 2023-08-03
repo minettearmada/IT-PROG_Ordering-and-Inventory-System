@@ -7,8 +7,14 @@
 ?>
 
 <html>
-<head><title>Add Food Images</title></head>
-<body bgcolor="#ffccff">
+<head><title> Add Food Images </title></head>
+<link rel="stylesheet" href="style3.css">
+
+<body>
+    <header> 
+        <img class="logo" src="logo.svg" alt="logo" height="80">
+        <h1 style="color: white; text-align: center;"> &nbsp; Bite-By-Bytes </h1>
+    </header>
 
 <h2> Upload an image: </h2>
 <hr>
@@ -146,7 +152,6 @@ if (isset($_POST['uploadBtn']) && isset($_FILES["imageFile"])) {
         ?>
         </table>
 
-
 <form action='main.php' method='post'>
     <tr><td colspan='1'><input type='submit' value='Back to Main Page' name='backBtn' /></td></tr>
 </form>
@@ -155,5 +160,6 @@ if (isset($_POST['uploadBtn']) && isset($_FILES["imageFile"])) {
 <?php
 }
 ?>
+
 </body>
 </html>

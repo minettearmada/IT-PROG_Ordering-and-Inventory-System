@@ -1,31 +1,40 @@
 <html>
-<head><title>Student Form</title></head>
+<head><title> Administrator Login </title></head>
+<link rel="stylesheet" href="style1.css">
+
 <body>
+  <header> 
+    <img class="logo" src="logo.svg" alt="logo" height="80">
+    <h1 style="color: white; text-align: center;"> &nbsp; Bite-By-Bytes </h1>
+  </header>
 
-<h2>Student Registration Form</h2>
-<form method="post" action="check.php">
+<div class="login-card">
+  <h1 style="color: #F16D20"> Administrator Login </h1>
+  <form method="post" action="check.php">
 
-<table>
-<tr>
-  <td>Enter username:</td> 
-  <td><input type="text" name="username" size="25"/></td>
-</tr>
-<tr>
-    <td>Enter password:</td> 
-    <td><input type="text" name="password" size="25"/></td>
-    <tr><td colspan="2" align="center"><input type="submit" value="Login" name="loginBtn"/></td>
-    </form>
-  </tr>
+  <hr>
+  <br>
 
-</table>	  
+  <div class="form-group">
+    <input type="text" placeholder="Username" name="username" size="25" required>
+  </div>
+
+  <div class="form-group">
+    <input type="password" placeholder="Password" name="password" size="25" required>
+  </div>
+  
+  <input type="submit" value="Login" name="loginBtn"/>
+
+</form>
+</div>  
 
 <?php
       if(isset($_GET["error"])) {
           $error=$_GET["error"];
   
-        //this line will be called by the check.php if the login credentials are incorrect 
+        // this line will be called by the check.php if the login credentials are incorrect 
          if ($error==1) {
-            echo "<p align='center'>Username and/or password invalid<br/></p>"; 
+            echo "<p align=center style='color: red;'> Username and/or password is invalid! Please try again. <br/></p>"; 
 		   }
       }
  
