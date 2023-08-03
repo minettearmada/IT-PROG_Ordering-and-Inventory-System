@@ -108,7 +108,7 @@ app.post('/payment', async (req, res) => {
             console.log("Main Code:", comboItem.mainCode);
             console.log("Side Code:", comboItem.sideCode);
             console.log("drink Code:", comboItem.drinkCode);
-            console.log("Discounted Price:", comboItem.discountPrice);
+            console.log("Discounted Price:", comboItem.comboPrice);
             // Add other properties of comboItem as needed
             
             // Compare foodCode with mainCode, sideCode, and drinkCode
@@ -121,9 +121,10 @@ app.post('/payment', async (req, res) => {
 
             hasCombo = true;
             comboName = comboItem.comboName; // Store the combo name
-            discountPrice = comboItem.discountPrice;
-            totalDiscounted = total - comboItem.discountPrice; // apply the discount
+            discountPrice = comboItem.comboPrice;
+            totalDiscounted = total - comboItem.comboPrice; // apply the discount
             console.log("Total", total);
+            console.log("total discounted:", totalDiscounted);
 
         }else{
             console.log('Food Code does not exist in comboData');
@@ -132,6 +133,7 @@ app.post('/payment', async (req, res) => {
 
         if(hasCombo){
             console.log('HELLOOO COMBO IN')
+            
         }
 
 
