@@ -144,7 +144,8 @@ console.log("total:", total); // This will log the calculated total as a single 
                 total: total,
                 products: products, // Pass the products array to the template
                 hasCombo: hasCombo,
-                discountPrice: discountPrice
+                discountPrice: discountPrice,
+                foodCode: foodCode
             })
          }
     } 
@@ -220,7 +221,8 @@ app.post('/receipt', (req, res) => {
         listProduct: productList, // Use the productList array in the template
         products: products, // Pass the products array to the template
         change: change,
-        hasCombo: hasCombo
+        hasCombo: hasCombo,
+        foodCode: req.body.foodCode
     });
 
     console.log("RECEIPT")
@@ -233,6 +235,7 @@ app.post('/receipt', (req, res) => {
     console.log("Quantity List:", req.body.quantity)
     console.log("Change:", change)
     console.log("Combo:", req.body.hasCombo)
+    console.log("Food Code:", req.body.foodCode)
 });
 
 app.listen(3000);
