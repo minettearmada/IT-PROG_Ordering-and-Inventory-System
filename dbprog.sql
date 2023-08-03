@@ -33,17 +33,16 @@ CREATE TABLE `combos` (
   `mainCode` int(11) NOT NULL,
   `sideCode` int(11) NOT NULL,
   `drinkCode` int(11) NOT NULL,
-  `discountPrice` double NOT NULL
+  `comboPrice` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `combos`
 --
 
-INSERT INTO `combos` (`comboID`, `name`, `mainCode`, `sideCode`, `drinkCode`, `discountPrice`) VALUES
-(1, 'Chicken Mash Tea', 3, 5, 7, 43),
-(2, 'Steak Veg Beer Combo', 1, 6, 8, 151.5),
-(3, 'COMBOBO', 1, 4, 9, 50);
+INSERT INTO `combos` (`comboID`, `name`, `mainCode`, `sideCode`, `drinkCode`, `comboPrice`) VALUES
+(1, 'Chicken Mash Tea', 3, 5, 7, 387),
+(2, 'Steak Veg Beer Combo', 1, 6, 8, 909);
 
 -- --------------------------------------------------------
 
@@ -100,27 +99,7 @@ INSERT INTO `images` (`imageID`, `originalName`, `mime_type`, `image_data`) VALU
 (6, 's3.png', 'image/png', 'assets/image6.png'),
 (7, 'd1.png', 'image/png', 'assets/image7.png'),
 (8, 'd2.png', 'image/png', 'assets/image8.png'),
-(9, 'd3.png', 'image/png', 'assets/image9.png'),
-(10, 'd1.png', 'image/png', 'assets/image10.png');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `orders`
---
-
-CREATE TABLE `orders` (
-  `orderID` int(11) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `main` varchar(50) NOT NULL,
-  `side` varchar(50) NOT NULL,
-  `drink` varchar(50) NOT NULL,
-  `mainQuan` int(11) NOT NULL,
-  `sideQuan` int(11) NOT NULL,
-  `drinkQuan` int(11) NOT NULL,
-  `total` double NOT NULL,
-  `date` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+(9, 'd3.png', 'image/png', 'assets/image9.png');
 
 -- --------------------------------------------------------
 
@@ -130,14 +109,26 @@ CREATE TABLE `orders` (
 
 CREATE TABLE `receipts` (
   `receiptID` int(11) NOT NULL,
-  `customerID` int(11) NOT NULL,
-  `orderID` int(11) NOT NULL,
+  `mainCode` int(11) NOT NULL,
+  `sideCode` int(11) NOT NULL,
+  `drinkCode` int(11) NOT NULL,
+  `m1` int(11) NOT NULL,
+  `s1` int(11) NOT NULL,
+  `d1` int(11) NOT NULL,
   `originalPrice` double NOT NULL,
-  `comboID` int(11) NOT NULL,
+  `comboID` int(11) DEFAULT NULL,
+  `priceDiscounted` double DEFAULT NULL,
   `totalPrice` double NOT NULL,
   `date` datetime NOT NULL,
   `name` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `receipts`
+--
+
+INSERT INTO `receipts` (`receiptID`, `mainCode`, `sideCode`, `drinkCode`, `m1`, `s1`, `d1`, `originalPrice`, `comboID`, `priceDiscounted`, `totalPrice`, `date`, `name`) VALUES
+(1, 1, 4, 7, 1, 1, 1, 1035, 0, 0, 1035, '2023-08-03 08:30:32', 'cj');
 
 -- --------------------------------------------------------
 
@@ -182,10 +173,10 @@ ALTER TABLE `images`
   ADD PRIMARY KEY (`imageID`);
 
 --
--- Indexes for table `orders`
+-- Indexes for table `receipts`
 --
-ALTER TABLE `orders`
-  ADD PRIMARY KEY (`orderID`);
+ALTER TABLE `receipts`
+  ADD PRIMARY KEY (`receiptID`);
 
 --
 -- Indexes for table `users`
@@ -213,13 +204,13 @@ ALTER TABLE `food`
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `imageID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `imageID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `orders`
+-- AUTO_INCREMENT for table `receipts`
 --
-ALTER TABLE `orders`
-  MODIFY `orderID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `receipts`
+  MODIFY `receiptID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`

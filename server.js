@@ -124,6 +124,7 @@ app.post('/payment', async (req, res) => {
             discountPrice = comboItem.discountPrice;
             totalDiscounted = total - comboItem.discountPrice; // apply the discount
             console.log("Total", total);
+            console.log("total discounted:", totalDiscounted);
 
         }else{
             console.log('Food Code does not exist in comboData');
@@ -132,6 +133,7 @@ app.post('/payment', async (req, res) => {
 
         if(hasCombo){
             console.log('HELLOOO COMBO IN')
+            
         }
 
 
