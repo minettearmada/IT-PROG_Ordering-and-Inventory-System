@@ -18,6 +18,8 @@
         dateDisplay.innerHTML = getCurrentDateAndTime(); 
 
         function test(event) {
+            console.log("test");
+
             event.preventDefault();
 
             var customer = document.getElementById("customer").value;
@@ -31,33 +33,51 @@
             var product2 = document.getElementById("product2").value;
             var price2 = document.getElementById("price2").value;
             var quantity2 = document.getElementById("quantity2").value;
+            var foodCode0 = document.getElementById("foodCode0").value;
+            var foodCode1 = document.getElementById("foodCode1").value;
+            var foodCode2 = document.getElementById("foodCode2").value;
+            var cost0 = document.getElementById("cost0").value;
+            var cost1 = document.getElementById("cost1").value;
+            var cost2 = document.getElementById("cost2").value;
+            var originalPrice = document.getElementById("originalPrice").value;
+            //var totalPrice = document.getElementById("totalPrice").value;
+            var comboID = null;
+            //var totalDiscounted = document.getElementById("totalDiscounted").value;
+
 
             const data = {
                 customer: customer,
                 total: parseFloat(total),
-                product0: product0,
-                price0: parseInt(price0),
+                product0: parseInt(foodCode0),
+                price0: parseFloat(price0),
                 quantity0: parseInt(quantity0),
-                cost0: parseInt(cost0),
-                product1: product1,
-                price1: parseInt(price1),
+                cost0: parseFloat(cost0),
+                product1: parseInt(foodCode1),
+                price1: parseFloat(price1),
                 quantity1: parseInt(quantity1),
-                cost1: parseInt(cost1),
-                product2: product2,
-                price2: parseInt(price2),
+                cost1: parseFloat(cost1),
+                product2: parseInt(foodCode2),
+                price2: parseFloat(price2),
                 quantity2: parseInt(quantity2),
-                cost2: parseInt(cost2)
+                cost2: parseFloat(cost2),
+                originalPrice: parseFloat(originalPrice),
+                //totalPrice: parseFloat(totalPrice),
+                comboID: parseInt(comboID),
+                //totalDiscounted: parseFloat(totalDiscounted),
             };
 
-            fetch("/api/orders", {
+            console.log(data);
+
+            fetch("/api/receipts", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(data)
             })
-
-            window.location.href = "/";
+            
+            //console.log("RAWRAWRAWR");
+            //window.location.href = "/";
         }
     </script>
 </head>
@@ -115,16 +135,24 @@
                 </tr>
 
                 <% for (let i = 0; i < listProduct.length; i++) { 
-                    let cost = listPrice[i] * listQuantity[i]%>
+                    let cost = listPrice[i] * listQuantity[i];
+                    let originalPrice = 0;
+                    originalPrice += cost;
+                    %>
+                    
                     <tr>
                         <td><%- listProduct[i] %></td>
                         <td><%- listPrice[i] %></td>
                         <td><%- listQuantity[i] %></td>
                         <td><%- cost %></td>
                         <input type="hidden" id="product<%-i%>" name="product<%-i%>" value="<%- listProduct[i] %>">
+                        <input type="hidden" id="originalPrice" name="originalPrice" value="<%- originalPrice %>">
+
+                        <input type="hidden" id="foodCode<%-i%>" name="foodCode<%-i%>" value="<%- foodCode[i] %>">
                         <input type="hidden" id="price<%-i%>" name="price<%-i%>" value="<%- listPrice[i] %>">
                         <input type="hidden" id="quantity<%-i%>" name="quantity<%-i%>" value="<%- listQuantity[i] %>">
                         <input type="hidden" id="cost<%-i%>" name="cost<%-i%>" value="<%- cost %>">
+
                     </tr>
                 <% } %>
                 <tr class="order-heading">
@@ -184,8 +212,9 @@
                 </tr>
                 
             </table>
-            <div class="done"><input type="submit" value="Done" onclick="window.location.href('/')"></div>
+            <div class="done"><input type="submit" value="Done"></div>
     </div>
+    
     </form>
 </body>
 </html>

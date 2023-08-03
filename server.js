@@ -167,6 +167,8 @@ app.post('/receipt', (req, res) => {
 
             const foodCode = req.body.foodCode[req.body.foodCode.length - 1];
 
+            console.log("RECEIPTRECEIPTRECEIPT FOOD CODE:", foodCode);
+
             // const totalList = Array.isArray(req.body.total)
             // ? req.body.total
             // : [req.body.total]; // Ensure totalList is an array
