@@ -77,11 +77,12 @@ app.post('/payment', async (req, res) => {
             let totalDiscounted = 0;
 
             // Calculate the total price by summing up all the prices multiplied by the quantity
-            let total = 0;
-            for (let i = 0; i < priceList.length; i++) {
-                total += parseFloat(priceList[i]) * parseInt(quantityList[i]);
-            }
-            console.log("total:", total); // all the items bought discount is not yet implemented
+let total = 0;
+for (let i = 0; i < priceList.length; i++) {
+    total += parseFloat(priceList[i]) * parseInt(quantityList[i]);
+}
+console.log("total:", total); // This will log the calculated total as a single numeric value
+
 
            
              
@@ -162,55 +163,76 @@ app.post('/receipt', (req, res) => {
             ? req.body.price
             : [req.body.price]; // Ensure priceList is an array
 
-            const totalList = Array.isArray(req.body.total)
-            ? req.body.total
-            : [req.body.total]; // Ensure totalList is an array
+            // const totalList = Array.isArray(req.body.total)
+            // ? req.body.total
+            // : [req.body.total]; // Ensure totalList is an array
 
-            const totalDiscountedList = Array.isArray(req.body.totalDiscounted)
-            ? req.body.totalDiscounted
-            : [req.body.totalDiscounted]; // Ensure totalList is an array
+            // const totalDiscountedList = Array.isArray(req.body.totalDiscounted)
+            // ? req.body.totalDiscounted
+            // : [req.body.totalDiscounted]; // Ensure totalList is an array
 
             let total = req.body.total;
             let totalDiscounted = 0; // Initialize with the total
 
             let quantity = req.body.quantity;
 
-            if (quantity == 1) { // if only 1 item id ordered
-                totalDiscounted = parseFloat(totalList); // Initialize with the total
-            }else{
-                totalDiscounted = parseFloat(total[total.length - 1]); // Initialize with the total
+            // if (quantity == 1) { // if only 1 item id ordered
+            //     totalDiscounted = parseFloat(totalList); // Initialize with the total
+            // }else{
+            //     totalDiscounted = parseFloat(total[total.length - 1]); // Initialize with the total
+            // }
+
+
+            let change = 0;
+            let hasCombo = req.body.hasCombo;
+            console.log("HAS COMBO?", hasCombo);
+
+            // if (hasCombo) { // If combo is applied
+            //     change = req.body.cash - req.body.totalDiscounted;
+            //     console.log("with combo", req.body.cash, "-", req.body.totalDiscounted);
+            // } else { // If no combo is applied
+            //     change = req.body.cash - total[total.length - 1];
+            //     console.log("NO COMBO", req.body.cash, "-", total[total.length - 1]);
+            // }
+
+            if (hasCombo == 'true') {
+                change = req.body.cash - req.body.totalDiscounted; // Use totalDiscounted instead of total[total.length - 1]
+                console.log("with combo", req.body.cash, "-", req.body.totalDiscounted);
+                totalDiscounted = req.body.totalDiscounted;
+            } else {
+                change = req.body.cash - total[total.length - 1]; // For the non-combo case, the change calculation is the same
+                console.log("NO COMBO", req.body.cash, "-", total[total.length - 1]);
+                totalDiscounted = 0;
             }
-
-
-            let change = req.body.cash - totalDiscountedList;
 
 
     // From payment
     res.render('receipt', {
         cash : req.body.cash,
         customer : req.body.customer,
-        total : req.body.total,
-        totalDiscounted : totalDiscountedList,
+        total : total[total.length - 1] ,
+        totalDiscounted: totalDiscounted,
         productList: req.body.product,
         priceList: req.body.price,
         quantity : req.body.quantity,
         listQuantity : req.body.quantity,
         listPrice : priceList,
         listProduct: productList, // Use the productList array in the template
-        total: totalList,
         products: products, // Pass the products array to the template
-        change: change
+        change: change,
+        hasCombo: hasCombo
     });
 
     console.log("RECEIPT")
     console.log("Customer:", req.body.customer)
     console.log("Cash:", req.body.cash)
-    console.log("Total:", req.body.total)
-    console.log("Total Discounted:", totalDiscountedList)
+    console.log("Total:", total[total.length - 1] )
+    console.log("Total Discounted:", totalDiscounted)
     console.log("Product List:", req.body.product)
     console.log("Price List:", req.body.price)
     console.log("Quantity List:", req.body.quantity)
     console.log("Change:", change)
+    console.log("Combo:", req.body.hasCombo)
 });
 
 app.listen(3000);

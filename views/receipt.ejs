@@ -147,7 +147,7 @@
                     <td><%- total  %></td>
                     <input type="hidden" id="total" name="total" value="<%- total %>">
                 </tr>
-             
+                <% if(hasCombo == 'true'){ %>
                 <tr class="order-item">
                     <td>
                         Total Discounted
@@ -157,7 +157,7 @@
                     <td><%- totalDiscounted  %></td>
                     <input type="hidden" id="totalDiscounted" name="totalDiscounted" value="<%- totalDiscounted %>">
                 </tr>
-             
+             <% } %>
 
                 <tr class="order-item">
                     <td>
