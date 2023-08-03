@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 03, 2023 at 01:07 AM
+-- Generation Time: Aug 03, 2023 at 07:03 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -111,8 +111,16 @@ INSERT INTO `images` (`imageID`, `originalName`, `mime_type`, `image_data`) VALU
 
 CREATE TABLE `orders` (
   `orderID` int(11) NOT NULL,
-  `foodCode` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL
+  `name` varchar(50) NOT NULL,
+  `main` varchar(50) NOT NULL,
+  `side` varchar(50) NOT NULL,
+  `drink` varchar(50) NOT NULL,
+  `mainCode` int(11) NOT NULL,
+  `sideCode` int(11) NOT NULL,
+  `drinkCode` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `total` double NOT NULL,
+  `date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
