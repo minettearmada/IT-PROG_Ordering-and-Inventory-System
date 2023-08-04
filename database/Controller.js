@@ -108,18 +108,18 @@ exports.createReceipt = (req, res, next) => {
     const date = req.body.date;
     */
 
-    const name = "test";
-    const main = 1;
-    const side = 4;
-    const drink = 7;
-    const m1 = 1;
-    const s1 = 1;
-    const d1 = 1;
-    const originalPrice = 1035;
-    const comboID = null;
-    const discountPrice = null;
-    const totalPrice = 1035;
-    const date = "2021-04-28 12:00:00";
+    
+    const main = req.body.product0;
+    const side = req.body.product1;
+    const drink = req.body.product2;
+    const m1 = req.body.quantity0;
+    const s1 = req.body.quantity1;
+    const d1 = req.body.quantity2;
+    const originalPrice = req.body.originalPrice;
+    const comboID = req.body.comboID;
+    const discountPrice = req.body.discountPrice;
+    const totalPrice = req.body.total;
+    const name = req.body.customer;
 
 
 
@@ -137,7 +137,7 @@ exports.createReceipt = (req, res, next) => {
             const id = maxId + 1;
             
             // Create the receipt object
-            const receipt = new Receipt(id, main, side, drink, m1, s1, d1, originalPrice, comboID, discountPrice, totalPrice, date, name);
+            const receipt = new Receipt(id, main, side, drink, m1, s1, d1, originalPrice, comboID, discountPrice, totalPrice, name);
             
             // Execute the INSERT query to insert the receipt into the receipts table
             db.query('INSERT INTO receipts SET ?', [receipt], (err, results) => {

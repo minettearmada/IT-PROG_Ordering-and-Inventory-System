@@ -2,7 +2,7 @@ const moment = require('moment');
 let now = moment();
 
 class receipts{
-    constructor(receiptID, mainCode, sideCode, drinkCode, m1, s1, d1, originalPrice, comboID, discountPrice, totalPrice, date, name,){
+    constructor(receiptID, mainCode, sideCode, drinkCode, m1, s1, d1, originalPrice, comboID, discountPrice, totalPrice, name,){
     
     this.receiptID = receiptID;
     this.name = name;
