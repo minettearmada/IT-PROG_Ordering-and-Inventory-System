@@ -97,8 +97,6 @@ app.post('/payment', async (req, res) => {
         console.log("foodCode:", foodCode);
         console.log("foodCode[0]:", foodCode[0]);
 
-   
-
         console.log("Printing comboData one by one:");
         
         combo.forEach((comboItem, index) => {
@@ -107,7 +105,7 @@ app.post('/payment', async (req, res) => {
             console.log("Main Code:", comboItem.mainCode);
             console.log("Side Code:", comboItem.sideCode);
             console.log("drink Code:", comboItem.drinkCode);
-            console.log("Discounted Price:", comboItem.comboPrice);
+            console.log("Combo Price:", comboItem.comboPrice);
             // Add other properties of comboItem as needed
             
             // Compare foodCode with mainCode, sideCode, and drinkCode
@@ -125,16 +123,20 @@ app.post('/payment', async (req, res) => {
             totalDiscounted = comboItem.comboPrice;
             console.log("Total", total);
             console.log("total discounted:", totalDiscounted);
-
+            comboID = comboItem.comboID;
         }else{
             console.log('Food Code does not exist in comboData');
+            
         }
         });
 
-        if(hasCombo){
-            console.log('HELLOOO COMBO IN')
-            
+        if(!hasCombo){
+            console.log('NO COMBO')
+            comboID = 0; // Store the combo name
         }
+
+        console.log("Discount Price:", discountPrice);
+        console.log("Combo ID:", comboID);
 
 
             res.render('payment', {
@@ -146,7 +148,8 @@ app.post('/payment', async (req, res) => {
                 products: products, // Pass the products array to the template
                 hasCombo: hasCombo,
                 discountPrice: discountPrice,
-                foodCode: foodCode
+                foodCode: foodCode,
+                comboID: comboID
             })
          }
     } 
@@ -235,7 +238,8 @@ app.post('/receipt', (req, res) => {
         change: change,
         hasCombo: hasCombo,
         foodCode: foodCode,
-        discountPrice: discountPrice
+        discountPrice: discountPrice,
+        comboID: req.body.comboID
     });
 
     console.log("RECEIPT")
@@ -250,6 +254,7 @@ app.post('/receipt', (req, res) => {
     console.log("Combo:", req.body.hasCombo)
     console.log("Food Code:", foodCode)
     console.log("Discount Price:", discountPrice)
+    console.log("Combo ID:", req.body.comboID)
 });
 
 app.listen(3000);
