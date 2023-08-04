@@ -50,7 +50,6 @@ app.post('/payment', async (req, res) => {
       console.log("Food Code:", req.body.foodCode)
       console.log("Price:",req.body.price)
       console.log("Quantity:",req.body.quantity)
-
       
       console.log(moment().format())
 
@@ -168,6 +167,7 @@ app.post('/receipt', (req, res) => {
 
             const foodCode = req.body.foodCode[req.body.foodCode.length - 1];
 
+
             // const totalList = Array.isArray(req.body.total)
             // ? req.body.total
             // : [req.body.total]; // Ensure totalList is an array
@@ -203,10 +203,15 @@ app.post('/receipt', (req, res) => {
             //     console.log("NO COMBO", req.body.cash, "-", total[total.length - 1]);
             // }
 
+            let tempQuan0;
+
             if (hasCombo == 'true') {
                 change = req.body.cash - req.body.totalDiscounted; // Use totalDiscounted instead of total[total.length - 1]
                 console.log("with combo", req.body.cash, "-", req.body.totalDiscounted);
                 totalDiscounted = req.body.totalDiscounted;
+
+
+
             } else {
                 change = req.body.cash - total[total.length - 1]; // For the non-combo case, the change calculation is the same
                 console.log("NO COMBO", req.body.cash, "-", total[total.length - 1]);

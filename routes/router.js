@@ -18,8 +18,8 @@ router.get('/api/food', (req, res) => {
 });
 */
 
-router.post('/orders', database.createOrder); //add
-router.get('/orders', database.getOrder); //add
+router.post('/receipts', database.createReceipt); //add
+router.get('/receipts', database.getReceipt); //add
 router.get('/food', database.getFood); //add
 router.get('/images', database.getImages); //add
 router.get('/combo', database.getCombo); //add

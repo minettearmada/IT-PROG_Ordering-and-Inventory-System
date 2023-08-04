@@ -1,5 +1,5 @@
 const db = require('./db');
-const Order = require('../template/order');
+const Receipt = require('../template/receipts');
 const app = require('../server');
 
 // GET /api/orders
@@ -73,9 +73,10 @@ exports.getCombo = (req, res, next) => {
 
 // GET /api/orders/:id
 
-exports.getOrder = (req, res, next) => {
+
+exports.getReceipt = (req, res, next) => {
     const id = req.params.id;
-    db.query('SELECT * FROM orders WHERE orderID = ?', [id], (err, results) => {
+    db.query('SELECT * FROM receipts WHERE receiptID = ?', [id], (err, results) => {
             if (err) {
             console.error('Error executing MySQL query:', err);
             res.status(500).send('Error executing query');
@@ -85,51 +86,71 @@ exports.getOrder = (req, res, next) => {
         });
 }
 
-// POST /api/orders
+// POST /api/receipts
 
-exports.createOrder = (req, res, next) => {
+exports.createReceipt = (req, res, next) => {
     console.log("ETO YUNG LAMAN SA DBBBBBBBBB QUERY");
     console.log(req.body);
+    
+    // Get other required data from the request body
+    /*
     const name = req.body.customer;
     const main = req.body.product0;
     const side = req.body.product1;
     const drink = req.body.product2;
-    const mainQuan = req.body.quantity0;
-    const sideQuan = req.body.quantity1;
-    const drinkQuan = req.body.quantity2;
-    const total = req.body.total;
-
-    /*
-    const temp = {
-        name : name,
-        main : main,
-        side : side,
-        drink : drink,
-        m1 : m1,
-        s1 : s1,
-        d1 : d1,
-        CMT : CMT,
-        SVB : SVB,
-        final : final
-    };
+    const m1 = req.body.quantity0;
+    const s1 = req.body.quantity1;
+    const d1 = req.body.quantity2;
+    const originalPrice = req.body.originalPrice;
+    const comboID = null;
+    const discountPrice = null;
+    const totalPrice = req.body.total;
+    const date = req.body.date;
     */
 
-    const order = new Order(name, main, side, drink, mainQuan, sideQuan, drinkQuan, total);
+    const name = "test";
+    const main = 1;
+    const side = 4;
+    const drink = 7;
+    const m1 = 1;
+    const s1 = 1;
+    const d1 = 1;
+    const originalPrice = 1035;
+    const comboID = null;
+    const discountPrice = null;
+    const totalPrice = 1035;
+    const date = "2021-04-28 12:00:00";
 
-    db.query('INSERT INTO orders SET ?' , [order], (err, results) => {
-            if (err) {
+
+
+    
+    // Execute the SELECT query to get the maximum id from receipts table
+    db.query('SELECT MAX(receiptID) AS maxId FROM receipts', (err, result) => {
+        if (err) {
             console.error('Error executing MySQL query:', err);
             res.status(500).send('Error executing query');
-            }else{
-                //res.json(results);
-                console.log("Order added successfully.");
-                res.redirect('/');
-                //window.location.href = '/views\index.ejs';
-                //res.render('index');
-            }
-        });
-
-
+        } else {
+            // Retrieve the maximum id from the result
+            const maxId = result[0].maxId || 0;
+            
+            // Increment the maxId to get the new id for the receipt
+            const id = maxId + 1;
+            
+            // Create the receipt object
+            const receipt = new Receipt(id, main, side, drink, m1, s1, d1, originalPrice, comboID, discountPrice, totalPrice, date, name);
+            
+            // Execute the INSERT query to insert the receipt into the receipts table
+            db.query('INSERT INTO receipts SET ?', [receipt], (err, results) => {
+                if (err) {
+                    console.error('Error executing MySQL query:', err);
+                    res.status(500).send('Error executing query');
+                } else {
+                    console.log("Order added successfully.");
+                    res.redirect('/');
+                }
+            });
+        }
+    });
 }
 
 
@@ -167,9 +188,9 @@ exports.createOrder = (req, res, next) => {
 
 */
 
-// PUT /api/orders
+// PUT /api/receipts
 
-exports.updateOrder = (req, res, next) => {
+exports.updateReceipts = (req, res, next) => {
     const id = req.params.id;
     const name = req.body.name;
     const main = req.body.main;
@@ -178,13 +199,13 @@ exports.updateOrder = (req, res, next) => {
     const m1 = req.body.mainQuan;
     const s1 = req.body.sideQuan;
     const d1 = req.body.drinkQuan;
-    const price = req.body.price;
-    const CMT = req.body.CMT;
-    const SVB = req.body.SVB;
-    const final = req.body.total;
+    const originalPrice = req.body.price;
+    const comboID = req.body.comboID;
+    const discountPrice = req.body.discountPrice;
+    const totalPrice = req.body.total;
     const date = req.body.date;
 
-    const order = new Order(id, name, main, side, drink, m1, s1, d1, price, CMT, SVB, final, date);
+    const order = new Order(id, name, main, side, drink, m1, s1, d1, originalPrice, comboID, discountPrice, totalPrice, date);
 
     db.query('UPDATE orders SET ? WHERE orderID = ?', [order, id], (err, results) => {
             if (err) {
