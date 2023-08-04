@@ -121,8 +121,9 @@ app.post('/payment', async (req, res) => {
 
             hasCombo = true;
             comboName = comboItem.comboName; // Store the combo name
-            discountPrice = comboItem.comboPrice;
-            totalDiscounted = total - comboItem.comboPrice; // apply the discount
+            discountPrice = total - comboItem.comboPrice;
+            // totalDiscounted = total - comboItem.comboPrice; // apply the discount
+            totalDiscounted = comboItem.comboPrice;
             console.log("Total", total);
             console.log("total discounted:", totalDiscounted);
 
@@ -189,7 +190,10 @@ app.post('/receipt', (req, res) => {
 
             let change = 0;
             let hasCombo = req.body.hasCombo;
+            let discountPrice = req.body.discountPrice;
             console.log("HAS COMBO?", hasCombo);
+
+            console.log("discount price?", discountPrice);
 
             // if (hasCombo) { // If combo is applied
             //     change = req.body.cash - req.body.totalDiscounted;
@@ -225,7 +229,8 @@ app.post('/receipt', (req, res) => {
         products: products, // Pass the products array to the template
         change: change,
         hasCombo: hasCombo,
-        foodCode: foodCode
+        foodCode: foodCode,
+        discountPrice: discountPrice
     });
 
     console.log("RECEIPT")
@@ -239,6 +244,7 @@ app.post('/receipt', (req, res) => {
     console.log("Change:", change)
     console.log("Combo:", req.body.hasCombo)
     console.log("Food Code:", foodCode)
+    console.log("Discount Price:", discountPrice)
 });
 
 app.listen(3000);
