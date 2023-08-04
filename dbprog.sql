@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 03, 2023 at 07:05 AM
+-- Generation Time: Aug 04, 2023 at 11:25 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -117,7 +117,7 @@ CREATE TABLE `receipts` (
   `d1` int(11) NOT NULL,
   `originalPrice` double NOT NULL,
   `comboID` int(11) DEFAULT NULL,
-  `priceDiscounted` double DEFAULT NULL,
+  `discountPrice` double DEFAULT NULL,
   `totalPrice` double NOT NULL,
   `date` datetime NOT NULL,
   `name` varchar(40) NOT NULL
@@ -127,8 +127,10 @@ CREATE TABLE `receipts` (
 -- Dumping data for table `receipts`
 --
 
-INSERT INTO `receipts` (`receiptID`, `mainCode`, `sideCode`, `drinkCode`, `m1`, `s1`, `d1`, `originalPrice`, `comboID`, `priceDiscounted`, `totalPrice`, `date`, `name`) VALUES
-(1, 1, 4, 7, 1, 1, 1, 1035, 0, 0, 1035, '2023-08-03 08:30:32', 'cj');
+INSERT INTO `receipts` (`receiptID`, `mainCode`, `sideCode`, `drinkCode`, `m1`, `s1`, `d1`, `originalPrice`, `comboID`, `discountPrice`, `totalPrice`, `date`, `name`) VALUES
+(1, 1, 4, 7, 1, 1, 1, 1035, NULL, NULL, 1035, '2023-08-03 08:30:32', 'cj'),
+(2, 1, 1, 1, 1, 1, 1, 50, NULL, NULL, 50, '2023-08-02 16:06:29', 'Peter Parker'),
+(3, 1, 2, 3, 1, 1, 1, 100, NULL, NULL, 100, '2023-08-01 17:23:48', 'min8');
 
 -- --------------------------------------------------------
 
@@ -210,7 +212,7 @@ ALTER TABLE `images`
 -- AUTO_INCREMENT for table `receipts`
 --
 ALTER TABLE `receipts`
-  MODIFY `receiptID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `receiptID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`

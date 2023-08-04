@@ -122,7 +122,9 @@ app.post('/payment', async (req, res) => {
             hasCombo = true;
             comboName = comboItem.comboName; // Store the combo name
             discountPrice = comboItem.comboPrice;
-            totalDiscounted = total - comboItem.comboPrice; // apply the discount
+            // TO DO: DEBUGGGGGGG
+            // totalDiscounted = total - comboItem.comboPrice; // apply the discount
+            totalDiscounted = comboItem.comboPrice; // apply the discount
             console.log("Total", total);
             console.log("total discounted:", totalDiscounted);
 
