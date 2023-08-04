@@ -121,8 +121,6 @@ exports.createReceipt = (req, res, next) => {
     const totalPrice = req.body.total;
     const name = req.body.customer;
 
-
-
     
     // Execute the SELECT query to get the maximum id from receipts table
     db.query('SELECT MAX(receiptID) AS maxId FROM receipts', (err, result) => {

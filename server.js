@@ -73,8 +73,11 @@ app.post('/payment', async (req, res) => {
             // : [req.body.total]; // Ensure totalList is an array
 
     
-            let quantity = req.body.quantity; 
+            //let quantity = req.body.quantity; 
             let totalDiscounted = 0;
+            var comboedQuantity = [...req.body.quantity];
+            let comboTotal = 0;
+            let totalindividualOrders = 0;
 
             // Calculate the total price by summing up all the prices multiplied by the quantity
         let total = 0;
@@ -90,15 +93,55 @@ app.post('/payment', async (req, res) => {
 
         
         // Assuming the foodCode is in req.body.foodCode
-        const foodCode = req.body.foodCode;
+
+        let tempfoodCode = Array.isArray(req.body.foodCode)
+                ? req.body.foodCode
+                : [req.body.foodCode]; // Ensure quantityList is an array
+
+                console.log("categoryNGASPGSAPOGASJGA:", req.body.category);
+
+
+        let tempCategory = Array.isArray(req.body.category)
+        ? req.body.category
+        : [req.body.category]; // Ensure quantityList is an array
+
         var hasCombo = false;
         let discountPrice = 0;
 
-        console.log("foodCode:", foodCode);
-        console.log("foodCode[0]:", foodCode[0]);
+        
+        console.log("FIRSTtempfoodCode:", tempfoodCode);
+        console.log("FIRSTtempCategory:", tempCategory);
 
         console.log("Printing comboData one by one:");
+
+        let updatedFoodCode = [0,0,0];
         
+
+            tempfoodCode.forEach((foodCode, index) => {
+                if(tempCategory[index] == 'M' && updatedFoodCode[0] == 0){
+                    updatedFoodCode[0] = foodCode; 
+                }
+
+                if(tempCategory[index] == 'S' && updatedFoodCode[1] == 0){
+                    updatedFoodCode[1] = foodCode; 
+                }
+
+                if(tempCategory[index] == 'D' && updatedFoodCode[2] == 0){
+                    updatedFoodCode[2] = foodCode; 
+                }
+
+          
+              
+            });
+
+        console.log("updatedfoodCode:", updatedFoodCode);
+
+        let foodCode = updatedFoodCode;
+
+
+
+
+
         combo.forEach((comboItem, index) => {
             console.log(`Combo ${index + 1}:`);
             console.log("Combo Code:", comboItem.comboID);
@@ -118,14 +161,61 @@ app.post('/payment', async (req, res) => {
 
             hasCombo = true;
             comboName = comboItem.comboName; // Store the combo name
-            discountPrice = total - comboItem.comboPrice;
+            //discountPrice = total - comboItem.comboPrice;
             // totalDiscounted = total - comboItem.comboPrice; // apply the discount
             totalDiscounted = comboItem.comboPrice;
             console.log("Total", total);
             console.log("total discounted:", totalDiscounted);
             comboID = comboItem.comboID;
+
+
+            // COMBO AREA COMPUTATION
+            // Compute the total of the combo
+        // 1. find the lowest quantity among the 3 items
+        const lowestNumber = Math.min.apply(null, quantityList);
+        console.log("Lowest Number:", lowestNumber);
+
+        // 2. multiply the lowest quantity by the combo price
+        comboTotal = lowestNumber * comboItem.comboPrice;
+        console.log("Combo Total:", comboTotal);
+
+        
+
+        
+
+        console.log("BEFOREEE:", quantityList);
+
+        comboedQuantity.forEach((quantity, index) => {
+            quantity -= lowestNumber;
+            comboedQuantity[index] = quantity;
+        });
+
+
+
+        comboedQuantity.forEach((quantity, index) => {
+            totalindividualOrders += quantity * priceList[index];
+        });
+        
+        // 3. subtract the combo total from the total
+        totalDiscounted = comboTotal + totalindividualOrders;
+
+        discountPrice = total - totalDiscounted;
+        
+        console.log("BEFOREEE:", quantityList);
+
+
+
+        console.log("Comboed Quantity:", comboedQuantity);
+
+        
+
+        console.log("Discount Price:", discountPrice);
+        console.log("Combo ID:", comboID);
+
         }else{
             console.log('Food Code does not exist in comboData');
+            
+            
             
         }
         });
@@ -133,18 +223,26 @@ app.post('/payment', async (req, res) => {
         if(!hasCombo){
             console.log('NO COMBO')
             comboID = 0; // Store the combo name
+            
+
         }
 
-        console.log("Discount Price:", discountPrice);
-        console.log("Combo ID:", comboID);
+        
+        
+        console.log("listQuantitYYYYYYYy:", req.body.quantity);
 
+
+        console.log("Combo Total AGAINGIAN:", comboTotal);
 
             res.render('payment', {
-                listQuantity : req.body.quantity,
+                listQuantity : quantityList,
+                comboedQuantity: comboedQuantity,
+                totalindividualOrders : totalindividualOrders,
+                comboTotal: comboTotal,
                 listPrice : priceList,
                 listProduct: productList, // Use the productList array in the template
                 totalDiscounted: totalDiscounted,
-                total: total,
+                total: total, // total of all products individually
                 products: products, // Pass the products array to the template
                 hasCombo: hasCombo,
                 discountPrice: discountPrice,
@@ -170,6 +268,8 @@ app.post('/receipt', (req, res) => {
 
             const foodCode = req.body.foodCode[req.body.foodCode.length - 1];
 
+            console.log("FOODCODEDEDEDEDEDEDEDEDEDEFOEGJEOFEEGFOJE : ", foodCode);
+
 
             // const totalList = Array.isArray(req.body.total)
             // ? req.body.total
@@ -183,6 +283,8 @@ app.post('/receipt', (req, res) => {
             let totalDiscounted = 0; // Initialize with the total
 
             let quantity = req.body.quantity;
+
+            console.log("QUANTITY IN RECEIPT:", quantity);
 
             // if (quantity == 1) { // if only 1 item id ordered
             //     totalDiscounted = parseFloat(totalList); // Initialize with the total
@@ -215,30 +317,42 @@ app.post('/receipt', (req, res) => {
 
 
 
+
             } else {
                 change = req.body.cash - total[total.length - 1]; // For the non-combo case, the change calculation is the same
                 console.log("NO COMBO", req.body.cash, "-", total[total.length - 1]);
                 totalDiscounted = 0;
             }
 
+            console.log("comboTotal:", req.body.comboTotal);
+            console.log("totalindividualOrders:", req.body.totalindividualOrders);
+            finaltotal = parseFloat(req.body.comboTotal) + parseFloat(req.body.totalindividualOrders);
+            console.log("FINAL TOTAL FINALINFLAIN:", finaltotal);
 
+            console.log("foodCode0:", req.body.foodCode[0]);
+            console.log("foodCode1:", req.body.foodCode[2]);
+            console.log("foodCode2:", req.body.foodCode[4]);
     // From payment
     res.render('receipt', {
         cash : req.body.cash,
         customer : req.body.customer,
         total : total[total.length - 1] ,
+        finaltotal: finaltotal,
         totalDiscounted: totalDiscounted,
         productList: req.body.product,
         priceList: req.body.price,
         quantity : req.body.quantity,
         listQuantity : req.body.quantity,
+        comboedQuantity: req.body.comboedQuantity,
+        comboTotal: req.body.comboTotal,
+        totalindividualOrders : req.body.totalindividualOrders,
         listPrice : priceList,
         listProduct: productList, // Use the productList array in the template
         products: products, // Pass the products array to the template
         change: change,
         hasCombo: hasCombo,
         foodCode: foodCode,
-        discountPrice: discountPrice,
+        discountPrice: req.body.discountPrice[req.body.discountPrice.length - 1],
         comboID: req.body.comboID
     });
 

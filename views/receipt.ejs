@@ -22,49 +22,161 @@
 
             event.preventDefault();
 
-            var customer = document.getElementById("customer").value;
-            var total = document.getElementById("total").value;
-            var product0 = document.getElementById("product0").value;
-            var price0 = document.getElementById("price0"). value;
-            var quantity0 = document.getElementById("quantity0").value;
-            var product1 = document.getElementById("product1").value;
-            var price1 = document.getElementById("price1").value;
-            var quantity1 = document.getElementById("quantity1").value;
-            var product2 = document.getElementById("product2").value;
-            var price2 = document.getElementById("price2").value;
-            var quantity2 = document.getElementById("quantity2").value;
+            let data;
             var foodCode0 = document.getElementById("foodCode0").value;
             var foodCode1 = document.getElementById("foodCode1").value;
             var foodCode2 = document.getElementById("foodCode2").value;
-            var cost0 = document.getElementById("cost0").value;
-            var cost1 = document.getElementById("cost1").value;
-            var cost2 = document.getElementById("cost2").value;
+            var comboTotal = document.getElementById("comboTotal").value;
+            var totalindividualOrders = document.getElementById("totalindividualOrders").value;
+            var discountPrice = document.getElementById("discountPrice").value;
+            var finaltotal = document.getElementById("finaltotal").value;
+            //let product0 = document.getElementById("product0").value;
+            let price0 = document.getElementById("price0").value;
+            let quantity0 = document.getElementById("quantity0").value;
+            //let product1 = document.getElementById("product1").value;
+            let price1 = document.getElementById("price1").value;
+            let quantity1 = document.getElementById("quantity1").value;
+            //let product2 = document.getElementById("product2").value;
+            let price2 = document.getElementById("price2").value;
+            let quantity2 = document.getElementById("quantity2").value;
+
+
+
+
+            var customer = document.getElementById("customer").value;
+            var total = document.getElementById("total").value;
+            //var product0 = document.getElementById("product0").value;
+
+            console.log("FOODCODE0 in RECEIPT", foodCode0);
+            console.log("FOODCODE1 in RECEIPT", foodCode1);
+            console.log("FOODCODE2 in RECEIPT", foodCode2);
+
+            /*
+            if(foodCode0 == 0){
+                //product0 = null;
+                //quantity0 = null;
+                //price0 = null;
+                //foodCode0 = null;
+            }else{
+                //product0 = document.getElementById("product0").value;
+                //price0 = document.getElementById("price0").value;
+                //quantity0 = document.getElementById("quantity0").value;
+
+                product0 = parseInt(foodCode0);
+                price0 = parseFloat(price0);
+                quantity0 = parseInt(quantity0);
+            }
+
+            console.log("PRODUCCT0 AFTER IF", product0);
+            console.log("FOODCODE0 AFTER IF", foodCode0);
+
+            if(foodCode1 == 0){
+                //product1 = null;
+                //quantity1 = null;
+                //price1 = null;
+                //foodCode1 = null;
+            }else{
+                //product1 = document.getElementById("product1").value;
+                //price1 = document.getElementById("price1").value;
+                //quantity1 = document.getElementById("quantity1").value;
+
+                product1 = parseInt(foodCode1);
+                price1 = parseFloat(price1);
+                quantity1 = parseInt(quantity1);
+            }
+
+            console.log("PRODUCCT1 AFTER IF", product1);
+            console.log("FOODCODE1 AFTER IF", foodCode1);
+
+            
+
+            if(foodCode2 == 0){
+                //product2 = null;
+                //quantity2 = null;
+                //price2 = null;
+                //foodCode2 = null;
+            }else{
+                //product2 = document.getElementById("product2").value;
+                //price2 = document.getElementById("price2").value;
+                //quantity2 = document.getElementById("quantity2").value;
+
+                product2 = parseInt(foodCode2);
+                price2 = parseFloat(price2);
+                quantity2 = parseInt(quantity2);
+            }
+
+            */
+            
+            console.log("PRODUCCT2 AFTER IF", product2);
+            console.log("FOODCODE2 AFTER IF", foodCode2);
+
+
+            //var quantity0 = document.getElementById("quantity0").value;
+            //var product1 = document.getElementById("product1").value;
+            //var price1 = document.getElementById("price1").value;
+            //var quantity1 = document.getElementById("quantity1").value;
+            //var product2 = document.getElementById("product2").value;
+            //var price2 = document.getElementById("price2").value;
+            //var quantity2 = document.getElementById("quantity2").value;
+            
+            //var cost0 = document.getElementById("cost0").value;
+            //var cost1 = document.getElementById("cost1").value;
+            //var cost2 = document.getElementById("cost2").value;
             var originalPrice = document.getElementById("originalPrice").value;
             //var totalPrice = document.getElementById("totalPrice").value;
-            var comboID = null;
+            var comboID = document.getElementById("comboID").value;            
             //var totalDiscounted = document.getElementById("totalDiscounted").value;
 
+            var finaltotal = parseFloat(totalindividualOrders) + parseFloat(comboTotal);
 
-            const data = {
+            if(comboID == 0){
+                data = {
                 customer: customer,
                 total: parseFloat(total),
-                product0: parseInt(foodCode0),
-                price0: parseFloat(price0),
-                quantity0: parseInt(quantity0),
-                cost0: parseFloat(cost0),
-                product1: parseInt(foodCode1),
-                price1: parseFloat(price1),
-                quantity1: parseInt(quantity1),
-                cost1: parseFloat(cost1),
-                product2: parseInt(foodCode2),
-                price2: parseFloat(price2),
-                quantity2: parseInt(quantity2),
-                cost2: parseFloat(cost2),
-                originalPrice: parseFloat(originalPrice),
+                product0: foodCode0,
+                price0: price0,
+                quantity0: quantity0,
+                //cost0: parseFloat(cost0),
+                product1: foodCode1,
+                price1: price1,
+                quantity1: quantity1,
+                //cost1: parseFloat(cost1),
+                product2:foodCode2,
+                price2: price2,
+                quantity2: quantity2,
+                //cost2: parseFloat(cost2),
+                originalPrice: parseFloat(total),
+                //totalPrice: parseFloat(totalPrice),
+                comboID: null,
+                discountPrice: null,
+                
+
+                //totalDiscounted: parseFloat(totalDiscounted),
+
+                };
+            }else{
+                data = {
+                customer: customer,
+                total: parseFloat(finaltotal), 
+                product0: product0,
+                price0: price0,
+                quantity0: quantity0,
+                //cost0: parseFloat(cost0),
+                product1: product1,
+                price1: price1,
+                quantity1: quantity1,
+                //cost1: parseFloat(cost1),
+                product2:product2,
+                price2: price2,
+                quantity2: quantity2,
+                //cost2: parseFloat(cost2),
+                originalPrice: parseFloat(total),
                 //totalPrice: parseFloat(totalPrice),
                 comboID: parseInt(comboID),
-                //totalDiscounted: parseFloat(totalDiscounted),
-            };
+                discountPrice: parseFloat(discountPrice),
+                };
+            }
+            
 
             console.log(data);
 
@@ -134,10 +246,18 @@
                     </td>
                 </tr>
 
-                <% for (let i = 0; i < listProduct.length; i++) { 
+
+                <input type="hidden" id="foodCode0" name="foodCode0" value="<%- foodCode[0] %>">
+                <input type="hidden" id="foodCode1" name="foodCode1" value="<%- foodCode[2] %>">
+                <input type="hidden" id="foodCode2" name="foodCode2" value="<%- foodCode[4] %>">
+                <% 
+                
+                for (let i = 0; i < listProduct.length; i++) { 
+                    
                     let cost = listPrice[i] * listQuantity[i];
                     let originalPrice = 0;
                     originalPrice += cost;
+                    
                     %>
                     
                     <tr>
@@ -147,13 +267,12 @@
                         <td><%- cost %></td>
                         <input type="hidden" id="product<%-i%>" name="product<%-i%>" value="<%- listProduct[i] %>">
                         <input type="hidden" id="originalPrice" name="originalPrice" value="<%- originalPrice %>">
-
-                        <input type="hidden" id="foodCode<%-i%>" name="foodCode<%-i%>" value="<%- foodCode[i] %>">
                         <input type="hidden" id="price<%-i%>" name="price<%-i%>" value="<%- listPrice[i] %>">
                         <input type="hidden" id="quantity<%-i%>" name="quantity<%-i%>" value="<%- listQuantity[i] %>">
                         <input type="hidden" id="cost<%-i%>" name="cost<%-i%>" value="<%- cost %>">
 
                     </tr>
+
                 <% } %>
                 <tr class="order-heading">
                     <td>
@@ -205,13 +324,20 @@
                     <td></td>
                     <td><%- change  %></td>
                     <input type="hidden" id="change" name="change" value="<%- change %>">
-                    
+                    <input type="hidden" id="comboID" name="comboID" value="<%- comboID %>">
+
                 </tr>
                 <tr>
                     
                 </tr>
                 
             </table>
+            
+            
+            <input type="hidden" id="discountPrice" name="discountPrice" value="<%- discountPrice %>">
+            <input type="hidden" id="totalindividualOrders" name="totalindividualOrders" value="<%- totalindividualOrders %>">
+            <input type="hidden" id="comboTotal" name="comboTotal" value="<%- comboTotal %>">
+            <input type="hidden" id="finaltotal" name="finaltotal" value="<%- finaltotal %>">
             <div class="done"><input type="submit" value="Done"></div>
     </div>
     

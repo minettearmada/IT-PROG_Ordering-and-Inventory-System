@@ -220,7 +220,12 @@ function addToCard(key) {
     const category = product.category;
   
     if (!listCards[key]) {
-      listCards[key] = JSON.parse(JSON.stringify(products[key]));
+      
+      // Include the 'category' property in the listCards array when adding products
+      listCards[key] = {
+        ...JSON.parse(JSON.stringify(products[key])),
+        category: products[key].category
+      };
       listCards[key].quantity = 1;
   
       // Disable add to cart buttons of products in the same category
@@ -254,6 +259,7 @@ function reloadCard(){
             newDiv.innerHTML = `
                 <div><img src="${product.image}"/></div>
                 <input type="hidden" class="foodCode-input" value="${product.foodCode}" name="foodCode" size="10" onchange="updateName(${key}, this)" readonly>
+                <input type="hidden" class="foodCode-input" value="${product.category}" name="category" size="10" onchange="updateName(${key}, this)" readonly>
                 <div>${product.name}<input type="hidden" class="name-input" value="${product.name}" name="product" size="10" onchange="updateName(${key}, this)" readonly></div>
                 <div>${product.price}<input type="hidden" class="price-input" value="${product.price}" name="price" style="wfoodCodeth: 3em" onchange="updatePrice(${key}, this)" readonly></div>
                 <div>

@@ -53,6 +53,9 @@
               <div class="total" id="total">Total: <%- total %></div>
               <input type="hidden" value="<%- total %>" name="total"> 
               <input type="hidden" value="<%- hasCombo %>" name="hasCombo"> 
+              <input type="hidden" value="<%- discountPrice %>" name="discountPrice">
+              <input type="hidden" value="<%- totalindividualOrders %>" name="totalindividualOrders">
+              <input type="hidden" value="<%- comboTotal %>" name="comboTotal">
               <% if(hasCombo) {%>
               <div class="totalDiscounted" id="totalDiscounted">Total Discounted: <%- totalDiscounted %></div> 
               <input type="hidden" value="<%- totalDiscounted %>" name="totalDiscounted">
@@ -91,7 +94,7 @@
 
        // const productList = JSON.parse('<%- JSON.stringify(listProduct) %>');
        // const hasCombo = JSON.parse('<%- JSON.stringify(hasCombo) %>');
-       // const discountPrice = JSON.parse('<%- JSON.stringify(discountPrice) %>');
+       // const discountPrice = JSON.parse('<%- JSON.stringify(discountPrice[discountPrice.length - 1]) %>');
        // const totalDiscounted = JSON.parse('<%- JSON.stringify(totalDiscounted) %>');
        // const priceList = JSON.parse('<%- JSON.stringify(listPrice) %>');
        // const quantityList = JSON.parse('<%- JSON.stringify(listQuantity) %>');
