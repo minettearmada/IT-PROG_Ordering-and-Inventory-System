@@ -31,13 +31,10 @@
             var discountPrice = document.getElementById("discountPrice").value;
             var finaltotal = document.getElementById("finaltotal").value;
             //let product0 = document.getElementById("product0").value;
-            let price0 = document.getElementById("price0").value;
             let quantity0 = document.getElementById("quantity0").value;
             //let product1 = document.getElementById("product1").value;
-            let price1 = document.getElementById("price1").value;
             let quantity1 = document.getElementById("quantity1").value;
             //let product2 = document.getElementById("product2").value;
-            let price2 = document.getElementById("price2").value;
             let quantity2 = document.getElementById("quantity2").value;
 
 
@@ -50,6 +47,37 @@
             console.log("FOODCODE0 in RECEIPT", foodCode0);
             console.log("FOODCODE1 in RECEIPT", foodCode1);
             console.log("FOODCODE2 in RECEIPT", foodCode2);
+
+            
+
+            if(foodCode0 == 0){
+                quantity0 = null;
+                foodCode0 = null;
+            }else{
+                quantity0 = document.getElementById("quantity0").value;
+
+                quantity0 = parseInt(quantity0);
+            }
+
+            if(foodCode1 == 0){
+                quantity1 = null;
+                foodCode1 = null;
+            }else{
+                quantity1 = document.getElementById("quantity1").value;
+
+                quantity1 = parseInt(quantity1);
+            }
+
+            if(foodCode2 == 0){
+                quantity2 = null;
+                foodCode2 = null;
+            }else{
+                quantity2 = document.getElementById("quantity2").value;
+
+                quantity2 = parseInt(quantity2);
+            }
+            
+
 
             /*
             if(foodCode0 == 0){
@@ -76,12 +104,11 @@
                 //price1 = null;
                 //foodCode1 = null;
             }else{
-                //product1 = document.getElementById("product1").value;
-                //price1 = document.getElementById("price1").value;
+                product1 = document.getElementById("product1").value;
+                price1 = document.getElementById("price1").value;
                 //quantity1 = document.getElementById("quantity1").value;
 
                 product1 = parseInt(foodCode1);
-                price1 = parseFloat(price1);
                 quantity1 = parseInt(quantity1);
             }
 
@@ -93,7 +120,6 @@
             if(foodCode2 == 0){
                 //product2 = null;
                 //quantity2 = null;
-                //price2 = null;
                 //foodCode2 = null;
             }else{
                 //product2 = document.getElementById("product2").value;
@@ -101,13 +127,11 @@
                 //quantity2 = document.getElementById("quantity2").value;
 
                 product2 = parseInt(foodCode2);
-                price2 = parseFloat(price2);
                 quantity2 = parseInt(quantity2);
             }
 
             */
             
-            console.log("PRODUCCT2 AFTER IF", product2);
             console.log("FOODCODE2 AFTER IF", foodCode2);
 
 
@@ -129,21 +153,22 @@
 
             var finaltotal = parseFloat(totalindividualOrders) + parseFloat(comboTotal);
 
+
+
+
+
             if(comboID == 0){
                 data = {
                 customer: customer,
                 total: parseFloat(total),
                 product0: foodCode0,
-                price0: price0,
-                quantity0: quantity0,
+                quantity0: parseInt(quantity0),
                 //cost0: parseFloat(cost0),
                 product1: foodCode1,
-                price1: price1,
-                quantity1: quantity1,
+                quantity1: parseInt(quantity1),
                 //cost1: parseFloat(cost1),
                 product2:foodCode2,
-                price2: price2,
-                quantity2: quantity2,
+                quantity2: parseInt(quantity2),
                 //cost2: parseFloat(cost2),
                 originalPrice: parseFloat(total),
                 //totalPrice: parseFloat(totalPrice),
@@ -158,15 +183,15 @@
                 data = {
                 customer: customer,
                 total: parseFloat(finaltotal), 
-                product0: product0,
+                product0: foodCode0,
                 price0: price0,
                 quantity0: quantity0,
                 //cost0: parseFloat(cost0),
-                product1: product1,
+                product1: foodCode1,
                 price1: price1,
                 quantity1: quantity1,
                 //cost1: parseFloat(cost1),
-                product2:product2,
+                product2:foodCode2,
                 price2: price2,
                 quantity2: quantity2,
                 //cost2: parseFloat(cost2),
@@ -250,6 +275,9 @@
                 <input type="hidden" id="foodCode0" name="foodCode0" value="<%- foodCode[0] %>">
                 <input type="hidden" id="foodCode1" name="foodCode1" value="<%- foodCode[2] %>">
                 <input type="hidden" id="foodCode2" name="foodCode2" value="<%- foodCode[4] %>">
+                <input type="hidden" id="quantity0" name="quantity0" value="<%- updatedQuantity[0] %>">
+                <input type="hidden" id="quantity1" name="quantity1" value="<%- updatedQuantity[2] %>">
+                <input type="hidden" id="quantity2" name="quantity2" value="<%- updatedQuantity[4] %>">
                 <% 
                 
                 for (let i = 0; i < listProduct.length; i++) { 
@@ -268,12 +296,13 @@
                         <input type="hidden" id="product<%-i%>" name="product<%-i%>" value="<%- listProduct[i] %>">
                         <input type="hidden" id="originalPrice" name="originalPrice" value="<%- originalPrice %>">
                         <input type="hidden" id="price<%-i%>" name="price<%-i%>" value="<%- listPrice[i] %>">
-                        <input type="hidden" id="quantity<%-i%>" name="quantity<%-i%>" value="<%- listQuantity[i] %>">
                         <input type="hidden" id="cost<%-i%>" name="cost<%-i%>" value="<%- cost %>">
 
                     </tr>
 
                 <% } %>
+
+                
                 <tr class="order-heading">
                     <td>
                         Payment Details

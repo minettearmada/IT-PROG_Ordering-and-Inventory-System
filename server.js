@@ -78,6 +78,7 @@ app.post('/payment', async (req, res) => {
             var comboedQuantity = [...req.body.quantity];
             let comboTotal = 0;
             let totalindividualOrders = 0;
+            
 
             // Calculate the total price by summing up all the prices multiplied by the quantity
         let total = 0;
@@ -115,6 +116,8 @@ app.post('/payment', async (req, res) => {
         console.log("Printing comboData one by one:");
 
         let updatedFoodCode = [0,0,0];
+        let updatedQuantity = [0,0,0];
+
         
 
             tempfoodCode.forEach((foodCode, index) => {
@@ -133,14 +136,27 @@ app.post('/payment', async (req, res) => {
           
               
             });
+            
+
+            console.log("QuantityLISTBASIS:", quantityList);
+
+            let iterationQuantity = [...quantityList];
+
+
+            let i = 0;
+            updatedFoodCode.forEach((foodCode, index) => {
+                //let i = 0;
+                if(foodCode != 0){
+                    updatedQuantity[index] = quantityList[i];
+                    console.log("QuantityGETTINGTRANSFERRED:", iterationQuantity[i]);
+                    i++;
+                }
+            });
 
         console.log("updatedfoodCode:", updatedFoodCode);
+        console.log("updatedQuantity:", updatedQuantity);
 
         let foodCode = updatedFoodCode;
-
-
-
-
 
         combo.forEach((comboItem, index) => {
             console.log(`Combo ${index + 1}:`);
@@ -227,17 +243,28 @@ app.post('/payment', async (req, res) => {
 
         }
 
-        
+        foodCode = Array.isArray(updatedFoodCode)
+            ? updatedFoodCode
+            : [updatedFoodCode]; // Ensure priceList is an array
+
         
         console.log("listQuantitYYYYYYYy:", req.body.quantity);
 
+        console.log("listQuantitYYYYYYYy:", quantityList);
+
 
         console.log("Combo Total AGAINGIAN:", comboTotal);
+
+        console.log("QuantityCHECKER: ", updatedQuantity);
+
+        console.log("PRODUCTCHECKER: ", productList);
+
 
             res.render('payment', {
                 listQuantity : quantityList,
                 comboedQuantity: comboedQuantity,
                 totalindividualOrders : totalindividualOrders,
+                updatedQuantity : updatedQuantity,
                 comboTotal: comboTotal,
                 listPrice : priceList,
                 listProduct: productList, // Use the productList array in the template
@@ -266,7 +293,17 @@ app.post('/receipt', (req, res) => {
             ? req.body.price
             : [req.body.price]; // Ensure priceList is an array
 
-            const foodCode = req.body.foodCode[req.body.foodCode.length - 1];
+            const listQuantity = Array.isArray(req.body.quantity)
+            ? req.body.quantity
+            : [req.body.quantity]; // Ensure priceList is an array
+
+            const foodCode = Array.isArray(req.body.foodCode)
+            ? req.body.foodCode
+            : [req.body.foodCode];
+
+            let updatedQuantity = Array.isArray(req.body.updatedQuantity)
+            ? req.body.updatedQuantity
+            : [req.body.updatedQuantity];
 
             console.log("FOODCODEDEDEDEDEDEDEDEDEDEFOEGJEOFEEGFOJE : ", foodCode);
 
@@ -284,7 +321,8 @@ app.post('/receipt', (req, res) => {
 
             let quantity = req.body.quantity;
 
-            console.log("QUANTITY IN RECEIPT:", quantity);
+
+            console.log("QUANTITY IN RECEIPT:", listQuantity);
 
             // if (quantity == 1) { // if only 1 item id ordered
             //     totalDiscounted = parseFloat(totalList); // Initialize with the total
@@ -332,12 +370,18 @@ app.post('/receipt', (req, res) => {
             console.log("foodCode0:", req.body.foodCode[0]);
             console.log("foodCode1:", req.body.foodCode[2]);
             console.log("foodCode2:", req.body.foodCode[4]);
+
+            console.log("updatedquantity0:", req.body.updatedQuantity[0]);
+            console.log("updatedquantity1:", req.body.updatedQuantity[2]);
+            console.log("updatedquantity2:", req.body.updatedQuantity[4]);
+
     // From payment
     res.render('receipt', {
         cash : req.body.cash,
         customer : req.body.customer,
         total : total[total.length - 1] ,
         finaltotal: finaltotal,
+        updatedQuantity: req.body.updatedQuantity,
         totalDiscounted: totalDiscounted,
         productList: req.body.product,
         priceList: req.body.price,
@@ -351,7 +395,7 @@ app.post('/receipt', (req, res) => {
         products: products, // Pass the products array to the template
         change: change,
         hasCombo: hasCombo,
-        foodCode: foodCode,
+        foodCode: req.body.foodCode,
         discountPrice: req.body.discountPrice[req.body.discountPrice.length - 1],
         comboID: req.body.comboID
     });
@@ -367,7 +411,7 @@ app.post('/receipt', (req, res) => {
     console.log("Change:", change)
     console.log("Combo:", req.body.hasCombo)
     console.log("Food Code:", foodCode)
-    console.log("Discount Price:", discountPrice)
+    console.log("Discount Price:", req.body.discountPrice)
     console.log("Combo ID:", req.body.comboID)
 });
 

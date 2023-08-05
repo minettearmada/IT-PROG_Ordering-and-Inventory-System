@@ -43,9 +43,10 @@
                 <input type="hidden" name="product" value="<%- listProduct[i] %>">
                 <input type="hidden" name="price" value="<%- listPrice[i] %>">
                 <input type="hidden" name="quantity" value="<%- listQuantity[i] %>">
-                <input type="hidden" name="foodCode" value="<%- foodCode %>">
             </tr>
           <% } %>
+          <input type="hidden" name="foodCode" value="<%- foodCode %>">
+
               </tr> 
           </table>	  
               <div class="productList" id="productList"></div>
@@ -56,6 +57,7 @@
               <input type="hidden" value="<%- discountPrice %>" name="discountPrice">
               <input type="hidden" value="<%- totalindividualOrders %>" name="totalindividualOrders">
               <input type="hidden" value="<%- comboTotal %>" name="comboTotal">
+              <input type="hidden" value="<%- updatedQuantity %>" name="updatedQuantity">
               <% if(hasCombo) {%>
               <div class="totalDiscounted" id="totalDiscounted">Total Discounted: <%- totalDiscounted %></div> 
               <input type="hidden" value="<%- totalDiscounted %>" name="totalDiscounted">
