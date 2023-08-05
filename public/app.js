@@ -171,20 +171,20 @@ function initApp() {
     products.forEach((value, key) => {
       // Check if a new category is encountered
       if (key === 0 || value.category !== products[key - 1].category) {
-        // Set the title and description based on the category
-        if (value.category === 'M') {
-          currentTitle = 'Main Dishes';
-          currentDesc = '------------------------------------------- You can only choose 1 Main Dish -------------------------------------------';
+        // Set the title and description based on the category 
+        if (value.category === 'M') { // ┌── ⋆⋅☆⋅⋆ ──┐ ╔══《✧》══╗ ◦∘ *+:｡.｡　　｡.｡:+*
+          currentTitle = '═════════ ∘◦ Main Dishes ◦∘ ═════════'; // --------------------------- Main Dishes ---------------------------
+          currentDesc = '————-————-————-————- You can only choose 1 Main Dish ————-————-————-————-'; // ------------------------------------------- You can only choose 1 Main Dish -------------------------------------------
         } 
         
         if (value.category === 'S') {
-          currentTitle = 'Side Dishes';
-          currentDesc = '------------------------------------------- You can only choose 1 Side Dish -------------------------------------------';
+          currentTitle = '═════════ ∘◦ Side Dishes ◦∘ ═════════'; // --------------------------- Side Dishes ---------------------------
+          currentDesc = '————-————-————-————- You can only choose 1 Side Dish ————-————-————-————-'; // ------------------------------------------- You can only choose 1 Side Dish -------------------------------------------
         }
         
         if (value.category === 'D') {
-          currentTitle = 'Drinks';
-          currentDesc = '-------------------------------------------------- You can only choose 1 Drink ------------------------------------------------';
+          currentTitle = '═════════ ∘◦ Drinks ◦∘ ═════════'; // --------------------------- Drinks ---------------------------
+          currentDesc = '————-————-————-————- You can only choose 1 Drink ————-————-————-————-'; // -------------------------------------------------- You can only choose 1 Drink ------------------------------------------------
         }
 
         let titleDiv = document.createElement('div');
@@ -205,12 +205,12 @@ function initApp() {
         <div class="title">${value.name}</div>
         <div class="price">₱${value.price.toLocaleString()}.00</div>
         <button id="${key}" onclick="addToCard(${key})">Add To Cart</button>
-        ${key}${value.category}${value.foodCode}
         `;
   
       list.appendChild(newDiv);
     });
   }
+
 
 // Call the initApp() function to display the data
 initApp();
